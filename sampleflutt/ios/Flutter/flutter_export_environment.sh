@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=D:\flutter_windows_3.19.6-stable\flutter"
-export "FLUTTER_APPLICATION_PATH=D:\New folder\htdocs\Strathmover\sampleflutt"
+export "FLUTTER_ROOT=C:\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Program Files\XAMPP\htdocs\Strathmover\sampleflutt"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"
