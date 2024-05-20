@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "493256316498",
+    "project_id": "strathmover",
+    "storage_bucket": "strathmover.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493256316498:android:b2b90227470308a597318b",
+        "android_client_info": {
+          "package_name": "com.Strathmore.Strathmover"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493256316498-q8fk24ua5le9i6jglafe70cm0avsor6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ6D6SfsdSYNhu57xZgrnmWI8jH0jTnjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493256316498-hjusijrho5mrrmt8m8qjinqe0d76bldu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "493256316498-pnv42j42html7vuii3ikbhut6t4hk0s1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.onlineSeatBookingApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493256316498:android:91b67b2e9144398597318b",
+        "android_client_info": {
+          "package_name": "com.example.online_seat_booking_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493256316498-vphbrubijr40r3ltt1pmsvq98jour4ar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.online_seat_booking_app",
+            "certificate_hash": "ad257c167c327dc38d24ac523592c128b5614615"
+          }
+        },
+        {
+          "client_id": "493256316498-q8fk24ua5le9i6jglafe70cm0avsor6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ6D6SfsdSYNhu57xZgrnmWI8jH0jTnjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493256316498-hjusijrho5mrrmt8m8qjinqe0d76bldu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "493256316498-pnv42j42html7vuii3ikbhut6t4hk0s1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.onlineSeatBookingApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493256316498:android:40b142f4fae47ae697318b",
+        "android_client_info": {
+          "package_name": "com.example.sampleflutt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493256316498-q8fk24ua5le9i6jglafe70cm0avsor6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ6D6SfsdSYNhu57xZgrnmWI8jH0jTnjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493256316498-hjusijrho5mrrmt8m8qjinqe0d76bldu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "493256316498-pnv42j42html7vuii3ikbhut6t4hk0s1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.onlineSeatBookingApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

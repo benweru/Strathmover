@@ -1,6 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sampleflutt/firebase_options.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -11,8 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+      theme: TAppTheme.light Theme
+    darkTheme: TAppTheme.darkTheme
+    themeMode: ThemeMode.system
+    home: MyHomePage(),
+    );
         // This is the theme of your application.
         //
         // TRY THIS: Try running your application with "flutter run". You'll see
@@ -28,11 +35,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+
   }
 }
 
@@ -48,10 +51,48 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+ Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text(".appable/"),
+          leading: const Icon(Icons.ondemand_video)),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add_shopping_cart_outlined),
+        onPressed: () {},
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ListView(
+          children: [
+            Text(
+              "Heading",
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            Text(
+              "Sub-heading",
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
+            Text(
+              "Paragraph",
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text("Elevated Button"),
+            ),
+            OutlinedButton(
+              onPressed: () {},
+              child: const Text("Outlined Button"),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Image(image: AssetImage("assets/images/books.png")),
+            ),
+          ],
+        ),
+      ),
+    );
+ }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
