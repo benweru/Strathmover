@@ -5,10 +5,15 @@ import 'package:online_seat_booking_app/firebase_options.dart';
 import 'package:online_seat_booking_app/login-page.dart';
 import 'package:online_seat_booking_app/signup_page.dart';
 
+
+
+//Entry point of flutter app
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
+  options: DefaultFirebaseOptions.currentPlatform.then(
+    (FirebaseApp value) => Get.put(AuthenticationRepository())
+  ),
 );
 
   runApp(const MyApp());

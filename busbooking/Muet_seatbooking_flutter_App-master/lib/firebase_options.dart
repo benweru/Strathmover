@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,38 +41,53 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBaJSYFqBKr5Zml__Ca2TaroF8Mxm0A4sQ',
-    appId: '1:58985854033:web:0d2a9b8805c5408d4f3470',
-    messagingSenderId: '58985854033',
-    projectId: 'bookingfirebase-8f23c',
-    authDomain: 'bookingfirebase-8f23c.firebaseapp.com',
-    storageBucket: 'bookingfirebase-8f23c.appspot.com',
-    measurementId: 'G-EQNK5H1L61',
+    apiKey: 'AIzaSyDS_2KmRHX2qsBp7rjK1S9u_p2FdqC675k',
+    appId: '1:493256316498:web:4e6dcdd75ff5ecc197318b',
+    messagingSenderId: '493256316498',
+    projectId: 'strathmover',
+    authDomain: 'strathmover.firebaseapp.com',
+    storageBucket: 'strathmover.appspot.com',
+    measurementId: 'G-FR83NBHBKJ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCpGqUKIHlvyeS-jjYWelvFsz0GurKLZec',
-    appId: '1:58985854033:android:d9bcb48bd876b91e4f3470',
-    messagingSenderId: '58985854033',
-    projectId: 'bookingfirebase-8f23c',
-    storageBucket: 'bookingfirebase-8f23c.appspot.com',
+    apiKey: 'AIzaSyAZ6D6SfsdSYNhu57xZgrnmWI8jH0jTnjM',
+    appId: '1:493256316498:android:91b67b2e9144398597318b',
+    messagingSenderId: '493256316498',
+    projectId: 'strathmover',
+    storageBucket: 'strathmover.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBt3Iy9b8Mx7FXvWi_cUfYQ86FVdpxVyek',
-    appId: '1:58985854033:ios:5635d939457378574f3470',
-    messagingSenderId: '58985854033',
-    projectId: 'bookingfirebase-8f23c',
-    storageBucket: 'bookingfirebase-8f23c.appspot.com',
+    apiKey: 'AIzaSyDWf7NsA1n2U3nTlWhxbb1xGrkelaMIdvM',
+    appId: '1:493256316498:ios:eb0d9bba08d3426097318b',
+    messagingSenderId: '493256316498',
+    projectId: 'strathmover',
+    storageBucket: 'strathmover.appspot.com',
+    androidClientId: '493256316498-vphbrubijr40r3ltt1pmsvq98jour4ar.apps.googleusercontent.com',
+    iosClientId: '493256316498-pnv42j42html7vuii3ikbhut6t4hk0s1.apps.googleusercontent.com',
     iosBundleId: 'com.example.onlineSeatBookingApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBt3Iy9b8Mx7FXvWi_cUfYQ86FVdpxVyek',
-    appId: '1:58985854033:ios:75c50b13901b45cd4f3470',
-    messagingSenderId: '58985854033',
-    projectId: 'bookingfirebase-8f23c',
-    storageBucket: 'bookingfirebase-8f23c.appspot.com',
-    iosBundleId: 'com.example.onlineSeatBookingApp.RunnerTests',
+    apiKey: 'AIzaSyDWf7NsA1n2U3nTlWhxbb1xGrkelaMIdvM',
+    appId: '1:493256316498:ios:eb0d9bba08d3426097318b',
+    messagingSenderId: '493256316498',
+    projectId: 'strathmover',
+    storageBucket: 'strathmover.appspot.com',
+    androidClientId: '493256316498-vphbrubijr40r3ltt1pmsvq98jour4ar.apps.googleusercontent.com',
+    iosClientId: '493256316498-pnv42j42html7vuii3ikbhut6t4hk0s1.apps.googleusercontent.com',
+    iosBundleId: 'com.example.onlineSeatBookingApp',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDS_2KmRHX2qsBp7rjK1S9u_p2FdqC675k',
+    appId: '1:493256316498:web:cf74b4036be3f03697318b',
+    messagingSenderId: '493256316498',
+    projectId: 'strathmover',
+    authDomain: 'strathmover.firebaseapp.com',
+    storageBucket: 'strathmover.appspot.com',
+    measurementId: 'G-EKYQQLB9YT',
+  );
+
 }
