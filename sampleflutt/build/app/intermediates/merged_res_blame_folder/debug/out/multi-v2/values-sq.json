@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.sampleflutt.app-mergeDebugResources-9:/values-sq/values-sq.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Christine\\.gradle\\caches\\transforms-3\\18eb2362e307e6c486b5ec050118e2ea\\transformed\\core-1.6.0\\res\\values-sq\\values-sq.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}
