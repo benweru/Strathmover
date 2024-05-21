@@ -9,8 +9,8 @@ class TAppTheme {
     primarySwatch: Colors.yellow,
     brightness: Brightness.light,
     textTheme: TTextTheme.lightTextTheme,
-    appBarTheme: AppBarTheme(),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(),
+    appBarTheme: const AppBarTheme(),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(),
     elevatedButtonTheme:
         ElevatedButtonThemeData(style: ElevatedButton.styleFrom()),
   );
@@ -19,8 +19,8 @@ class TAppTheme {
     primarySwatch: Colors.yellow,
     brightness: Brightness.dark,
     textTheme: TTextTheme.darkTextTheme,
-    appBarTheme: AppBarTheme(),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(),
+    appBarTheme: const AppBarTheme(),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(),
     elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom()),
   );
 }
