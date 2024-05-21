@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
 import 'package:bus_app/src/constants/text_strings.dart';
 
+import '../../constants/images_strings.dart';
+
 class SignUpFooterWidget extends StatelessWidget {
   const SignUpFooterWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

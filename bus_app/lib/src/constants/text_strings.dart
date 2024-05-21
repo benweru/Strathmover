@@ -25,3 +25,4 @@ const String tEmail = "Email";
 const String tPhoneNumber = "Phone Number";
 const String tPassword = "Password";
 const String tAlreadyHaveAnAccount = "Already have an account? ";
+const String tSignInWithGoogle = "Sign In WIth Google";
