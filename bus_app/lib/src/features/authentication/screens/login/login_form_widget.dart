@@ -1,12 +1,13 @@
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import '../../../../constants/text_strings.dart';
 
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

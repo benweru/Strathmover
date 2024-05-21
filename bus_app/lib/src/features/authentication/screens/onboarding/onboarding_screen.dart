@@ -1,6 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:bus_app/src/constants/sizes.dart';
-import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
@@ -9,7 +7,7 @@ import '../../../../constants/colours.dart';
 import '../../controllers/onboarding_controller.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({Key? key}) : super(key: key);
+  const OnBoardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

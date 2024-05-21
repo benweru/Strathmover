@@ -1,9 +1,10 @@
-import 'package:bus_app/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import '../../../../constants/images_strings.dart';
+import '../../../../constants/text_strings.dart';
 
 class LoginHeaderWidget extends StatelessWidget {
-  const LoginHeaderWidget({Key? key}) : super(key: key);
+  const LoginHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +16,8 @@ class LoginHeaderWidget extends StatelessWidget {
         Image(
             image: const AssetImage(tWelcomeScreenImage),
             height: size.height * 0.2),
-        Text(tLoginTitle, style: Theme.of(context).textTheme.headline1),
-        Text(tLoginSubTitle, style: Theme.of(context).textTheme.bodyText1),
+        Text(tLoginTitle, style: Theme.of(context).textTheme.displayLarge),
+        Text(tLoginSubTitle, style: Theme.of(context).textTheme.bodyLarge),
       ],
     );
   }

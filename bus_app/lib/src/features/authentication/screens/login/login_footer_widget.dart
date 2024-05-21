@@ -1,11 +1,12 @@
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import '../../../../constants/images_strings.dart';
+import '../../../../constants/text_strings.dart';
 
 class LoginFooterWidget extends StatelessWidget {
   const LoginFooterWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +29,9 @@ class LoginFooterWidget extends StatelessWidget {
           child: Text.rich(
             TextSpan(
                 text: tDontHaveAnAccount,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
                 children: const [
-                  TextSpan(text: tSignup, style: TextStyle(color: Colors.blue))
+                  TextSpan(text: tSignUp, style: TextStyle(color: Colors.blue))
                 ]),
           ),
         ),

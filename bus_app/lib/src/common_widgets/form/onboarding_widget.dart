@@ -1,18 +1,30 @@
 import "package:flutter/material.dart";
 import 'package:bus_app/src/constants/sizes.dart';
-import 'package:bus_app/src/constants/text_strings.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:xdg_directories/xdg_directories.dart';
+
+// Define your OnBoardingModel class
+class OnBoardingModel {
+  final String image;
+  final String title;
+  final String subTitle;
+  final String counterText;
+  final Color bgColor;
+
+  OnBoardingModel({
+    required this.image,
+    required this.title,
+    required this.subTitle,
+    required this.counterText,
+    required this.bgColor,
+  });
+}
 
 class OnBoardingPageWidget extends StatelessWidget {
   const OnBoardingPageWidget({
-    Key? key,
+    super.key,
     required this.model,
-  }) : super(key: key);
+  });
 
   final OnBoardingModel model;
-
 
   @override
   Widget build(BuildContext context) {

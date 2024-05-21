@@ -1,11 +1,11 @@
 import 'package:bus_app/src/constants/sizes.dart';
-import 'package:bus_app/src/features/authentication/screens/login/login_foooter_widget.dart';
+import 'package:bus_app/src/features/authentication/screens/login/login_footer_widget.dart';
 import 'package:bus_app/src/features/authentication/screens/login/login_form_widget.dart';
 import 'package:bus_app/src/features/authentication/screens/login/login_header_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class LoginScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(tDefaultSize),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 LoginHeaderWidget(),
                 LoginForm(),
                 LoginFooterWidget(),

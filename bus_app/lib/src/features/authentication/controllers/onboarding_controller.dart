@@ -1,12 +1,11 @@
 
-import 'package:flutter/material.dart';
-import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
 
 import '../../../common_widgets/form/onboarding_widget.dart';
+import '../../../constants/colours.dart';
+import '../../../constants/images_strings.dart';
 
 class OnBoardingController extends GetxController{
 
@@ -17,7 +16,7 @@ class OnBoardingController extends GetxController{
   final pages = [
     OnBoardingPageWidget(
       model: OnBoardingModel(
-        image: OnBoardingImage1,
+        image: tOnBoardingImage1,
         title: tOnBoardingTitle1,
         subTitle: tOnBoardingSubTitle1,
         counterText: tOnBoardingCounter1,

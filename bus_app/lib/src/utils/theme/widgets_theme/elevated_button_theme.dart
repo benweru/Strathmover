@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
   class TElevatedButtonTheme {
     TElevatedButtonTheme._(); //To avoid creating instances
     /* -- Light Theme -- */
-    static final lightElevatedButtonTheme = ElevatedButtonThemeData();
+    static const lightElevatedButtonTheme = ElevatedButtonThemeData();
     /* Dark Theme -- */
-    static final darkElevatedButtonTheme = ElevatedButtonThemeData();
+    static const darkElevatedButtonTheme = ElevatedButtonThemeData();
   }
