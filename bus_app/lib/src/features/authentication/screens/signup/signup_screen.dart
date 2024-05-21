@@ -1,6 +1,11 @@
+import 'package:bus_app/src/common_widgets/form/form_header_widget.dart';
 import "package:flutter/material.dart";
+import 'package:liquid_swipe/liquid_swipe.dart';
+import 'package:bus_app/src/constants/colours.dart';
+import 'package:bus_app/src/constants/images_strings.dart';
+import 'package:bus_app/src/constants/sizes.dart';
+import 'package:bus_app/src/constants/text_strings.dart';
 
-import ...
 
   class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
