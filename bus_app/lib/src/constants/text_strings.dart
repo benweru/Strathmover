@@ -12,6 +12,15 @@ const String tOnBoardingSubTitle3 = "Save time by just copy pasting complete app
 const String tonBoardingCounter1 = "1/3";
 const String tOnBoardingCounter2 = "2/3";
 const String tOnBoardingCounter3 = "3/3";
-// -- Wellcome Screen Text
+// -- Welcome Screen Text
 const String tWelcomeTitle = "Build Awesome Apps";
 const String tWelcomeSubTitle = "Let's put your creativity on the development highway, craft apps";
+//Sign Up Screen Text
+const String tSignUpTitle = "Sign Up Page";
+const String tSignUpSubTitle = "Sign Up Subtitle";
+const String tSignUp = "Please Sign Up";
+const String tLogin = "Please Login";
+const String tFullName = "Full Name";
+const String tEmail = "Email";
+const String tPhoneNumber = "Phone Number";
+const String tPassword = "Password";

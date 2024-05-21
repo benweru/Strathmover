@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:login_flutter_app/src/constants/sizes.dart';
-import '../../../../constants/colors.dart';
-import '../../../../constants/image_strings.dart';
-import '../../../../constants/text_strings.dart';
+import "package:flutter/material.dart";
+import 'package:bus_app/src/constants/colours.dart';
+import 'package:bus_app/src/constants/images_strings.dart';
+import 'package:bus_app/src/constants/sizes.dart';
+import 'package:bus_app/src/constants/text_strings.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -28,9 +28,9 @@ class WelcomeScreen extends StatelessWidget {
             Image(image: const AssetImage(tWelcomeScreenImage), height: height * 0.6),
             Column(
               children: [
-                Text(tWelcomeTitle, style: Theme.of(context).textTheme.headline3),
+                Text(tWelcomeTitle, style: Theme.of(context).textTheme.headlineMedium),
                 Text(tWelcomeSubTitle,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center),
               ],
             ),
@@ -46,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: Text(tSignup.toUpperCase()),
+                    child: Text(tSignUp.toUpperCase()),
                   ),
                 ),
               ],
