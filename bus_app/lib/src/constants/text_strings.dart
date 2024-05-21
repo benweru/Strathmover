@@ -24,3 +24,4 @@ const String tFullName = "Full Name";
 const String tEmail = "Email";
 const String tPhoneNumber = "Phone Number";
 const String tPassword = "Password";
+const String tAlreadyHaveAnAccount = "Already have an account? ";

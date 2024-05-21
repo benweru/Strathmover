@@ -43,11 +43,11 @@ class MyHomePage extends StatelessWidget {
         child: ListView(
           children: [
             Text(
-              "Heading",
+              "Welcome to StrathMover",
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             Text(
-              "Sub-heading",
+              "All your uni transport needs",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
@@ -56,11 +56,11 @@ class MyHomePage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {},
-              child: const Text("Elevated Button"),
+              child: const Text("Login"),
             ),
             OutlinedButton(
               onPressed: () {},
-              child: const Text("Outlined Button"),
+              child: const Text("Register"),
             ),
             const Padding(
               padding: EdgeInsets.all(20.0),
