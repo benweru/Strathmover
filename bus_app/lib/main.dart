@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:bus_app/firebase_options.dart';
 import 'package:bus_app/src/utils/theme/theme.dart';
 import 'package:get/get.dart';
-
-import 'src/features/authentication/screens/onboarding/onboarding_screen.dart';
+import 'src/features/authentication/screens/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.leftToRightWithFade,
       transitionDuration: const Duration(milliseconds: 500),
-      home: OnBoardingScreen(),
+      home: SplashScreen(),
     );
   }
 }

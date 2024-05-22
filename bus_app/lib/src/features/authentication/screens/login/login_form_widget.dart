@@ -1,8 +1,7 @@
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import '../../../../constants/text_strings.dart';
-import '../forget_password/forget_password_options/forget_password_widget.dart';
+import 'package:bus_app/src/constants/text_strings.dart';
 
 
 class LoginForm extends StatelessWidget {
