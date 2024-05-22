@@ -182,6 +182,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
+  flutter_otp_text_field:
+    dependency: "direct main"
+    description:
+      name: flutter_otp_text_field
+      sha256: c51dc7ce1a6fd9430580decda1104643f14703819e351c4a3074c9fe3d24cdbc
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.3+2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -312,6 +320,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  otp_text_field_v2:
+    dependency: "direct main"
+    description:
+      name: otp_text_field_v2
+      sha256: "78298aa62fdbd5efdcbf4fb4aa3b1f452d7f225fd6efb85f46b20705aff0b93e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   path:
     dependency: transitive
     description:
