@@ -3,6 +3,9 @@ import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/constants/images_strings.dart';
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
+import 'package:get/get.dart';
+import '../login/login_screen.dart';
+import '../signup/signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -38,14 +41,28 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => const LoginScreen());
+                    },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: tPrimaryColor, 
+                      side: const BorderSide(color: tPrimaryColor), 
+                      backgroundColor: Colors.white, 
+                    ),
                     child: Text(tLogin.toUpperCase()),
                   ),
                 ),
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => const SignUpScreen());
+                    },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: tPrimaryColor, 
+                      side: const BorderSide(color: tPrimaryColor), 
+                      backgroundColor: Colors.white, 
+                    ),
                     child: Text(tSignUp.toUpperCase()),
                   ),
                 ),
