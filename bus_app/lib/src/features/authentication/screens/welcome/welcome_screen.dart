@@ -25,10 +25,10 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image(image: const AssetImage(tWelcomeScreenImage), height: height * 0.6),
+            Image(image: const AssetImage(tWelcomeScreenImage), height: height * 0.3),
             Column(
               children: [
-                Text(tWelcomeTitle, style: Theme.of(context).textTheme.headlineMedium),
+                Text(tWelcomeTitle, style: Theme.of(context).textTheme.headlineSmall),
                 Text(tWelcomeSubTitle,
                     style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center),

@@ -14,13 +14,13 @@ const String tOnBoardingCounter1 = "1/3";
 const String tOnBoardingCounter2 = "2/3";
 const String tOnBoardingCounter3 = "3/3";
 // -- Welcome Screen Text
-const String tWelcomeTitle = "Build Awesome Apps";
-const String tWelcomeSubTitle = "Let's put your creativity on the development highway, craft apps";
+const String tWelcomeTitle = "Welcome to StrathMover";
+const String tWelcomeSubTitle = "Experience a Smarter Way to Travel";
 //Sign Up Screen Text
 const String tSignUpTitle = "Get on Board!";
 const String tSignUpSubTitle = "Create your profile to start your Journey";
-const String tSignUp = "Please Sign Up";
-const String tLogin = "Welcome back";
+const String tSignUp = "Sign Up";
+const String tLogin = "Login";
 const String tLoginTitle = "Let's get moving";
 const String tLoginSubTitle = "Login Subtitle";
 const String tFullName = "Full Name";
