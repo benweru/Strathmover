@@ -20,8 +20,8 @@ dependencies:
   get: ^4.6.6
   flutter_otp_text_field: ^1.1.3+2
   otp_text_field_v2: ^1.0.3
-  font_awesome_flutter:  ^4.7.0'
-  line_awesome_flutter: ^<latest-version>
+  # font_awesome_flutter:  ^4.7.0'
+  # line_awesome_flutter: ^<latest-version>
 
 dev_dependencies:
   flutter_test:

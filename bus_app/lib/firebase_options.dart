@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '493256316498',
     projectId: 'strathmover',
     storageBucket: 'strathmover.appspot.com',
-    androidClientId: '493256316498-vphbrubijr40r3ltt1pmsvq98jour4ar.apps.googleusercontent.com',
+    androidClientId: '493256316498-bfl8tv65j1h9lnka7oe4k0if0shm95oa.apps.googleusercontent.com',
     iosClientId: '493256316498-k5b7v9fjn0406427jn1oajk1fphoqfkt.apps.googleusercontent.com',
     iosBundleId: 'com.example.sampleflutt',
   );
@@ -75,7 +75,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '493256316498',
     projectId: 'strathmover',
     storageBucket: 'strathmover.appspot.com',
-    androidClientId: '493256316498-vphbrubijr40r3ltt1pmsvq98jour4ar.apps.googleusercontent.com',
+    androidClientId: '493256316498-bfl8tv65j1h9lnka7oe4k0if0shm95oa.apps.googleusercontent.com',
     iosClientId: '493256316498-k5b7v9fjn0406427jn1oajk1fphoqfkt.apps.googleusercontent.com',
     iosBundleId: 'com.example.sampleflutt',
   );
@@ -89,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'strathmover.appspot.com',
     measurementId: 'G-ZRBR8T9K9N',
   );
+
 }

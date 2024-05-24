@@ -1,3 +1,4 @@
+import 'package:bus_app/src/features/authentication/screens/forget_password/forget_password_otp/otp_screen.dart';
 import "package:flutter/material.dart";
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
@@ -36,7 +37,7 @@ class SignUpFormWidget extends StatelessWidget {
             const SizedBox(height: tFormHeight - 20),
             TextFormField(
               controller: controller.phoneNo,
-              decoration: const InputDecoration(label: Text(tPhoneNo), prefixIcon: Icon(Icons.numbers)),
+              decoration: const InputDecoration(label: Text(tPhoneNumber), prefixIcon: Icon(Icons.numbers)),
             ),
             const SizedBox(height: tFormHeight - 20),
             TextFormField(
@@ -49,10 +50,12 @@ class SignUpFormWidget extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if(_formKey.currentState!.validate()){
-                    SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+                    // SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+                    SignUpController.instance.phoneAuthentication(controller.phoneNo.text.trim());
+                    Get.to(() => const OTPScreen());
                   }
                 },
-                child: Text(tSignup.toUpperCase()),
+                child: Text(tSignUp.toUpperCase()),
               ),
             )
           ],

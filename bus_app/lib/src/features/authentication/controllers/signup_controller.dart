@@ -22,4 +22,9 @@ class SignUpController extends GetxController {
       ));
     }
   }
+
+  //Get phoneNo from user (Screen) and pass it to Auth Repository for Firebase Authentication
+  void phoneAuthentication(String phoneNo) {
+    AuthenticationRepository.instance.phoneAuthentication(phoneNo);
+  }
 }

@@ -11,13 +11,15 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
-  //Variables
+  // Variables
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
+  var verificationId = ''.obs;
 
-  //Will be load when app launches this func will be called and set the firebaseUser state
+  // Will be load when app launches this func will be called and set the firebaseUser state
   @override
   void onReady() {
+    super.onReady(); // Ensure you call super.onReady()
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
@@ -31,7 +33,38 @@ class AuthenticationRepository extends GetxController {
         : Get.offAll(() => const Dashboard());
   }
 
-  //FUNC
+  // FUNC
+  Future<void> phoneAuthentication(String phoneNo) async {
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNo,
+      verificationCompleted: (credential) async {
+        await _auth.signInWithCredential(credential);
+      },
+      codeSent: (verificationId, resendToken) {
+        this.verificationId.value = verificationId;
+      },
+      codeAutoRetrievalTimeout: (verificationId) {
+        this.verificationId.value = verificationId;
+      },
+      verificationFailed: (e) {
+        if (e.code == 'invalid-phone-number') {
+          Get.snackbar('Error', 'The provided phone number is not valid.');
+        } else {
+          Get.snackbar('Error', 'Something went wrong. Try again.');
+        }
+      },
+    );
+  }
+
+  //OTP
+  Future<bool> verifyOTP(String otp) async {
+    var credentials = await _auth.signInWithCredential(
+        PhoneAuthProvider.credential(
+            verificationId: verificationId.value, smsCode: otp));
+    return credentials.user != null ? true : false;
+  }
+
+  // FUNC
   Future<String?> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
