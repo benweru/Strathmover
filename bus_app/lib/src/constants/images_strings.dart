@@ -18,3 +18,6 @@ const String tBannerImage1 = "assets/images/dashboard/dash-01.png";
 const String tBannerImage2 = "assets/images/dashboard/dash-02.png";
 const String tTopCourseImage1 = "assets/images/dashboard/dash-03.png";
 const String tTopCourseImage2 = "assets/images/dashboard/dash-04.png";
+
+//icons
+const String tBookmarkIcon = "assets/images/icons/bookmark-icon.png";
