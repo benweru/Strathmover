@@ -1,19 +1,19 @@
 import 'package:bus_app/src/common_widgets/form/TPrimaryButton_widget.dart';
 import 'package:bus_app/src/utils/helper.dart';
-import 'package:flutter/line_awesome_flutter.dart';
+
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:bus_app/src/features/authentication/controllers/login_controller.dart';
 import 'package:bus_app/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,9 @@ class LoginFormWidget extends StatelessWidget {
               validator: Helper.validateEmail,
               controller: controller.email,
               decoration:
-                  const InputDecoration(prefixIcon: Icon(LineAwesomeIcons.user), labelText: tEmail, hintText: tEmail),
+                  const InputDecoration(prefixIcon: Icon(FontAwesomeIcons.user), 
+                  labelText: tEmail, hintText: tEmail),
+                  
             ),
             const SizedBox(height: tFormHeight - 20),
 
@@ -49,8 +51,8 @@ class LoginFormWidget extends StatelessWidget {
                   hintText: tPassword,
                   suffixIcon: IconButton(
                     icon: controller.showPassword.value
-                        ? const Icon(LineAwesomeIcons.eye)
-                        : const Icon(LineAwesomeIcons.eye_slash),
+                         ? const Icon(FontAwesomeIcons.eye)
+                        : const Icon(FontAwesomeIcons.eyeSlash),
                     onPressed: () => controller.showPassword.value = !controller.showPassword.value,
                   ),
                 ),

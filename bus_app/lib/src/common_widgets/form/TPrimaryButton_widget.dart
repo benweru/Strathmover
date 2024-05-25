@@ -9,15 +9,15 @@ class TPrimaryButton extends StatelessWidget {
     required this.isLoading,
     required this.text,
     required this.onPressed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: isLoading ? null : onPressed,
       child: isLoading
-          ? CircularProgressIndicator()
+          ? const CircularProgressIndicator()
           : Text(text),
     );
   }
