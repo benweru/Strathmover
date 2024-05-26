@@ -1,6 +1,7 @@
 import 'package:bus_app/src/constants/sizes.dart';
+import 'package:bus_app/src/features/authentication/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
-import '../../../../constants/images_strings.dart';
+import 'package:sign_in_button/sign_in_button.dart'; 
 import '../../../../constants/text_strings.dart';
 
 class LoginFooterWidget extends StatelessWidget {
@@ -17,22 +18,33 @@ class LoginFooterWidget extends StatelessWidget {
         const SizedBox(height: tFormHeight - 20),
         SizedBox(
           width: double.infinity,
-          child: OutlinedButton.icon(
-            icon: const Image(image: AssetImage(tGoogleLogoImage), width: 20.0),
-            onPressed: () {},
-            label: const Text(tSignInWithGoogle),
+          child: SignInButton(
+            Buttons.google,
+            onPressed: () {
+              // Handle Google sign-in logic here
+            },
+            text: tSignInWithGoogle,
           ),
         ),
         const SizedBox(height: tFormHeight - 20),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignUpScreen()),
+            );
+          },
           child: Text.rich(
             TextSpan(
-                text: tDontHaveAnAccount,
-                style: Theme.of(context).textTheme.bodyLarge,
-                children: const [
-                  TextSpan(text: tSignUp, style: TextStyle(color: Colors.blue))
-                ]),
+              text: tDontHaveAnAccount,
+              style: Theme.of(context).textTheme.bodyLarge,
+              children: const [
+                TextSpan(
+                  text: tSignUp,
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ],
+            ),
           ),
         ),
       ],

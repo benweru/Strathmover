@@ -13,7 +13,7 @@ class ListItem {
 class Categories extends StatelessWidget {
   final List<ListItem> list;
 
-  Categories({required this.list});
+  const Categories({super.key, required this.list});
 
   @override
   Widget build(BuildContext context) {

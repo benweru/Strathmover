@@ -5,6 +5,8 @@ import '../../../../../constants/colours.dart';
 import '../../../../../constants/images_strings.dart';
 
 class MyBannerRow extends StatelessWidget {
+  const MyBannerRow({super.key});
+
   @override
   Widget build(BuildContext context) {
     final txtTheme = Theme.of(context).textTheme;

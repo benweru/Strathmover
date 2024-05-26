@@ -1,7 +1,6 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
+import 'package:sign_in_button/sign_in_button.dart'; // Import the sign_in_button package
 import 'package:bus_app/src/constants/text_strings.dart';
-
-import '../../constants/images_strings.dart';
 
 class SignUpFooterWidget extends StatelessWidget {
   const SignUpFooterWidget({
@@ -15,25 +14,27 @@ class SignUpFooterWidget extends StatelessWidget {
         const Text("OR"),
         SizedBox(
           width: double.infinity,
-          child: OutlinedButton.icon(
-            onPressed: () {},
-            icon: const Image(
-              image: AssetImage(tGoogleLogoImage),
-              width: 20.0,
-            ),
-            label: Text(tSignInWithGoogle.toUpperCase()),
+          child: SignInButton(
+            Buttons.google,
+            onPressed: () {
+              // Add your Google sign-in logic here
+            },
           ),
         ),
         TextButton(
           onPressed: () {},
-          child: Text.rich(TextSpan(children: [
+          child: Text.rich(
             TextSpan(
-              text: tAlreadyHaveAnAccount,
-              style: Theme.of(context).textTheme.bodyMedium,
+              children: [
+                TextSpan(
+                  text: tAlreadyHaveAnAccount,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                TextSpan(text: tLogin.toUpperCase())
+              ],
             ),
-            TextSpan(text: tLogin.toUpperCase())
-          ])),
-        )
+          ),
+        ),
       ],
     );
   }

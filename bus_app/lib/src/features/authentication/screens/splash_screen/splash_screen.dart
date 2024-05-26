@@ -12,11 +12,9 @@ class SplashScreen extends StatelessWidget {
 
   final splashController = Get.put(SplashScreenController());
 
-
   @override
   Widget build(BuildContext context) {
-    SplashScreenController.find.startAnimation();
-
+    splashController.startAnimation(); // Start the animation
 
     return Scaffold(
       body: Stack(
@@ -27,10 +25,10 @@ class SplashScreen extends StatelessWidget {
               top: splashController.animate.value ? 0 : -30,
               left: splashController.animate.value ? 0 : -30,
               child: const SizedBox(
-                  width: 300, 
-                  height: 100, 
-                  child: Image(image: AssetImage(tSplashTopIcon)),
-                ),
+                width: 300,
+                height: 100,
+                child: Image(image: AssetImage(tSplashTopIcon)),
+              ),
             ),
           ),
           Obx(
@@ -45,7 +43,7 @@ class SplashScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(tAppName, style: Theme.of(context).textTheme.headlineSmall),
-                    Text(tAppTagLine, style: Theme.of(context).textTheme.headlineMedium)
+                    Text(tAppTagLine, style: Theme.of(context).textTheme.headlineMedium),
                   ],
                 ),
               ),
@@ -59,8 +57,8 @@ class SplashScreen extends StatelessWidget {
                 duration: const Duration(milliseconds: 2000),
                 opacity: splashController.animate.value ? 1 : 0,
                 child: const SizedBox(
-                  width: 300, // Set the desired width
-                  height: 300, // Set the desired height
+                  width: 300,
+                  height: 300,
                   child: Image(image: AssetImage(tSplashImage)),
                 ),
               ),
