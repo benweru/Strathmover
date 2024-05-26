@@ -27,8 +27,7 @@ class AuthenticationRepository extends GetxController {
   /// then in the main.dart => App() add CircularProgressIndicator()
   _setInitialScreen(User? user) {
     user == null
-        ? Get.offAll(() => const WelcomeScreen())
-        : Get.offAll(() => const Dashboard());
+        ? Get.offAll(() => const WelcomeScreen()) : Get.offAll(() => const Dashboard());
   }
 
   // FUNC
