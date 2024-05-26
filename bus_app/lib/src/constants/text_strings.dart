@@ -52,3 +52,19 @@ const String tDashboardBannerTitle2 = "Hey Stratizens!";
 const String tDashboardBannerSubTitle = "Hey Stratizens!";
 const String tDashboardButton = "View All";
 const String tDashboardTopCourses = "Hey Stratizens!";
+//Profile - Text
+const String tProfile = "Profile";
+const String tEditProfile = "Edit Profile";
+const String tLogoutDialogHeading = "Logout";
+const String tProfileHeading = "Coding with";
+const String tProfileSubHeading = "Person";
+//Menu
+const String tMenu5 = "Logout";
+const String tMenu1 = "Settings";
+const String tMenu4 = "Information";
+const String tMenu2 = "Transport Details";
+const String tMenu3 = "User Management";
+//Update Profile Screen
+const String tDelete = "Delete";
+const String tJoined = "Joined";
+const String tJoinedAt = "Date";
