@@ -1,6 +1,6 @@
 //App Text Strings */
 
-//SnackBar 
+//SnackBar
 const String tAlert = "Alert";
 const String tOhSnap = "0h Snap";
 const String tEmailSent = "Hurray!!! Email is on its way.";
@@ -43,11 +43,19 @@ const String tDontHaveAnAccount = "Don't Have an Account?";
 //Forgot Password
 const String tForgetPassword = "Forgot Password?";
 const String tForgetPasswordTitle = "Make Selection";
-const String tForgetPasswordSubTitle = "Select one of the options given below to reset your password.";
+const String tForgetPasswordSubTitle =
+    "Select one of the options given below to reset your password.";
+const String tEmailVerificationTitle = "Email Verification";
+const String tVerificationEmailSent = "A verification email has been sent to your email address. Please check your inbox.";
+const String tResendVerificationEmail = "Resend Verification Email";
+const String tCheckVerificationStatus = "Check Verification Status";
+const String tBackToLogin = "Back to Login";
 const String tResetViaEmail = "Reset via E-mail Verification";
 const String tResetViaPhone = "Reset via Phone Verification";
-const String tForgetPhoneSubtitle = "Enter your registered Phone number to receive OTP";
-const String tForgetEmailSubtitle = "Enter your registered E-mail to receive OTP";
+const String tForgetPhoneSubtitle =
+    "Enter your registered Phone number to receive OTP";
+const String tForgetEmailSubtitle =
+    "Enter your registered E-mail to receive OTP";
 //OTP
 const String tOtpTitle = "CO\nDE";
 const String tOtpSubTitle = "Verfication";

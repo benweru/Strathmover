@@ -1,5 +1,5 @@
-import 'dart:ffi';
 import 'package:bus_app/src/constants/t_exceptions.dart';
+import 'package:bus_app/src/features/authentication/screens/login/login_screen.dart';
 import 'package:bus_app/src/features/authentication/screens/mail_verification/mail_verification.dart';
 import 'package:bus_app/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:bus_app/src/repository/authentication_repository/exceptions/login_email_password_failure.dart';
@@ -35,6 +35,34 @@ class AuthenticationRepository extends GetxController {
         : user.emailVerified
             ? Get.offAll(() => const Dashboard())
             : Get.offAll(() => const MailVerification());
+  }
+
+  // FUNC - Email Verification
+  Future<void> sendEmailVerification() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      final ex = TExceptions.fromCode(e.code);
+      throw ex.message;
+    } catch (_) {
+      const ex = TExceptions();
+      throw ex.message;
+    }
+  }
+
+  // FUNC - Logout
+  Future<void> logout() async {
+    try {
+      await GoogleSignIn().signOut();
+      await _auth.signOut();
+      Get.offAll(() => const LoginScreen());
+    } on FirebaseAuthException catch (e) {
+      throw e.message!;
+    } on FormatException catch (e) {
+      throw e.message;
+    } catch (e) {
+      throw "Unable to logout. Try again.";
+    }
   }
 
   // FUNC
@@ -89,7 +117,7 @@ class AuthenticationRepository extends GetxController {
     return null;
   }
 
-  // FUNC - Login
+   // FUNC - Login
   Future<String?> loginWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -104,21 +132,5 @@ class AuthenticationRepository extends GetxController {
       throw ex;
     }
     return null;
-  }
-
-  // FUNC - Logout
-  Future<void> logout() async => await _auth.signOut();
-
-  // FUNC - Email Verification
-  Future<void> sendEmailVerification() async {
-    try {
-      await _auth.currentUser?.sendEmailVerification();
-    } on FirebaseAuthException catch (e) {
-      final ex = TExceptions.fromCode(e.code);
-      throw ex.message;
-    } catch (_) {
-      const ex = TExceptions();
-      throw ex.message;
-    }
   }
 }
