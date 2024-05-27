@@ -5,7 +5,7 @@ import 'package:bus_app/src/features/core/screens/profile/update_profile_screen.
 import 'package:bus_app/src/features/core/screens/profile/widgets/profile_menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Add this import
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
 
 import '../../../../constants/text_strings.dart';
 import '../../../../repository/authentication_repository/authentication_repository.dart';

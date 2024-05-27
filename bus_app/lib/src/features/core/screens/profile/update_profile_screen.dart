@@ -4,7 +4,7 @@ import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:bus_app/src/features/core/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Add this import
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
 
 import '../../../../constants/images_strings.dart';
 
@@ -13,7 +13,7 @@ class UpdateProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProfileController());
+    Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

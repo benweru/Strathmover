@@ -23,6 +23,7 @@ dependencies:
   otp_text_field_v2: ^1.0.3
   font_awesome_flutter: ^10.7.0
   sign_in_button: ^3.2.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -38,3 +39,10 @@ flutter:
     - assets/images/on_boarding_images/
     - assets/images/welcome_images/
     - assets/images/dashboard/
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/splash_images/splash-top-icon.png"
+    
