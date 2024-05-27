@@ -69,7 +69,21 @@ class LoginFormWidget extends StatelessWidget {
               ),
             ),
 
-            /// -- LOGIN BTN
+
+            ///Login Btn
+            Obx(
+              () => ElevatedButton(
+                onPressed: controller.isLoading.value ? null : () => controller.login(),
+                child: controller.isLoading.value
+                    ? CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : Text(tLogin.toUpperCase()),
+              ),
+            ),
+
+            
+            /// -- LOGIN BTN (facebook/google)
             Obx(
               () => TPrimaryButton(
                 isLoading: controller.isLoading.value ? true : false,

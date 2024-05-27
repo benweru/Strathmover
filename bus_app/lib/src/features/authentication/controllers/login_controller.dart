@@ -1,4 +1,5 @@
 import 'package:bus_app/src/constants/text_strings.dart';
+import 'package:bus_app/src/features/core/screens/dashboard/dashboard.dart';
 import 'package:bus_app/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:bus_app/src/utils/helper.dart';
 import 'package:flutter/material.dart';
@@ -20,21 +21,22 @@ class LoginController extends GetxController {
 
   //Call this Function from Design & it will do the rest
   Future<void> login() async {
-    try {
+      if (loginFormKey.currentState!.validate()) {
       isLoading.value = true;
-      if (!loginFormKey.currentState!.validate()) {
+      try {
+        await AuthenticationRepository.instance
+            .loginWithEmailAndPassword(email.text, password.text);
+        Get.offAll(() => const Dashboard());
+      } catch (e) {
+        // Handle login errors here
+        Get.snackbar('Error', e.toString());
+      } finally {
         isLoading.value = false;
-        return;
       }
-      final auth = AuthenticationRepository.instance;
-      await auth.loginWithEmailAndPassword(
-          email.text.trim(), password.text.trim());
-      auth.setInitialScreen(auth.firebaseUser.value);
-    } catch (e) {
-      isLoading.value = false;
-      Helper.errorSnackBar(title: tOhSnap, message: e.toString());
     }
   }
+
+  
 
   //Google Log In
   // [GooglesignInAuthentication)

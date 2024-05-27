@@ -123,21 +123,21 @@ class AuthenticationRepository extends GetxController {
   }
 
   // FUNC - Login
-  Future<String?> loginWithEmailAndPassword(
-      String email, String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
-      print('FIREBASE AUTH EXCEPTION - ${ex.message}');
-      throw ex;
-    } catch (_) {
-      const ex = LogInWithEmailAndPasswordFailure();
-      print('EXCEPTION - ${ex.message}');
-      throw ex;
-    }
-    return null;
+  Future<String> loginWithEmailAndPassword(String email, String password) async {
+  try {
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
+    return ''; // Return an empty string or any message indicating success
+  } on FirebaseAuthException catch (e) {
+    final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
+    print('FIREBASE AUTH EXCEPTION - ${ex.message}');
+    throw ex;
+  } catch (_) {
+    const ex = LogInWithEmailAndPasswordFailure();
+    print('EXCEPTION - ${ex.message}');
+    throw ex;
   }
+}
+
 
   //[GoogleAuthentication]
   Future<UserCredential?> signInWithGoogle() async {
