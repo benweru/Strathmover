@@ -6,6 +6,7 @@ import 'package:bus_app/src/utils/theme/theme.dart';
 import 'package:get/get.dart';
 import 'src/features/authentication/screens/splash_screen/splash_screen.dart';
 
+//Initialize Firebase and Auth repo
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)

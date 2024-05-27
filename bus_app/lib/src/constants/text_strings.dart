@@ -1,4 +1,13 @@
 //App Text Strings */
+
+//SnackBar 
+const String tAlert = "Alert";
+const String tOhSnap = "0h Snap";
+const String tEmailSent = "Hurray!!! Email is on its way.";
+const String tCongratulations = "Congratulations";
+const String tEmailLinkToResetPassword = "Email Link To Reset Password";
+const String tAccountCreateVerifyEmail = "Account Create Verify Email";
+
 // Splash Screen Text
 const String tAppName = "StrathMover";
 const String tAppTagLine = "Get Moving";

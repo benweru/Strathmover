@@ -1,9 +1,11 @@
+import 'dart:ffi';
+import 'package:bus_app/src/constants/t_exceptions.dart';
+import 'package:bus_app/src/features/authentication/screens/mail_verification/mail_verification.dart';
 import 'package:bus_app/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:bus_app/src/repository/authentication_repository/exceptions/login_email_password_failure.dart';
 import 'package:bus_app/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-
 import '../../features/core/screens/dashboard/dashboard.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -20,14 +22,19 @@ class AuthenticationRepository extends GetxController {
     super.onReady(); // Ensure you call super.onReady()
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    // FlutterNativeSplash.remove();
+    //ever(firebaseUser, _setInitialScreen);
+    setInitialScreen(firebaseUser.value);
   }
 
   /// If we are setting initial screen from here
   /// then in the main.dart => App() add CircularProgressIndicator()
-  _setInitialScreen(User? user) {
+  setInitialScreen(User? user) {
     user == null
-        ? Get.offAll(() => const WelcomeScreen()) : Get.offAll(() => const Dashboard());
+        ? Get.offAll(() => const WelcomeScreen())
+        : user.emailVerified
+            ? Get.offAll(() => const Dashboard())
+            : Get.offAll(() => const MailVerification());
   }
 
   // FUNC
@@ -61,7 +68,7 @@ class AuthenticationRepository extends GetxController {
     return credentials.user != null ? true : false;
   }
 
-  // FUNC
+  // FUNC - Register
   Future<String?> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -82,6 +89,7 @@ class AuthenticationRepository extends GetxController {
     return null;
   }
 
+  // FUNC - Login
   Future<String?> loginWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -98,5 +106,19 @@ class AuthenticationRepository extends GetxController {
     return null;
   }
 
+  // FUNC - Logout
   Future<void> logout() async => await _auth.signOut();
+
+  // FUNC - Email Verification
+  Future<void> sendEmailVerification() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      final ex = TExceptions.fromCode(e.code);
+      throw ex.message;
+    } catch (_) {
+      const ex = TExceptions();
+      throw ex.message;
+    }
+  }
 }

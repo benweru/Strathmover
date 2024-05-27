@@ -1,4 +1,6 @@
+import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:bus_app/src/repository/authentication_repository/authentication_repository.dart';
+import 'package:bus_app/src/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +10,7 @@ class LoginController extends GetxController {
   /// TextField Controllers to get data from TextFields
   final email = TextEditingController();
   final password = TextEditingController();
-  final loginFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   var isLoading = false.obs;
   var showPassword = false.obs;
   var isFacebookLoading = false.obs;
@@ -18,19 +20,18 @@ class LoginController extends GetxController {
 
   //Call this Function from Design & it will do the rest
   Future<void> login() async {
-    String? error = await AuthenticationRepository.instance
-        .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
-    if (error != null) {
-      Get.showSnackbar(GetSnackBar(
-        message: error.toString(),
-      ));
+    try {
+      isLoading.value = true;
+      if (!loginFormKey.currentState!.validate()) {
+        isLoading.value = false;
+        return;
+      }
+      final auth = AuthenticationRepository.instance;
+      await auth.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+      auth.setInitialScreen(auth.firebaseUser.value);
+    } catch (e) {
+      isLoading.value = false;
+      Helper.errorSnackBar(title: tOhSnap, message: e.toString());
     }
-  }
-
-  @override
-  void onClose() {
-    email.dispose();
-    password.dispose();
-    super.onClose();
   }
 }

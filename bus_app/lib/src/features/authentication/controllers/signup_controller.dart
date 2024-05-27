@@ -30,7 +30,7 @@ class SignUpController extends GetxController {
   Future<void> createUser(UserModel user) async {
     await userRepo.createUser(user);
     phoneAuthentication(user.phoneNo);
-    Get.to(() => const OTPScreen());
+    Get.to(() => const OTPScreen());  
   }
 
   //Get phoneNo from user (Screen) and pass it to Auth Repository for Firebase Authentication
