@@ -5,7 +5,7 @@ import 'package:bus_app/src/features/authentication/models/user_model.dart';
 import 'package:bus_app/src/features/core/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constants/images_strings.dart';
 
@@ -14,16 +14,15 @@ class UpdateProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController());
+    final ProfileController controller = Get.put(ProfileController());
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: const Icon(
-              FontAwesomeIcons.arrowLeft), // Replace with Font Awesome icon
+          icon: const Icon(FontAwesomeIcons.arrowLeft),
         ),
-        title: Text(tEditProfile,
-            style: Theme.of(context).textTheme.headlineSmall),
+        title: Text(tEditProfile, style: Theme.of(context).textTheme.headlineSmall),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -35,7 +34,6 @@ class UpdateProfileScreen extends StatelessWidget {
                 if (snapshot.hasData) {
                   UserModel userData = snapshot.data as UserModel;
                   return Column(
-                    /// Wrap with futurebuilder
                     children: [
                       // -- IMAGE with ICON
                       Stack(
@@ -45,8 +43,7 @@ class UpdateProfileScreen extends StatelessWidget {
                             height: 120,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              child:
-                                  const Image(image: AssetImage(tProfileImage)),
+                              child: const Image(image: AssetImage(tProfileImage)),
                             ),
                           ),
                           Positioned(
@@ -60,8 +57,7 @@ class UpdateProfileScreen extends StatelessWidget {
                                 color: tPrimaryColor,
                               ),
                               child: const Icon(
-                                FontAwesomeIcons
-                                    .camera, // Replace with Font Awesome icon
+                                FontAwesomeIcons.camera,
                                 color: Colors.black,
                                 size: 20,
                               ),
@@ -80,8 +76,7 @@ class UpdateProfileScreen extends StatelessWidget {
                               initialValue: userData.fullName,
                               decoration: const InputDecoration(
                                 label: Text(tFullName),
-                                prefixIcon: Icon(FontAwesomeIcons
-                                    .user), // Replace with Font Awesome icon
+                                prefixIcon: Icon(FontAwesomeIcons.user),
                               ),
                             ),
                             const SizedBox(height: tFormHeight - 20),
@@ -89,8 +84,7 @@ class UpdateProfileScreen extends StatelessWidget {
                               initialValue: userData.fullName,
                               decoration: const InputDecoration(
                                 label: Text(tEmail),
-                                prefixIcon: Icon(FontAwesomeIcons
-                                    .envelope), // Replace with Font Awesome icon
+                                prefixIcon: Icon(FontAwesomeIcons.envelope),
                               ),
                             ),
                             const SizedBox(height: tFormHeight - 20),
@@ -98,8 +92,7 @@ class UpdateProfileScreen extends StatelessWidget {
                               initialValue: userData.fullName,
                               decoration: const InputDecoration(
                                 label: Text(tPhoneNumber),
-                                prefixIcon: Icon(FontAwesomeIcons
-                                    .phone), // Replace with Font Awesome icon
+                                prefixIcon: Icon(FontAwesomeIcons.phone),
                               ),
                             ),
                             const SizedBox(height: tFormHeight - 20),
@@ -108,11 +101,9 @@ class UpdateProfileScreen extends StatelessWidget {
                               obscureText: true,
                               decoration: InputDecoration(
                                 label: const Text(tPassword),
-                                prefixIcon: const Icon(FontAwesomeIcons
-                                    .fingerprint), // Replace with Font Awesome icon
+                                prefixIcon: const Icon(FontAwesomeIcons.fingerprint),
                                 suffixIcon: IconButton(
-                                  icon: const Icon(FontAwesomeIcons
-                                      .eyeSlash), // Replace with Font Awesome icon
+                                  icon: const Icon(FontAwesomeIcons.eyeSlash),
                                   onPressed: () {},
                                 ),
                               ),
@@ -123,15 +114,13 @@ class UpdateProfileScreen extends StatelessWidget {
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
-                                onPressed: () =>
-                                    Get.to(() => const UpdateProfileScreen()),
+                                onPressed: () => Get.to(() => const UpdateProfileScreen()),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: tPrimaryColor,
                                   side: BorderSide.none,
                                   shape: const StadiumBorder(),
                                 ),
-                                child: const Text(tEditProfile,
-                                    style: TextStyle(color: tDarkColor)),
+                                child: const Text(tEditProfile, style: TextStyle(color: tDarkColor)),
                               ),
                             ),
                             const SizedBox(height: tFormHeight),
@@ -147,9 +136,7 @@ class UpdateProfileScreen extends StatelessWidget {
                                     children: [
                                       TextSpan(
                                         text: tJoinedAt,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12),
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                       ),
                                     ],
                                   ),
@@ -157,8 +144,7 @@ class UpdateProfileScreen extends StatelessWidget {
                                 ElevatedButton(
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Colors.redAccent.withOpacity(0.1),
+                                    backgroundColor: Colors.redAccent.withOpacity(0.1),
                                     elevation: 0,
                                     foregroundColor: Colors.red,
                                     shape: const StadiumBorder(),
@@ -179,7 +165,7 @@ class UpdateProfileScreen extends StatelessWidget {
                   return const Center(child: Text("Something went wrong"));
                 }
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             },
           ),
