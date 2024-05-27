@@ -27,10 +27,26 @@ class LoginController extends GetxController {
         return;
       }
       final auth = AuthenticationRepository.instance;
-      await auth.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+      await auth.loginWithEmailAndPassword(
+          email.text.trim(), password.text.trim());
       auth.setInitialScreen(auth.firebaseUser.value);
     } catch (e) {
       isLoading.value = false;
+      Helper.errorSnackBar(title: tOhSnap, message: e.toString());
+    }
+  }
+
+  //Google Log In
+  // [GooglesignInAuthentication)
+  Future<void> googleSignin() async {
+    try {
+      isGoogleLoading.value = true;
+      final auth = AuthenticationRepository.instance;
+      await auth.signInWithGoogle();
+      isGoogleLoading.value = false;
+      auth.setInitialScreen(auth.firebaseUser.value);
+    } catch (e) {
+      isGoogleLoading.value = false;
       Helper.errorSnackBar(title: tOhSnap, message: e.toString());
     }
   }

@@ -6,6 +6,7 @@ import 'package:bus_app/src/repository/authentication_repository/exceptions/logi
 import 'package:bus_app/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../features/core/screens/dashboard/dashboard.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -16,13 +17,17 @@ class AuthenticationRepository extends GetxController {
   late final Rx<User?> firebaseUser;
   var verificationId = ''.obs;
 
+  /// Getters
+  //String get getUserID => firebaseUser.uid ?? "";
+  //String get getUserEmail => firebaseUser.email ?? "";
+
   // Will be load when app launches this func will be called and set the firebaseUser state
   @override
   void onReady() {
     super.onReady(); // Ensure you call super.onReady()
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    // FlutterNativeSplash.remove();
+    //FlutterNativeSplash.remove();
     //ever(firebaseUser, _setInitialScreen);
     setInitialScreen(firebaseUser.value);
   }
@@ -117,7 +122,7 @@ class AuthenticationRepository extends GetxController {
     return null;
   }
 
-   // FUNC - Login
+  // FUNC - Login
   Future<String?> loginWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -132,5 +137,32 @@ class AuthenticationRepository extends GetxController {
       throw ex;
     }
     return null;
+  }
+
+  //[GoogleAuthentication]
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      // Handle FirebaseAuthException
+      throw TExceptions.fromCode(e.code).message;
+    } catch (e) {
+      // Handle generic exception
+      throw 'An error occurred: $e';
+    }
   }
 }
