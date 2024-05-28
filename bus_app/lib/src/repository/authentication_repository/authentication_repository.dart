@@ -28,7 +28,7 @@ class AuthenticationRepository extends GetxController {
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
     //FlutterNativeSplash.remove();
-    //ever(firebaseUser, _setInitialScreen);
+    ever(firebaseUser, setInitialScreen);
     setInitialScreen(firebaseUser.value);
   }
 
@@ -42,6 +42,43 @@ class AuthenticationRepository extends GetxController {
             : Get.offAll(() => const MailVerification());
   }
 
+  // FUNC - Register
+  Future<void> createUserWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      firebaseUser.value != null
+          ? Get.offAll(() => const Dashboard())
+          : Get.to(() => const WelcomeScreen());
+    } on FirebaseAuthException catch (e) {
+      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
+      print('FIREBASE AUTH EXCEPTION - ${ex.message} ');
+      throw ex;
+    } catch (_) {
+      const ex = SignUpWithEmailAndPasswordFailure();
+      print(' EXCEPTION - ${ex.message}');
+      throw ex;
+    }
+    return null;
+  }
+
+// FUNC - Login
+  Future<void> loginWithEmailAndPassword(String email, String password) async {
+  try {
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
+  } on FirebaseAuthException catch (e) {
+    final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
+    print('FIREBASE AUTH EXCEPTION - ${ex.message}');
+    throw ex;
+  } catch (_) {
+    const ex = LogInWithEmailAndPasswordFailure();
+    print('EXCEPTION - ${ex.message}');
+    throw ex;
+  }
+  
+}
+
   // FUNC - Email Verification
   Future<void> sendEmailVerification() async {
     try {
@@ -54,6 +91,8 @@ class AuthenticationRepository extends GetxController {
       throw ex.message;
     }
   }
+
+
 
   // FUNC - Logout
   Future<void> logout() async {
@@ -101,42 +140,7 @@ class AuthenticationRepository extends GetxController {
     return credentials.user != null ? true : false;
   }
 
-  // FUNC - Register
-  Future<String?> createUserWithEmailAndPassword(
-      String email, String password) async {
-    try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      firebaseUser.value != null
-          ? Get.offAll(() => const Dashboard())
-          : Get.to(() => const WelcomeScreen());
-    } on FirebaseAuthException catch (e) {
-      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
-      print('FIREBASE AUTH EXCEPTION - ${ex.message} ');
-      throw ex;
-    } catch (_) {
-      const ex = SignUpWithEmailAndPasswordFailure();
-      print(' EXCEPTION - ${ex.message}');
-      throw ex;
-    }
-    return null;
-  }
-
-  // FUNC - Login
-  Future<String> loginWithEmailAndPassword(String email, String password) async {
-  try {
-    await _auth.signInWithEmailAndPassword(email: email, password: password);
-    return ''; // Return an empty string or any message indicating success
-  } on FirebaseAuthException catch (e) {
-    final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
-    print('FIREBASE AUTH EXCEPTION - ${ex.message}');
-    throw ex;
-  } catch (_) {
-    const ex = LogInWithEmailAndPasswordFailure();
-    print('EXCEPTION - ${ex.message}');
-    throw ex;
-  }
-}
+  
 
 
   //[GoogleAuthentication]
