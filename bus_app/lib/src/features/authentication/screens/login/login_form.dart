@@ -1,7 +1,10 @@
 import 'package:bus_app/src/constants/sizes.dart';
+import 'package:bus_app/src/features/authentication/controllers/login_controller.dart';
 import 'package:bus_app/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 
 class LoginForm extends StatelessWidget {
@@ -11,6 +14,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
     return Form(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: tFormHeight - 10),
@@ -49,10 +53,10 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  
-                },
-                child: Text(tLogin.toUpperCase()),
+                 onPressed: controller.isLoading.value ? null: () { controller.login(); },
+               child: controller.isLoading.value
+                        ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),)
+                        : Text(tLogin.toUpperCase()),
               ),
             ),
           ],
