@@ -68,7 +68,7 @@ class SignupScreen extends StatelessWidget {
                         await controller.createUser(user);
                       },
                 child: controller.isLoading.value
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : Text('Signup'),
               )),
             ],

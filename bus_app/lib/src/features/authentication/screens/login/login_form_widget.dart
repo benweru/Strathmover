@@ -75,7 +75,7 @@ class LoginFormWidget extends StatelessWidget {
               () => ElevatedButton(
                 onPressed: controller.isLoading.value ? null : () => controller.login(),
                 child: controller.isLoading.value
-                    ? CircularProgressIndicator(
+                    ? const CircularProgressIndicator(
                         color: Colors.white,
                       )
                     : Text(tLogin.toUpperCase()),

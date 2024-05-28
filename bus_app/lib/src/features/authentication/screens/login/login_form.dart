@@ -1,6 +1,8 @@
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/authentication/controllers/login_controller.dart';
 import 'package:bus_app/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
+import 'package:bus_app/src/features/core/screens/dashboard/dashboard.dart';
+import 'package:bus_app/src/features/core/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:get/get.dart';
@@ -40,6 +42,7 @@ class LoginForm extends StatelessWidget {
                   icon: Icon(Icons.remove_red_eye_sharp),
                 ),
               ),
+              obscureText: true,
             ),
             const SizedBox(height: tFormHeight - 20),
             Align(
@@ -53,7 +56,7 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                 onPressed: controller.isLoading.value ? null: () { controller.login(); },
+                 onPressed: controller.isLoading.value ? null: () { Get.offAll(() => const Dashboard()); },
                child: controller.isLoading.value
                         ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),)
                         : Text(tLogin.toUpperCase()),
