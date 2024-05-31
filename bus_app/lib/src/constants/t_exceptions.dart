@@ -5,6 +5,9 @@ class TExceptions implements Exception {
   /// {@macro log_in_with_email_and_password_failure}
   const TExceptions([this.message = 'An unknown exception occurred.']);
 
+  @override
+  String toString() => message;
+
   /// Create an authentication message
   /// from a Firebase authentication exception code.
   factory TExceptions.fromCode(String code) {

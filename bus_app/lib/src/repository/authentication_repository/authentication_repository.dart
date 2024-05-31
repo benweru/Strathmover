@@ -42,33 +42,34 @@ class AuthenticationRepository extends GetxController {
             : Get.offAll(() => const MailVerification());
   }
 
-  // FUNC - Register
   Future<String?> createUserWithEmailAndPassword(
-      String email, String password) async {
-    try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      firebaseUser.value != null
-          ? Get.offAll(() => const Dashboard())
-          : Get.to(() => const WelcomeScreen());
-    } on FirebaseAuthException catch (e) {
-      final ex = TExceptions.fromCode(e.code);
-      throw ex;
-    } catch (_) {
-      const ex = TExceptions();
-      throw ex;
-    }
-    return null;
+    String email, String password) async {
+  try {
+    await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    firebaseUser.value != null
+        ? Get.offAll(() => const Dashboard())
+        : Get.to(() => const WelcomeScreen());
+  } on FirebaseAuthException catch (e) {
+    final ex = TExceptions.fromCode(e.code);
+    print('Firebase Auth Exception: ${ex.message}');
+    Get.snackbar('Error', ex.message, snackPosition: SnackPosition.BOTTOM);
+    return ex.message;
+  } catch (e) {
+    const ex = TExceptions();
+    print('Exception: ${ex.message}');
+    Get.snackbar('Error', ex.message, snackPosition: SnackPosition.BOTTOM);
+    return ex.message;
   }
+  return null;
+}
+
 
 // FUNC - Login
   Future<String?> loginWithEmailAndPassword(
       String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      firebaseUser.value != null
-          ? Get.offAll(() => const Dashboard())
-          : Get.to(() => const LoginScreen());
       return null; //Successfull Login
     } on FirebaseAuthException catch (e) {
       final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);

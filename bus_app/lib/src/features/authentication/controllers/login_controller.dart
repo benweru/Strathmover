@@ -26,7 +26,7 @@ class LoginController extends GetxController {
       try {
         await AuthenticationRepository.instance
             .loginWithEmailAndPassword(email.text, password.text);
-        Get.offAll(() => const Dashboard());
+
       } catch (e) {
         // Handle login errors here
         Get.snackbar('Error', e.toString());

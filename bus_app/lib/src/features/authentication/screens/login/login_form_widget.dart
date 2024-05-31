@@ -51,10 +51,10 @@ class LoginFormWidget extends StatelessWidget {
                   hintText: tPassword,
                   suffixIcon: IconButton(
                     icon: controller.showPassword.value
-                         ? const Icon(FontAwesomeIcons.eye)
+                        ? const Icon(FontAwesomeIcons.eye)
                         : const Icon(FontAwesomeIcons.eyeSlash),
                     onPressed: () => controller.showPassword.value = !controller.showPassword.value,
-                  ),
+                    ),
                 ),
               ),
             ),

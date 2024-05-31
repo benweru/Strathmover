@@ -56,7 +56,11 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                 onPressed: controller.isLoading.value ? null: () { Get.offAll(() => const Dashboard()); },
+                 onPressed: controller.isLoading.value 
+                 ? null
+                 : () { 
+                  controller.login();
+                  },
                child: controller.isLoading.value
                         ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),)
                         : Text(tLogin.toUpperCase()),
