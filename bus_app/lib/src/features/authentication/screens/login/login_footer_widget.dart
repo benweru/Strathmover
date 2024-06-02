@@ -31,7 +31,7 @@ class LoginFooterWidget extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SignupScreen()),
+              MaterialPageRoute(builder: (context) => const SignUpScreen()),
             );
           },
           child: Text.rich(

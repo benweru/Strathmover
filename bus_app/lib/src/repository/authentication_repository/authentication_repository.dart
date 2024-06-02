@@ -3,7 +3,6 @@ import 'package:bus_app/src/features/authentication/screens/login/login_screen.d
 import 'package:bus_app/src/features/authentication/screens/mail_verification/mail_verification.dart';
 import 'package:bus_app/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:bus_app/src/repository/authentication_repository/exceptions/login_email_password_failure.dart';
-import 'package:bus_app/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';

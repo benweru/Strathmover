@@ -7,7 +7,7 @@ import '../../../repository/authentication_repository/authentication_repository.
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
 
-  //TextField Controllers to get data from TextFields
+  // TextField Controllers to get data from TextFields
   final email = TextEditingController();
   final password = TextEditingController();
   final fullName = TextEditingController();
@@ -35,7 +35,7 @@ class SignUpController extends GetxController {
   Future<void> createUser(UserModel user) async {
     try {
       isLoading.value = true;
-      if (!signupFormKey.currentState!.validate()) {
+      if (!(signupFormKey.currentState?.validate() ?? false)) {
         isLoading.value = false;
         return;
       }
@@ -61,5 +61,14 @@ class SignUpController extends GetxController {
     } catch (e) {
       throw e.toString();
     }
+  }
+
+  @override
+  void onClose() {
+    email.dispose();
+    password.dispose();
+    fullName.dispose();
+    phoneNo.dispose();
+    super.onClose();
   }
 }

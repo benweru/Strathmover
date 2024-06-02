@@ -1,9 +1,9 @@
-import 'package:bus_app/src/features/authentication/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
-import 'package:get/get.dart';
 import 'package:bus_app/src/features/authentication/controllers/signup_controller.dart';
+import 'package:bus_app/src/features/authentication/models/user_model.dart';
 import 'package:bus_app/src/utils/helper.dart';
 
 class SignUpFormWidget extends StatelessWidget {
@@ -12,7 +12,7 @@ class SignUpFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignUpController());
-    final formKey = GlobalKey<FormState>();
+    final formKey = controller.signupFormKey;
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight - 10),

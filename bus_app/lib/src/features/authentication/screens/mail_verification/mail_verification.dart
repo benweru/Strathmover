@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MailVerification extends StatelessWidget {
-  const MailVerification({Key? key}) : super(key: key);
+  const MailVerification({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class MailVerification extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(tEmailVerificationTitle),
+        title: const Text(tEmailVerificationTitle),
         centerTitle: true,
       ),
       body: Padding(
@@ -31,7 +31,6 @@ class MailVerification extends StatelessWidget {
             const SizedBox(height: tFormHeight),
             ElevatedButton(
               onPressed: () => controller.sendVerificationEmail(),
-              child: Text(tResendVerificationEmail),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: tButtonHeight),
                 backgroundColor: tPrimaryColor,
@@ -39,13 +38,13 @@ class MailVerification extends StatelessWidget {
                   borderRadius: BorderRadius.circular(tButtonRadius),
                 ),
               ),
+              child: const Text(tResendVerificationEmail),
             ),
             const SizedBox(height: tFormHeight),
             ElevatedButton(
               onPressed: () {
                 controller.manuallyCheckEmailVerificationStatus();
               },
-              child: Text(tCheckVerificationStatus),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: tButtonHeight),
                 backgroundColor: tPrimaryColor,
@@ -53,11 +52,11 @@ class MailVerification extends StatelessWidget {
                   borderRadius: BorderRadius.circular(tButtonRadius),
                 ),
               ),
+              child: const Text(tCheckVerificationStatus),
             ),
             const SizedBox(height: tFormHeight),
             ElevatedButton(
               onPressed: () => AuthenticationRepository.instance.logout(),
-              child: Text(tBackToLogin.tr),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: tButtonHeight),
                 backgroundColor: Colors.red,
@@ -65,6 +64,7 @@ class MailVerification extends StatelessWidget {
                   borderRadius: BorderRadius.circular(tButtonRadius),
                 ),
               ),
+              child: Text(tBackToLogin.tr),
             ),
           ],
         ),

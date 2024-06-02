@@ -56,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(() => const SignupScreen());
+                      Get.to(() => const SignUpScreen());
                     },
                     style: OutlinedButton.styleFrom(
                       foregroundColor: tPrimaryColor, 

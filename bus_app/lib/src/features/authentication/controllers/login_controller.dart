@@ -1,5 +1,4 @@
 import 'package:bus_app/src/constants/text_strings.dart';
-import 'package:bus_app/src/features/core/screens/dashboard/dashboard.dart';
 import 'package:bus_app/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:bus_app/src/utils/helper.dart';
 import 'package:flutter/material.dart';
