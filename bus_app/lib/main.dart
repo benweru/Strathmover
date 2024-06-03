@@ -9,9 +9,10 @@ import 'src/features/authentication/screens/splash_screen/splash_screen.dart';
 //Initialize Firebase and Auth repo
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
-      .then((value) => Get.put(AuthenticationRepository()));
-  runApp(const MyApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  Get.put(AuthenticationRepository());
+  //await GetStorage.init();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

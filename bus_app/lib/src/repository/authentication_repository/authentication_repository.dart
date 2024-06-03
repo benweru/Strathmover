@@ -72,13 +72,20 @@ class AuthenticationRepository extends GetxController {
       return null; //Successfull Login
     } on FirebaseAuthException catch (e) {
       final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
-      print('FIREBASE AUTH EXCEPTION - ${ex.message}');
-      throw ex;
+      return ex.message;
     } catch (_) {
       const ex = LogInWithEmailAndPasswordFailure();
-      print('EXCEPTION - ${ex.message}');
-      throw ex;
+      return ex.message;
     }
+    // on FirebaseAuthException catch (e) {
+    //   final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
+    //   print('FIREBASE AUTH EXCEPTION - ${ex.message}');
+    //   throw ex;
+    // } catch (_) {
+    //   const ex = LogInWithEmailAndPasswordFailure();
+    //   print('EXCEPTION - ${ex.message}');
+    //   throw ex;
+    // }
   }
 
   // FUNC - Email Verification

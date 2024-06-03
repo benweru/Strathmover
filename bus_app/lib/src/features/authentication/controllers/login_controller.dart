@@ -22,15 +22,29 @@ class LoginController extends GetxController {
   Future<void> login() async {
       if (loginFormKey.currentState!.validate()) {
       isLoading.value = true;
-      try {
-        await AuthenticationRepository.instance
-            .loginWithEmailAndPassword(email.text, password.text);
+     String? loginError = await AuthenticationRepository.instance
+          .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      } catch (e) {
-        // Handle login errors here
-        Get.snackbar('Error', e.toString());
-      } finally {
-        isLoading.value = false;
+      isLoading.value = false;
+
+      if (loginError == null) {
+        // Show success message
+        Get.snackbar(
+          'Success',
+          'Login successful',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      } else {
+        // Show error message
+        Get.snackbar(
+          'Login Failed',
+          loginError,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
       }
     }
   }

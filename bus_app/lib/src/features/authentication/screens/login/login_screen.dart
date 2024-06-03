@@ -1,6 +1,6 @@
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/authentication/screens/login/login_footer_widget.dart';
-import 'package:bus_app/src/features/authentication/screens/login/login_form.dart';
+import 'package:bus_app/src/features/authentication/screens/login/login_form_widget.dart';
 import 'package:bus_app/src/features/authentication/screens/login/login_header_widget.dart';
 import 'package:flutter/material.dart';
 
