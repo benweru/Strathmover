@@ -1,3 +1,4 @@
+import 'package:bus_app/src/features/authentication/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_button/sign_in_button.dart'; // Import the sign_in_button package
 import 'package:bus_app/src/constants/text_strings.dart';
@@ -22,7 +23,12 @@ class SignUpFooterWidget extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+            );
+          },
           child: Text.rich(
             TextSpan(
               children: [

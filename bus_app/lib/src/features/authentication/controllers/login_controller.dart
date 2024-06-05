@@ -1,6 +1,4 @@
-import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:bus_app/src/repository/authentication_repository/authentication_repository.dart';
-import 'package:bus_app/src/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,11 +16,11 @@ class LoginController extends GetxController {
 
   /// TextField Validation
 
-  //Call this Function from Design & it will do the rest
+  // Call this Function from Design & it will do the rest
   Future<void> login() async {
-      if (loginFormKey.currentState!.validate()) {
+    if (loginFormKey.currentState!.validate()) {
       isLoading.value = true;
-     String? loginError = await AuthenticationRepository.instance
+      String? loginError = await AuthenticationRepository.instance
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
       isLoading.value = false;
@@ -48,22 +46,4 @@ class LoginController extends GetxController {
       }
     }
   }
-
-  
-
-  //Google Log In
-  // [GooglesignInAuthentication)
-  Future<void> googleSignin() async {
-    try {
-      isGoogleLoading.value = true;
-      final auth = AuthenticationRepository.instance;
-      await auth.signInWithGoogle();
-      isGoogleLoading.value = false;
-      auth.setInitialScreen(auth.firebaseUser.value);
-    } catch (e) {
-      isGoogleLoading.value = false;
-      Helper.errorSnackBar(title: tOhSnap, message: e.toString());
-    }
-  }
 }
-  

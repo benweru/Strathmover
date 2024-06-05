@@ -16,23 +16,15 @@ class AuthenticationRepository extends GetxController {
   late final Rx<User?> firebaseUser;
   var verificationId = ''.obs;
 
-  /// Getters
-  //String get getUserID => firebaseUser.uid ?? "";
-  //String get getUserEmail => firebaseUser.email ?? "";
-
-  // Will be load when app launches this func will be called and set the firebaseUser state
   @override
   void onReady() {
     super.onReady(); // Ensure you call super.onReady()
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    //FlutterNativeSplash.remove();
     ever(firebaseUser, setInitialScreen);
     setInitialScreen(firebaseUser.value);
   }
 
-  /// If we are setting initial screen from here
-  /// then in the main.dart => App() add CircularProgressIndicator()
   setInitialScreen(User? user) {
     user == null
         ? Get.offAll(() => const WelcomeScreen())
@@ -41,54 +33,42 @@ class AuthenticationRepository extends GetxController {
             : Get.offAll(() => const MailVerification());
   }
 
-  Future<String?> createUserWithEmailAndPassword(
-    String email, String password) async {
+  Future<String?> createUserWithEmailAndPassword(String email, String password) async {
+    try {
+      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      firebaseUser.value != null
+          ? Get.offAll(() => const Dashboard())
+          : Get.to(() => const WelcomeScreen());
+    } on FirebaseAuthException catch (e) {
+      final ex = TExceptions.fromCode(e.code);
+      print('Firebase Auth Exception: ${ex.message}');
+      Get.snackbar('Error', ex.message, snackPosition: SnackPosition.BOTTOM);
+      return ex.message;
+    } catch (e) {
+      const ex = TExceptions();
+      print('Exception: ${ex.message}');
+      Get.snackbar('Error', ex.message, snackPosition: SnackPosition.BOTTOM);
+      return ex.message;
+    }
+    return null;
+  }
+
+  Future<String?> loginWithEmailAndPassword(String email, String password) async {
   try {
-    await _auth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    firebaseUser.value != null
-        ? Get.offAll(() => const Dashboard())
-        : Get.to(() => const WelcomeScreen());
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
+    return null; // Successful login
   } on FirebaseAuthException catch (e) {
     final ex = TExceptions.fromCode(e.code);
-    print('Firebase Auth Exception: ${ex.message}');
-    Get.snackbar('Error', ex.message, snackPosition: SnackPosition.BOTTOM);
+    print('Firebase Auth Exception: ${e.code} - ${ex.message}');
     return ex.message;
   } catch (e) {
-    const ex = TExceptions();
-    print('Exception: ${ex.message}');
-    Get.snackbar('Error', ex.message, snackPosition: SnackPosition.BOTTOM);
-    return ex.message;
+    print('Exception: ${e.toString()}');
+    return const TExceptions().message;
   }
-  return null;
 }
 
 
-// FUNC - Login
-  Future<String?> loginWithEmailAndPassword(
-      String email, String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return null; //Successfull Login
-    } on FirebaseAuthException catch (e) {
-      final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
-      return ex.message;
-    } catch (_) {
-      const ex = LogInWithEmailAndPasswordFailure();
-      return ex.message;
-    }
-    // on FirebaseAuthException catch (e) {
-    //   final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
-    //   print('FIREBASE AUTH EXCEPTION - ${ex.message}');
-    //   throw ex;
-    // } catch (_) {
-    //   const ex = LogInWithEmailAndPasswordFailure();
-    //   print('EXCEPTION - ${ex.message}');
-    //   throw ex;
-    // }
-  }
 
-  // FUNC - Email Verification
   Future<void> sendEmailVerification() async {
     try {
       await _auth.currentUser?.sendEmailVerification();
@@ -101,7 +81,6 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // FUNC - Logout
   Future<void> logout() async {
     try {
       await GoogleSignIn().signOut();
@@ -116,7 +95,6 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // FUNC
   Future<void> phoneAuthentication(String phoneNo) async {
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNo,
@@ -139,7 +117,6 @@ class AuthenticationRepository extends GetxController {
     );
   }
 
-  //OTP
   Future<bool> verifyOTP(String otp) async {
     var credentials = await _auth.signInWithCredential(
         PhoneAuthProvider.credential(
@@ -147,29 +124,18 @@ class AuthenticationRepository extends GetxController {
     return credentials.user != null ? true : false;
   }
 
-  //[GoogleAuthentication]
   Future<UserCredential?> signInWithGoogle() async {
     try {
-      // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-
-      // Create a new credential
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-
-      // Once signed in, return the UserCredential
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
-      // Handle FirebaseAuthException
       throw TExceptions.fromCode(e.code).message;
     } catch (e) {
-      // Handle generic exception
       throw 'An error occurred: $e';
     }
   }

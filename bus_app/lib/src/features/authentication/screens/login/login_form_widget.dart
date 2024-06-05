@@ -6,13 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({
-    super.key,
-  });
+  const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
+
     return Form(
       key: controller.loginFormKey,
       child: Container(
@@ -21,11 +20,13 @@ class LoginForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller: controller.email,
               decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person_outline_outlined),
-                  labelText: tEmail,
-                  hintText: tEmail,
-                  border: OutlineInputBorder()),
+                prefixIcon: Icon(Icons.person_outline_outlined),
+                labelText: tEmail,
+                hintText: tEmail,
+                border: OutlineInputBorder(),
+              ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your email';
@@ -63,10 +64,11 @@ class LoginForm extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                  onPressed: () {
-                    ForgetPasswordScreen.buildShowModalBottomSheet(context);
-                  },
-                  child: const Text(tForgetPassword)),
+                onPressed: () {
+                  ForgetPasswordScreen.buildShowModalBottomSheet(context);
+                },
+                child: const Text(tForgetPassword),
+              ),
             ),
             SizedBox(
               width: double.infinity,
