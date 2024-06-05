@@ -37,6 +37,7 @@ const String tEmail = "Email";
 const String tPhoneNumber = "Phone Number";
 const String tAdmNumber = "Student/Faculty Number";
 const String tPassword = "Password";
+const String tConfirmPassword = "Confirm Password";
 const String tAlreadyHaveAnAccount = "Already have an account? ";
 const String tSignInWithGoogle = "Sign In WIth Google";
 const String tDontHaveAnAccount = "Don't Have an Account?";

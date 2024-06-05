@@ -10,6 +10,7 @@ class SignUpController extends GetxController {
   // TextField Controllers to get data from TextFields
   final email = TextEditingController();
   final password = TextEditingController();
+  final confirmpassword = TextEditingController();
   final fullName = TextEditingController();
   final phoneNo = TextEditingController();
   final userRepo = Get.put(UserRepository());
@@ -19,6 +20,7 @@ class SignUpController extends GetxController {
 
   // Observable to manage loading state
   final isLoading = false.obs;
+  var showPassword = false.obs;
 
   // Call this Function from Design & it will do the rest
   void registerUser(String email, String password) {

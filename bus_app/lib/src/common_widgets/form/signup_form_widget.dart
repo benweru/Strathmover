@@ -17,7 +17,7 @@ class SignUpFormWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight - 10),
       child: Form(
-        key: formKey,
+        key: formKey,  // Use the local formKey here
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,27 +44,49 @@ class SignUpFormWidget extends StatelessWidget {
             TextFormField(
               controller: controller.phoneNo,
               decoration: const InputDecoration(
-                  label: Text(tPhoneNumber), prefixIcon: Icon(Icons.numbers)),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your phone number';
-                }
-                return null;
-              },
+                  label: Text(tPhoneNumber),
+                  prefixText: '+254', // Prefill with +254
+                  prefixIcon: Icon(Icons.numbers)),
+              validator: Helper.validatePhoneNumber,
             ),
             const SizedBox(height: tFormHeight - 20),
-            TextFormField(
+            Obx(() => TextFormField(
               controller: controller.password,
-              decoration: const InputDecoration(
-                  label: Text(tPassword), prefixIcon: Icon(Icons.lock)),
-              obscureText: true,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your password';
-                }
-                return null;
-              },
-            ),
+              decoration: InputDecoration(
+                label: const Text(tPassword),
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    controller.showPassword.value =
+                        !controller.showPassword.value;
+                  },
+                  icon: Icon(controller.showPassword.value
+                      ? Icons.remove_red_eye_sharp
+                      : Icons.remove_red_eye_outlined),
+                ),
+              ),
+              obscureText: !controller.showPassword.value,
+              validator: Helper.validatePassword,
+            )),
+            const SizedBox(height: tFormHeight - 20),
+            Obx(() => TextFormField(
+              controller: controller.confirmpassword,
+              decoration: InputDecoration(
+                labelText: tConfirmPassword,
+                prefixIcon: Icon(Icons.fingerprint),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    controller.showPassword.value =
+                        !controller.showPassword.value;
+                  },
+                  icon: Icon(controller.showPassword.value
+                      ? Icons.remove_red_eye_sharp
+                      : Icons.remove_red_eye_outlined),
+                ),
+              ),
+              obscureText: !controller.showPassword.value,
+                validator: Helper.validateConfirmPassword,
+            )),
             const SizedBox(height: tFormHeight - 10),
             SizedBox(
               width: double.infinity,
