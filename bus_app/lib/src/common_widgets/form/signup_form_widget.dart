@@ -45,7 +45,7 @@ class SignUpFormWidget extends StatelessWidget {
               controller: controller.phoneNo,
               decoration: const InputDecoration(
                   label: Text(tPhoneNumber),
-                  prefixText: '+254', // Prefill with +254
+                  //prefixText: '+254', // Prefill with +254
                   prefixIcon: Icon(Icons.numbers)),
               validator: Helper.validatePhoneNumber,
             ),
@@ -85,7 +85,10 @@ class SignUpFormWidget extends StatelessWidget {
                 ),
               ),
               obscureText: !controller.showPassword.value,
-                validator: Helper.validateConfirmPassword,
+                validator: (value) => Helper.validateConfirmPassword(
+                  value,
+                  controller.password.text,
+                ),
             )),
             const SizedBox(height: tFormHeight - 10),
             SizedBox(

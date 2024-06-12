@@ -51,7 +51,7 @@ class Helper {
   if (value == null || value.isEmpty) {
     return 'Phone number is required';
   }
-  final phoneRegExp = RegExp(r'^\+254\d{8}$');
+  final phoneRegExp = RegExp(r'^\+254\d{9}$');
 
   if (!phoneRegExp.hasMatch(value)) {
     return 'Invalid phone number';
