@@ -2,7 +2,6 @@ import 'package:bus_app/src/constants/t_exceptions.dart';
 import 'package:bus_app/src/features/authentication/screens/login/login_screen.dart';
 import 'package:bus_app/src/features/authentication/screens/mail_verification/mail_verification.dart';
 import 'package:bus_app/src/features/authentication/screens/welcome/welcome_screen.dart';
-import 'package:bus_app/src/repository/authentication_repository/exceptions/login_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -33,9 +32,11 @@ class AuthenticationRepository extends GetxController {
             : Get.offAll(() => const MailVerification());
   }
 
-  Future<String?> createUserWithEmailAndPassword(String email, String password) async {
+  Future<String?> createUserWithEmailAndPassword(
+      String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       firebaseUser.value != null
           ? Get.offAll(() => const Dashboard())
           : Get.to(() => const WelcomeScreen());
@@ -53,21 +54,20 @@ class AuthenticationRepository extends GetxController {
     return null;
   }
 
-  Future<String?> loginWithEmailAndPassword(String email, String password) async {
-  try {
-    await _auth.signInWithEmailAndPassword(email: email, password: password);
-    return null; // Successful login
-  } on FirebaseAuthException catch (e) {
-    final ex = TExceptions.fromCode(e.code);
-    print('Firebase Auth Exception: ${e.code} - ${ex.message}');
-    return ex.message;
-  } catch (e) {
-    print('Exception: ${e.toString()}');
-    return const TExceptions().message;
+  Future<String?> loginWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return null; // Successful login
+    } on FirebaseAuthException catch (e) {
+      final ex = TExceptions.fromCode(e.code);
+      print('Firebase Auth Exception: ${e.code} - ${ex.message}');
+      return ex.message;
+    } catch (e) {
+      print('Exception: ${e.toString()}');
+      return const TExceptions().message;
+    }
   }
-}
-
-
 
   Future<void> sendEmailVerification() async {
     try {
@@ -127,7 +127,8 @@ class AuthenticationRepository extends GetxController {
   Future<UserCredential?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
