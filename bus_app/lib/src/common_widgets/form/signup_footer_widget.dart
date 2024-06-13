@@ -1,15 +1,17 @@
 import 'package:bus_app/src/features/authentication/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:sign_in_button/sign_in_button.dart'; // Import the sign_in_button package
+import 'package:get/get.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
+import 'package:bus_app/src/features/authentication/controllers/signup_controller.dart';
 
 class SignUpFooterWidget extends StatelessWidget {
-  const SignUpFooterWidget({
-    super.key,
-  });
+  const SignUpFooterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SignUpController>();
+
     return Column(
       children: [
         const Text("OR"),
@@ -17,8 +19,8 @@ class SignUpFooterWidget extends StatelessWidget {
           width: double.infinity,
           child: SignInButton(
             Buttons.google,
-            onPressed: () {
-              // Add your Google sign-in logic here
+            onPressed: () async {
+              await controller.signInWithGoogle();
             },
           ),
         ),

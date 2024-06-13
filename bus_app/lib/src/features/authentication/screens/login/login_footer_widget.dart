@@ -1,8 +1,10 @@
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/authentication/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:sign_in_button/sign_in_button.dart'; 
-import '../../../../constants/text_strings.dart';
+import 'package:sign_in_button/sign_in_button.dart';
+import 'package:bus_app/src/constants/text_strings.dart';
+import 'package:get/get.dart';
+import 'package:bus_app/src/features/authentication/controllers/login_controller.dart'; // Import the controller
 
 class LoginFooterWidget extends StatelessWidget {
   const LoginFooterWidget({
@@ -11,6 +13,8 @@ class LoginFooterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -18,13 +22,13 @@ class LoginFooterWidget extends StatelessWidget {
         const SizedBox(height: tFormHeight - 20),
         SizedBox(
           width: double.infinity,
-          child: SignInButton(
+          child: Obx(() => SignInButton(
             Buttons.google,
-            onPressed: () {
-              // Handle Google sign-in logic here
+            onPressed: () async {
+              await controller.signInWithGoogle();
             },
-            text: tSignInWithGoogle,
-          ),
+            text: controller.isGoogleLoading.value ? "Signing in..." : tSignInWithGoogle,
+          )),
         ),
         const SizedBox(height: tFormHeight - 20),
         TextButton(

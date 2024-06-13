@@ -1,4 +1,5 @@
 import 'package:bus_app/src/constants/sizes.dart';
+import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bus_app/src/features/core/controllers/logout_controller.dart';
@@ -7,6 +8,7 @@ import 'package:bus_app/src/features/core/screens/dashboard/widgets/banners.dart
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/categories.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/search.dart';
 
+
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
 
@@ -14,55 +16,60 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     // Instantiate the LogoutController
     final controller = Get.put(LogoutController());
-
-    // Sample data for categories
-    final categories = [
-      ListItem(
-        title: 'A',
-        heading: 'Category 1',
-        subHeading: 'Description 1',
-        onPress: () {},
-      ),
-      ListItem(
-        title: 'B',
-        heading: 'Category 2',
-        subHeading: 'Description 2',
-        onPress: () {},
-      ),
-      ListItem(
-        title: 'C',
-        heading: 'Category 3',
-        subHeading: 'Description 3',
-        onPress: () {},
-      ),
-    ];
+    final txtTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title: const Text("Dashboard"),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              // Handle logout logic
               controller.logout();
             },
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(tDashboardPadding),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(tDashboardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const DashboardAppBar(),
+              // Heading
+              Text(tDashboardTitle, style: txtTheme.bodyMedium),
+              Text(tDashboardHeading, style: txtTheme.headlineMedium),
               const SizedBox(height: tDashboardPadding),
+
+              // Search box
               const SearchWidget(),
               const SizedBox(height: tDashboardPadding),
+
+              // Categories
+              Categories(
+                list: [
+                  ListItem(
+                    title: 'Category1',
+                    heading: 'Category 1 Heading',
+                    subHeading: 'Category 1 SubHeading',
+                    onPress: () {},
+                  ),
+                  ListItem(
+                    title: 'Category2',
+                    heading: 'Category 2 Heading',
+                    subHeading: 'Category 2 SubHeading',
+                    onPress: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: tDashboardPadding),
+
+              // Banners
               const MyBannerRow(),
               const SizedBox(height: tDashboardPadding),
-              Categories(list: categories),
+
+              // Recently Booked Trips
+              
             ],
           ),
         ),

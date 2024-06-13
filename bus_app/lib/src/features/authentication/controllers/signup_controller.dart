@@ -1,7 +1,9 @@
 import 'package:bus_app/src/features/authentication/models/user_model.dart';
 import 'package:bus_app/src/repository/user_repository/user_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../../repository/authentication_repository/authentication_repository.dart';
 
 class SignUpController extends GetxController {
@@ -21,6 +23,9 @@ class SignUpController extends GetxController {
   // Observable to manage loading state
   final isLoading = false.obs;
   var showPassword = false.obs;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   // Call this Function from Design & it will do the rest
   void registerUser(String email, String password) {
@@ -62,6 +67,37 @@ class SignUpController extends GetxController {
       await AuthenticationRepository.instance.phoneAuthentication(phoneNo);
     } catch (e) {
       throw e.toString();
+    }
+  }
+
+  // Google Sign-In logic
+  Future<void> signInWithGoogle() async {
+    try {
+      isLoading.value = true;
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        // The user canceled the sign-in
+        isLoading.value = false;
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+      // Handle successful sign-in
+      isLoading.value = false;
+      Get.snackbar("Success", "Google Sign-In Successful",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 5));
+    } catch (e) {
+      isLoading.value = false;
+      Get.snackbar("Error", "Google sign-in failed: ${e.toString()}",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 5));
     }
   }
 

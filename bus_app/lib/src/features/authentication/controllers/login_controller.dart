@@ -1,6 +1,8 @@
 import 'package:bus_app/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -13,6 +15,9 @@ class LoginController extends GetxController {
   var showPassword = false.obs;
   var isFacebookLoading = false.obs;
   var isGoogleLoading = false.obs;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   /// TextField Validation
 
@@ -44,6 +49,38 @@ class LoginController extends GetxController {
           colorText: Colors.white,
         );
       }
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      isGoogleLoading.value = true;
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        isGoogleLoading.value = false;
+        return; // The user canceled the sign-in
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+      isGoogleLoading.value = false;
+      Get.snackbar("Success", "Google Sign-In Successful",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 5),
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    } catch (e) {
+      isGoogleLoading.value = false;
+      Get.snackbar("Error", "Google sign-in failed: ${e.toString()}",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 5),
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
   }
 }
