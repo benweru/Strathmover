@@ -86,3 +86,6 @@ const String tMenu3 = "User Management";
 const String tDelete = "Delete";
 const String tJoined = "Joined";
 const String tJoinedAt = "Date";
+//Home
+const String thomeAppBarTitle = "Home Title";
+const String thomeAppBarSubTitle = "Home Title";
