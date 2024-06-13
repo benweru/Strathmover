@@ -15,6 +15,9 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     THomeAppBar()
+                    
+
+                    SizedBox(height: Tsizes.spaceBtwSections),
                   ]
                 ),
               ),

@@ -1,5 +1,8 @@
 import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/features/core/controllers/navigation_controller.dart';
+import 'package:bus_app/src/features/core/screens/dashboard/home.dart';
+import 'package:bus_app/src/features/core/screens/profile/profile_screen.dart';
+import 'package:bus_app/src/features/personalization/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,4 +33,13 @@ class NavigationMenu extends StatelessWidget {
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );
   }
+}
+
+class NavigationController extends GetxController {
+  final Rx<int> selectedIndex = 0.obs;
+  final screens = [
+    const HomeScreen(),
+    const ProfileScreen(),
+    const SettingsScreen()
+  ];
 }
