@@ -3,30 +3,26 @@ import 'package:bus_app/src/constants/images_strings.dart';
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/core/screens/profile/update_profile_screen.dart';
 import 'package:bus_app/src/features/core/screens/profile/widgets/profile_menu_widget.dart';
+import 'package:bus_app/src/features/core/utils/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
 
 import '../../../../constants/text_strings.dart';
 import '../../../../repository/authentication_repository/authentication_repository.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
     var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(FontAwesomeIcons.arrowLeft), // Replace with Font Awesome icon
-        ),
+      appBar: TAppBar(
         title: Text(tProfile, style: Theme.of(context).textTheme.headlineSmall),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(isDark ? FontAwesomeIcons.sun : FontAwesomeIcons.moon), // Replace with Font Awesome icon
+            icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round),
           ),
         ],
       ),
@@ -57,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                         color: tPrimaryColor,
                       ),
                       child: const Icon(
-                        FontAwesomeIcons.pen, // Replace with Font Awesome icon
+                        Icons.edit,
                         color: Colors.black,
                         size: 20,
                       ),
@@ -67,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(tProfileHeading, style: Theme.of(context).textTheme.headlineSmall),
-              Text(tProfileSubHeading, style: Theme.of(context).textTheme.bodyMedium),
+              Text(tProfileSubHeading, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 20),
 
               /// -- BUTTON
@@ -88,15 +84,15 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 10),
 
               /// -- MENU
-              ProfileMenuWidget(title: "Settings", icon: FontAwesomeIcons.cog, onPress: () {}), // Replace with Font Awesome icon
-              ProfileMenuWidget(title: "Billing Details", icon: FontAwesomeIcons.wallet, onPress: () {}), // Replace with Font Awesome icon
-              ProfileMenuWidget(title: "User Management", icon: FontAwesomeIcons.userCheck, onPress: () {}), // Replace with Font Awesome icon
+              ProfileMenuWidget(title: "Settings", icon: Icons.settings, onPress: () {}), // Replace with appropriate icons
+              ProfileMenuWidget(title: "Billing Details", icon: Icons.account_balance_wallet, onPress: () {}), // Replace with appropriate icons
+              ProfileMenuWidget(title: "User Management", icon: Icons.person_add, onPress: () {}), // Replace with appropriate icons
               const Divider(),
               const SizedBox(height: 10),
-              ProfileMenuWidget(title: "Information", icon: FontAwesomeIcons.info, onPress: () {}), // Replace with Font Awesome icon
+              ProfileMenuWidget(title: "Information", icon: Icons.info_outline, onPress: () {}), // Replace with appropriate icons
               ProfileMenuWidget(
                 title: "Logout",
-                icon: FontAwesomeIcons.signOutAlt, // Replace with Font Awesome icon
+                icon: Icons.logout, // Replace with appropriate icons
                 textColor: Colors.red,
                 endIcon: false,
                 onPress: () {

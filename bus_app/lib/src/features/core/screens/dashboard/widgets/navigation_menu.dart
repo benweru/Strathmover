@@ -12,13 +12,14 @@ class NavigationMenu extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
+      body: Obx(() => controller.screens[controller.selectedIndex.value]),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           currentIndex: controller.selectedIndex.value,
-          onTap: (index) => controller.selectedIndex.value = index,
+          onTap: controller.onTabSelected,
           backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
-          selectedItemColor: tWhiteColor.withOpacity(0.8),
-          unselectedItemColor: tWhiteColor.withOpacity(0.5),
+          selectedItemColor: tPrimaryColor,
+          unselectedItemColor: tPrimaryColor.withOpacity(0.7),
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.route), label: 'Routes'),
@@ -27,7 +28,6 @@ class NavigationMenu extends StatelessWidget {
           ],
         ),
       ),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );
   }
 }

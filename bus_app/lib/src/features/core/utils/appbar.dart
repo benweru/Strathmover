@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 
 class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TAppBar({
-    super.key,
+    Key? key,
     this.title,
     this.actions,
     this.leadingIcon,
     this.LeadingOnPressed,
     this.showBackArrow = true,
-  });
+  }) : super(key: key);
 
   final Widget? title;
   final bool showBackArrow;
@@ -21,23 +21,28 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: defaultSpace),
-      child: AppBar(
-        automaticallyImplyLeading: false,
-        leading: showBackArrow
-            ? IconButton(
-                onPressed: LeadingOnPressed ?? () => Get.back(),
-                icon: const Icon(Icons.arrow_back),
-              )
-            : leadingIcon != null
-                ? IconButton(
-                    onPressed: LeadingOnPressed ?? () => Get.back(),
-                    icon: Icon(leadingIcon),
-                  )
-                : null,
-        title: title,
-        actions: actions,
+    return SafeArea(
+      top: true,
+      child: Container(
+        color: Colors.transparent, // Ensure the AppBar does not have its own background color
+        padding: const EdgeInsets.symmetric(horizontal: tDashboardPadding),
+        child: AppBar(
+          automaticallyImplyLeading: true, // Use true to show a back button automatically if not specified
+          leading: showBackArrow
+              ? IconButton(
+                  onPressed: LeadingOnPressed ?? () => Get.back(),
+                  icon: const Icon(Icons.arrow_back),
+                )
+              : leadingIcon != null
+                  ? IconButton(
+                      onPressed: LeadingOnPressed ?? () => Get.back(),
+                      icon: Icon(leadingIcon),
+                    )
+                  : null,
+          title: title,
+          actions: actions,
+          elevation: 0, // Adjust elevation as needed
+        ),
       ),
     );
   }
