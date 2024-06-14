@@ -1,8 +1,5 @@
 import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/features/core/controllers/navigation_controller.dart';
-import 'package:bus_app/src/features/core/screens/dashboard/home.dart';
-import 'package:bus_app/src/features/core/screens/profile/profile_screen.dart';
-import 'package:bus_app/src/features/personalization/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,15 +11,16 @@ class NavigationMenu extends StatelessWidget {
     final controller = Get.put(NavigationController());
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
-      bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
+    return Obx(
+      () => Scaffold(
+        body: controller.screens[controller.selectedIndex.value],
+        bottomNavigationBar: BottomNavigationBar(
           currentIndex: controller.selectedIndex.value,
           onTap: controller.onTabSelected,
           backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
-          selectedItemColor: tPrimaryColor,
-          unselectedItemColor: tPrimaryColor.withOpacity(0.7),
+          selectedItemColor: isDarkMode ? tPrimaryColor : Colors.white,
+          unselectedItemColor:
+              isDarkMode ? tPrimaryColor.withOpacity(0.7) : Colors.white70,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.route), label: 'Routes'),
@@ -33,13 +31,4 @@ class NavigationMenu extends StatelessWidget {
       ),
     );
   }
-}
-
-class NavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
-  final screens = [
-    const HomeScreen(),
-    const ProfileScreen(),
-    const SettingsScreen()
-  ];
 }

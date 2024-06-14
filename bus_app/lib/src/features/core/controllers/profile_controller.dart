@@ -8,10 +8,7 @@ class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
 
   // Controllers
-  final email = TextEditingController();
-  final password = TextEditingController();
-  final fullName = TextEditingController();
-  final phoneNo = TextEditingController();
+  
 
   // Repositories
   final _authRepo = Get.put(AuthenticationRepository());
@@ -30,5 +27,9 @@ class ProfileController extends GetxController {
 
   Future<List<UserModel>> getAllUser() async {
     return await _userRepo.allUsers();
+  }
+
+  updateRecord(UserModel user) async {
+    await _userRepo.updateUserRecord(user);
   }
 }
