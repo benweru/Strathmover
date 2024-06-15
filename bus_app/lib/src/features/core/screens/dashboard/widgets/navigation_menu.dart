@@ -18,9 +18,8 @@ class NavigationMenu extends StatelessWidget {
           currentIndex: controller.selectedIndex.value,
           onTap: controller.onTabSelected,
           backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
-          selectedItemColor: isDarkMode ? tPrimaryColor : Colors.white,
-          unselectedItemColor:
-              isDarkMode ? tPrimaryColor.withOpacity(0.7) : Colors.white70,
+          selectedItemColor: tPrimaryColor,
+          unselectedItemColor: tPrimaryColor.withOpacity(0.7),
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.route), label: 'Routes'),

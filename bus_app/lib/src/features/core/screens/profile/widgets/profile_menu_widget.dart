@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../../../../constants/colours.dart';
-
-
 
 class ProfileMenuWidget extends StatelessWidget {
   const ProfileMenuWidget({
@@ -25,7 +22,7 @@ class ProfileMenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    var iconColor = isDark ? tPrimaryColor : tAccentColor;
+    var iconColor = isDark ? tPrimaryColor : tDarkColor;
 
     return ListTile(
       onTap: onPress,
