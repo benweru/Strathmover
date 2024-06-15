@@ -8,11 +8,12 @@ class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
 
   // Controllers
-  
-
+   RxBool showPassword = false.obs;
   // Repositories
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
+
+  
 
   /// Get User Email and pass to UserRepository to fetch user record.
   Future<UserModel?> getUserData() async {

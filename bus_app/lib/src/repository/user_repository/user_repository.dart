@@ -8,18 +8,14 @@ class UserRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
-  //Store User in Firestore
-  createUser(UserModel user) async {
-    await _db
-        .collection("Users")
-        .add(user.toJson())
-        .whenComplete(
-          () => Get.snackbar("Success", "You account has been created.",
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.green.withOpacity(0.1),
-              colorText: Colors.green),
-        )
-        .catchError((error, stackTrace) {
+  // Store User in Firestore
+  Future<void> createUser(UserModel user) async {
+    await _db.collection("Users").add(user.toJson()).whenComplete(
+      () => Get.snackbar("Success", "Your account has been created.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green.withOpacity(0.1),
+          colorText: Colors.green),
+    ).catchError((error, stackTrace) {
       Get.snackbar("Error", "Something went wrong. Try again",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.redAccent.withOpacity(0.1),
@@ -28,7 +24,7 @@ class UserRepository extends GetxController {
     });
   }
 
-  //Fetch User Details into "Edit Profile"
+  // Fetch User Details into "Edit Profile"
   Future<UserModel> getUserDetails(String email) async {
     final snapshot =
         await _db.collection("Users").where("Email", isEqualTo: email).get();
@@ -38,11 +34,29 @@ class UserRepository extends GetxController {
 
   Future<List<UserModel>> allUsers() async {
     final snapshot = await _db.collection("Users").get();
-    final userData =  snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
+    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
     return userData;
   }
 
   Future<void> updateUserRecord(UserModel user) async {
-    await _db.collection("Users").doc(user.id).update(user.toJson());
+    if (user.id != null) {
+      await _db.collection("Users").doc(user.id).update(user.toJson()).whenComplete(
+        () => Get.snackbar("Success", "Your profile has been updated.",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green.withOpacity(0.1),
+            colorText: Colors.green),
+      ).catchError((error, stackTrace) {
+        Get.snackbar("Error", "Something went wrong. Try again",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.redAccent.withOpacity(0.1),
+            colorText: Colors.red);
+        print(error.toString());
+      });
+    } else {
+      Get.snackbar("Error", "User ID is null",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent.withOpacity(0.1),
+          colorText: Colors.red);
+    }
   }
 }

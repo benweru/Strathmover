@@ -15,6 +15,7 @@ class UpdateProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
+    final txtTheme = Theme.of(context).textTheme; // Ensure txtTheme is defined
 
     return Scaffold(
       appBar: AppBar(
@@ -105,19 +106,24 @@ class UpdateProfileScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: tFormHeight - 20),
-                            TextFormField(
-                              controller: password,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                label: const Text(tPassword),
-                                prefixIcon:
-                                    const Icon(FontAwesomeIcons.fingerprint),
-                                suffixIcon: IconButton(
-                                  icon: const Icon(FontAwesomeIcons.eyeSlash),
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ),
+                            Obx(() => TextFormField(
+                                  controller: password,
+                                  obscureText: !controller.showPassword.value,
+                                  decoration: InputDecoration(
+                                    label: const Text(tPassword),
+                                    prefixIcon: const Icon(
+                                        FontAwesomeIcons.fingerprint),
+                                    suffixIcon: IconButton(
+                                      onPressed: () {
+                                        controller.showPassword.value =
+                                            !controller.showPassword.value;
+                                      },
+                                      icon: Icon(controller.showPassword.value
+                                          ? Icons.remove_red_eye_sharp
+                                          : Icons.remove_red_eye_outlined),
+                                    ),
+                                  ),
+                                )),
                             const SizedBox(height: tFormHeight),
 
                             // -- Form Submit Button
@@ -125,14 +131,16 @@ class UpdateProfileScreen extends StatelessWidget {
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  final updatedUserData = UserModel(
+                                  final updatedUser = UserModel(
+                                    id: userData.id, // Ensure the ID is passed
                                     email: email.text.trim(),
                                     password: password.text.trim(),
                                     fullName: fullName.text.trim(),
                                     phoneNo: phoneNo.text.trim(),
                                   );
-                                  await controller
-                                      .updateRecord(updatedUserData);
+                                  await controller.updateRecord(updatedUser);
+                                  Get.snackbar("Success", "Profile updated",
+                                      snackPosition: SnackPosition.BOTTOM);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: tPrimaryColor,
