@@ -74,7 +74,7 @@ const String tDashboardTopCourses = "Hey Stratizens!";
 const String tProfile = "Profile";
 const String tEditProfile = "Edit Profile";
 const String tLogoutDialogHeading = "Logout";
-const String tProfileHeading = "Coding with";
+const String tProfileHeading = "UserName";
 const String tProfileSubHeading = "Person";
 //Menu
 const String tMenu5 = "Logout";

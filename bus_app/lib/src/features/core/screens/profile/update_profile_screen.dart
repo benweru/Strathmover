@@ -16,6 +16,14 @@ class UpdateProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
     final txtTheme = Theme.of(context).textTheme; // Ensure txtTheme is defined
+    final UserModel currentUser = Get.arguments
+        as UserModel; // Assuming you pass UserModel from previous screen
+    final TextEditingController fullNameController =
+        TextEditingController(text: currentUser.fullName ?? '');
+    final TextEditingController emailController =
+        TextEditingController(text: currentUser.email ?? '');
+    final TextEditingController phoneNoController =
+        TextEditingController(text: currentUser.phoneNo ?? '');
 
     return Scaffold(
       appBar: AppBar(
@@ -132,11 +140,14 @@ class UpdateProfileScreen extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   final updatedUser = UserModel(
-                                    id: userData.id, // Ensure the ID is passed
-                                    email: email.text.trim(),
-                                    password: password.text.trim(),
-                                    fullName: fullName.text.trim(),
-                                    phoneNo: phoneNo.text.trim(),
+                                    id: currentUser.id,
+                                    fullName: fullNameController.text,
+                                    email: emailController.text,
+                                    phoneNo: phoneNoController.text,
+                                    password: currentUser
+                                        .password, // Ensure to update password accordingly if needed
+                                    profilePicture: currentUser
+                                        .profilePicture, // Use existing profile picture
                                   );
                                   await controller.updateRecord(updatedUser);
                                   Get.snackbar("Success", "Profile updated",
