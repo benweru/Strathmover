@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
 
-  Rx<UserModel> user = UserModel(
+  Rx<UserModel> user = const UserModel(
     id: '',
     email: '',
     password: '',

@@ -13,12 +13,14 @@ import '../../../../constants/text_strings.dart';
 import '../../../../repository/authentication_repository/authentication_repository.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key});
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
+    controller.getUserData(); // Fetch user data on initialization
     var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Scaffold(
       appBar: TAppBar(
         title: Text(tProfile, style: Theme.of(context).textTheme.headlineSmall),
@@ -42,22 +44,18 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Obx(() {
-                          final networkImage =
-                              controller.user.value?.profilePicture ?? '';
-                          final image = networkImage.isNotEmpty
-                              ? networkImage
-                              : tProfileImage;
+                          final networkImage = controller.user.value.profilePicture;
                           return controller.imageUploading.value
                               ? const CircularProgressIndicator()
-                              : CircularImage(
-                                  image: image,
-                                  width: 80,
-                                  height: 80,
-                                  isNetworkImage: networkImage.isNotEmpty);
+                              : CircleAvatar(
+                                  radius: 40,
+                                  backgroundImage: networkImage.isNotEmpty
+                                      ? NetworkImage(networkImage)
+                                      : const AssetImage(tProfileImage) as ImageProvider,
+                                );
                         }),
                         TextButton(
-                          onPressed: () => controller
-                              .uploadUserProfilePicture(controller.user.value),
+                          onPressed: () => controller.uploadUserProfilePicture(controller.user.value),
                           child: const Text('Change Profile Picture'),
                         ),
                       ],
@@ -83,10 +81,8 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(tProfileHeading,
-                  style: Theme.of(context).textTheme.headlineSmall),
-              Text(tProfileSubHeading,
-                  style: Theme.of(context).textTheme.bodySmall),
+              Text(tProfileHeading, style: Theme.of(context).textTheme.headlineSmall),
+              Text(tProfileSubHeading, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 20),
 
               /// -- BUTTON
@@ -99,8 +95,7 @@ class ProfileScreen extends StatelessWidget {
                     side: BorderSide.none,
                     shape: const StadiumBorder(),
                   ),
-                  child: const Text(tEditProfile,
-                      style: TextStyle(color: tDarkColor)),
+                  child: const Text(tEditProfile, style: TextStyle(color: tDarkColor)),
                 ),
               ),
               const SizedBox(height: 30),
@@ -108,27 +103,15 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 10),
 
               /// -- MENU
-              ProfileMenuWidget(
-                  title: "Settings",
-                  icon: Icons.settings,
-                  onPress: () {}), // Replace with appropriate icons
-              ProfileMenuWidget(
-                  title: "Billing Details",
-                  icon: Icons.account_balance_wallet,
-                  onPress: () {}), // Replace with appropriate icons
-              ProfileMenuWidget(
-                  title: "User Management",
-                  icon: Icons.person_add,
-                  onPress: () {}), // Replace with appropriate icons
+              ProfileMenuWidget(title: "Settings", icon: Icons.settings, onPress: () {}),
+              ProfileMenuWidget(title: "Transport Details", icon: Icons.account_balance_wallet, onPress: () {}),
+              ProfileMenuWidget(title: "User Management", icon: Icons.person_add, onPress: () {}),
               const Divider(),
               const SizedBox(height: 10),
-              ProfileMenuWidget(
-                  title: "Information",
-                  icon: Icons.info_outline,
-                  onPress: () {}), // Replace with appropriate icons
+              ProfileMenuWidget(title: "Information", icon: Icons.info_outline, onPress: () {}),
               ProfileMenuWidget(
                 title: "Logout",
-                icon: Icons.logout, // Replace with appropriate icons
+                icon: Icons.logout,
                 textColor: Colors.red,
                 endIcon: false,
                 onPress: () {
@@ -141,16 +124,12 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     confirm: Expanded(
                       child: ElevatedButton(
-                        onPressed: () =>
-                            AuthenticationRepository.instance.logout(),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.redAccent,
-                            side: BorderSide.none),
+                        onPressed: () => AuthenticationRepository.instance.logout(),
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, side: BorderSide.none),
                         child: const Text("Yes"),
                       ),
                     ),
-                    cancel: OutlinedButton(
-                        onPressed: () => Get.back(), child: const Text("No")),
+                    cancel: OutlinedButton(onPressed: () => Get.back(), child: const Text("No")),
                   );
                 },
               ),
