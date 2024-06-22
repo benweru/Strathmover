@@ -10,9 +10,8 @@ class NavigationController extends GetxController {
   final List<Widget> screens = [
     const HomeScreen(),
     Container(color: Colors.purple),
-    Container(color: Colors.blue), 
-    const ProfileScreen(),
     const BookingScreen(),
+    const ProfileScreen(),
     // Add more screens here as needed
   ];
 
