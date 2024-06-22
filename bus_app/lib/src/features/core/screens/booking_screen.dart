@@ -37,8 +37,25 @@ class BookingScreen extends StatelessWidget {
                     steps: [
                       Step(
                         title: const Text('Choose trip'),
-                        content: const Text(
-                            'Select which trip you would like to reserve a seat for'),
+                        content: Obx(() {
+                          if (controller.trips.isEmpty) {
+                            return const Text('No trips available for today.');
+                          }
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: controller.trips.length,
+                            itemBuilder: (context, index) {
+                              final trip = controller.trips[index];
+                              return ListTile(
+                                title: Text('Trip at ${trip.departureTime}'),
+                                subtitle: Text('Bus ID: ${trip.busId}'),
+                                onTap: () {
+                                  // Handle trip selection
+                                },
+                              );
+                            },
+                          );
+                        }),
                         isActive: controller.currentStep.value >= 0,
                       ),
                       Step(
