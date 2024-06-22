@@ -1,3 +1,4 @@
+import 'package:bus_app/src/features/core/screens/booking_screen.dart';
 import 'package:bus_app/src/features/core/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class NavigationController extends GetxController {
     Container(color: Colors.purple),
     Container(color: Colors.blue), 
     const ProfileScreen(),
+    const BookingScreen(),
     // Add more screens here as needed
   ];
 

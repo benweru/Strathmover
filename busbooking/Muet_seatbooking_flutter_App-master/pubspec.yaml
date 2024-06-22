@@ -29,6 +29,8 @@ dependencies:
   firebase_core: ^2.31.0
   firebase_auth: ^4.10.0
   cloud_firestore: ^4.9.2
+  im_stepper: any
+  
 
 dev_dependencies:
   flutter_test:

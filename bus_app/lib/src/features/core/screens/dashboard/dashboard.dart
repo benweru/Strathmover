@@ -4,7 +4,6 @@ import 'package:bus_app/src/features/core/screens/dashboard/widgets/navigation_m
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bus_app/src/features/core/controllers/logout_controller.dart';
-import 'package:bus_app/src/features/core/screens/dashboard/widgets/appbar.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/banners.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/categories.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/search.dart';

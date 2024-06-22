@@ -1,7 +1,6 @@
 import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/constants/images_strings.dart';
 import 'package:bus_app/src/constants/sizes.dart';
-import 'package:bus_app/src/constants/t_circular_image.dart';
 import 'package:bus_app/src/features/core/controllers/profile_controller.dart';
 import 'package:bus_app/src/features/core/screens/profile/update_profile_screen.dart';
 import 'package:bus_app/src/features/core/screens/profile/widgets/profile_menu_widget.dart';
@@ -13,7 +12,7 @@ import '../../../../constants/text_strings.dart';
 import '../../../../repository/authentication_repository/authentication_repository.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

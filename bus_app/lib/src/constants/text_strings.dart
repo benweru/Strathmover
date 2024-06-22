@@ -89,3 +89,9 @@ const String tJoinedAt = "Date";
 //Home
 const String thomeAppBarTitle = "Home Title";
 const String thomeAppBarSubTitle = "Home Title";
+//Booking
+const String tBooking = "Booking";
+const String tBookingHeading = "Make your Booking here";
+const String tBookingSubHeading = "reserve a seat Now";
+//const String thomeAppBarSubTitle = "Home Title";
+
