@@ -4,6 +4,7 @@ import 'package:bus_app/src/features/core/controllers/booking_controller.dart';
 import 'package:bus_app/src/features/core/utils/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:bus_app/src/features/authentication/models/trip_model.dart';
 
 class BookingScreen extends StatelessWidget {
   const BookingScreen({super.key});
@@ -32,53 +33,90 @@ class BookingScreen extends StatelessWidget {
                   Stepper(
                     currentStep: controller.currentStep.value,
                     onStepTapped: (step) => controller.goToStep(step),
-                    onStepContinue: controller.nextStep,
+                    onStepContinue: controller.currentStep.value == 1 &&
+                            controller.selectedTrip.value != null
+                        ? controller.bookSeat
+                        : controller.nextStep,
                     onStepCancel: controller.previousStep,
                     steps: [
                       Step(
                         title: const Text('Choose trip'),
                         content: Obx(() {
                           if (controller.trips.isEmpty) {
-                            return const Text('No trips available for today.');
+                            return const Text('No trips available for today');
                           }
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: controller.trips.length,
-                            itemBuilder: (context, index) {
-                              final trip = controller.trips[index];
+                          return Column(
+                            children: controller.trips.map((trip) {
                               return ListTile(
                                 title: Text('Trip at ${trip.departureTime}'),
-                                subtitle: Text('Bus ID: ${trip.busId}'),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Route: ${trip.route}'),
+                                    Text('Bus ID: ${trip.busId}'),
+                                  ],
+                                ),
                                 onTap: () {
-                                  // Handle trip selection
+                                  controller.selectTrip(trip);
+                                  controller.nextStep();
                                 },
                               );
-                            },
+                            }).toList(),
                           );
                         }),
                         isActive: controller.currentStep.value >= 0,
                       ),
                       Step(
                         title: const Text('Choose Seat'),
-                        content:
-                            const Text('Select from these available seats'),
+                        content: Obx(() {
+                          if (controller.availableSeats.isEmpty) {
+                            return const Text(
+                                'No available seats for the selected trip');
+                          }
+                          return Container(
+                            height:
+                                300, // Set a fixed height to make it scrollable
+                            child: ListView(
+                              children: controller.availableSeats.map((seat) {
+                                return ListTile(
+                                  title: Text('Seat $seat'),
+                                  onTap: () {
+                                    controller.selectSeat(seat);
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        }),
                         isActive: controller.currentStep.value >= 1,
                       ),
                       Step(
                         title: const Text('Confirm your selections'),
-                        content: const Text(
-                            'Ensure the selections made are correct'),
+                        content: Obx(() {
+                          if (controller.selectedTrip.value == null ||
+                              controller.selectedSeat.isEmpty) {
+                            return const Text('No selections made');
+                          }
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Selected Trip: ${controller.selectedTrip.value!.departureTime}'),
+                              Text(
+                                  'Route: ${controller.selectedTrip.value!.route}'),
+                              Text(
+                                  'Bus ID: ${controller.selectedTrip.value!.busId}'),
+                              Text(
+                                  'Selected Seat: ${controller.selectedSeat.value}'),
+                            ],
+                          );
+                        }),
                         isActive: controller.currentStep.value >= 2,
                       ),
                       Step(
                         title: const Text('Step 4'),
                         content: const Text('Content for Step 4'),
                         isActive: controller.currentStep.value >= 3,
-                      ),
-                      Step(
-                        title: const Text('Step 5'),
-                        content: const Text('Content for Step 5'),
-                        isActive: controller.currentStep.value >= 4,
                       ),
                     ],
                   ),
