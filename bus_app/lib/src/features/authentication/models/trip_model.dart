@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TripModel {
-  final String id;
-  final String departureTime;
-  final String busId;
-  final String date;
-  final String route;
+  String tripId;
+  String date;
+  String departureTime;
+  String busId;
+  String route;
 
   TripModel({
-    required this.id,
+    required this.tripId,
+    required this.date,
     required this.departureTime,
     required this.busId,
-    required this.date,
     required this.route,
   });
 
@@ -19,20 +19,11 @@ class TripModel {
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data()!;
     return TripModel(
-      id: snapshot.id,
-      departureTime: data['departureTime'] ?? '',
-      busId: data['busId'] ?? '',
-      date: data['date'] ?? '',
-      route: data['route'] ?? '',
+      tripId: snapshot.id, // use snapshot.id to get the document ID
+      date: data['date'],
+      departureTime: data['departureTime'],
+      busId: data['busId'],
+      route: data['route'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'departureTime': departureTime,
-      'busId': busId,
-      'date': date,
-      'route': route,
-    };
   }
 }

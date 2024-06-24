@@ -8,8 +8,8 @@ class BookingController extends GetxController {
 
   var currentStep = 0.obs;
   var trips = <TripModel>[].obs;
-  var availableSeats = <String>[].obs;
   var selectedTrip = Rx<TripModel?>(null);
+  var availableSeats = <String>[].obs;
   var selectedSeat = ''.obs;
 
   @override
@@ -19,7 +19,7 @@ class BookingController extends GetxController {
   }
 
   void nextStep() {
-    if (currentStep.value < 4) {
+    if (currentStep.value < 2) {
       currentStep.value++;
     }
   }
@@ -31,9 +31,18 @@ class BookingController extends GetxController {
   }
 
   void goToStep(int step) {
-    if (step >= 0 && step < 5) {
+    if (step >= 0 && step < 3) {
       currentStep.value = step;
     }
+  }
+
+  void selectTrip(TripModel trip) {
+    selectedTrip.value = trip;
+    fetchAvailableSeats(trip.busId);
+  }
+
+  void selectSeat(String seat) {
+    selectedSeat.value = seat;
   }
 
   void checkAndCreateTrips() async {
@@ -73,16 +82,6 @@ class BookingController extends GetxController {
         ...trip,
         'date': today,
       });
-
-      // Initialize bus seats
-      final busRef =
-          FirebaseFirestore.instance.collection('buses').doc(trip['busId']);
-      batch.update(busRef, {
-        'availableSeats': trip['busId'] == 'bus2'
-            ? List.generate(54, (index) => '${index + 1}')
-            : List.generate(44, (index) => '${index + 1}'),
-        'bookedSeats': [],
-      });
     }
 
     // Update the trip status document
@@ -95,49 +94,47 @@ class BookingController extends GetxController {
     fetchTrips();
   }
 
+  void showFetchError() {
+    Get.snackbar(
+      "Error",
+      "Failed to fetch trips.",
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
+  }
+
   void fetchTrips() async {
     try {
-      final date = DateTime.now();
-      final today = '${date.year}-${date.month}-${date.day}';
-      print("Fetching trips for date: $today");
-
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('trips')
-          .where('date', isEqualTo: today)
+          .where('date',
+              isEqualTo: DateTime.now().toIso8601String().split('T')[0])
           .get();
 
-      print("Trips fetched: ${snapshot.docs.length}");
+      List<TripModel> fetchedTrips = snapshot.docs
+          .map((doc) => TripModel.fromSnapshot(
+              doc as DocumentSnapshot<Map<String, dynamic>>))
+          .toList();
 
-      if (snapshot.docs.isEmpty) {
-        trips.clear();
-      } else {
-        List<TripModel> fetchedTrips = snapshot.docs
-            .map((doc) => TripModel.fromSnapshot(
-                doc as DocumentSnapshot<Map<String, dynamic>>))
-            .toList();
-
-        trips.value = fetchedTrips;
-      }
+      trips.value = fetchedTrips;
     } catch (e) {
       showFetchError();
       print("Error fetching trips: $e");
     }
   }
 
-  void selectTrip(TripModel trip) async {
-    selectedTrip.value = trip;
-    await fetchAvailableSeats(trip.busId);
-  }
-
-  Future<void> fetchAvailableSeats(String busId) async {
+  void fetchAvailableSeats(String busId) async {
     try {
       DocumentSnapshot busSnapshot =
           await FirebaseFirestore.instance.collection('buses').doc(busId).get();
+
       if (busSnapshot.exists) {
         Map<String, dynamic>? data =
             busSnapshot.data() as Map<String, dynamic>?;
         if (data != null) {
-          availableSeats.value = List<String>.from(data['availableSeats']);
+          List<String> seats = List<String>.from(data['availableSeats']);
+          availableSeats.value = seats;
         }
       }
     } catch (e) {
@@ -146,49 +143,64 @@ class BookingController extends GetxController {
     }
   }
 
-  void selectSeat(String seat) {
-    selectedSeat.value = seat;
-  }
+  void confirmBooking() async {
+    final trip = selectedTrip.value;
+    final seat = selectedSeat.value;
 
-  Future<void> bookSeat() async {
-    if (selectedTrip.value == null || selectedSeat.isEmpty) return;
+    if (trip != null && seat.isNotEmpty) {
+      try {
+        final busDoc =
+            FirebaseFirestore.instance.collection('buses').doc(trip.busId);
 
-    try {
-      final busDoc = FirebaseFirestore.instance
-          .collection('buses')
-          .doc(selectedTrip.value!.busId);
-      await FirebaseFirestore.instance.runTransaction((transaction) async {
-        DocumentSnapshot busSnapshot = await transaction.get(busDoc);
-        if (busSnapshot.exists) {
-          List<String> available =
-              List<String>.from(busSnapshot['availableSeats']);
-          List<String> booked = List<String>.from(busSnapshot['bookedSeats']);
-          if (available.contains(selectedSeat.value)) {
-            available.remove(selectedSeat.value);
-            booked.add(selectedSeat.value);
-            transaction.update(busDoc, {
-              'availableSeats': available,
-              'bookedSeats': booked,
-            });
-          } else {
-            throw Exception('Seat is not available');
+        final bookingDoc =
+            FirebaseFirestore.instance.collection('bookings').doc();
+
+        await FirebaseFirestore.instance.runTransaction((transaction) async {
+          DocumentSnapshot busSnapshot = await transaction.get(busDoc);
+
+          if (!busSnapshot.exists) {
+            throw Exception("Bus does not exist!");
           }
-        }
-      });
-      nextStep();
-    } catch (e) {
-      showFetchError();
-      print("Error booking seat: $e");
-    }
-  }
 
-  void showFetchError() {
-    Get.snackbar(
-      "Error",
-      "Failed to fetch trips or seats.",
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
-    );
+          List<String> availableSeats =
+              List<String>.from(busSnapshot['availableSeats']);
+          List<String> bookedSeats =
+              List<String>.from(busSnapshot['bookedSeats']);
+
+          if (!availableSeats.contains(seat)) {
+            throw Exception("Seat is not available");
+          }
+
+          availableSeats.remove(seat);
+          bookedSeats.add(seat);
+
+          transaction.update(busDoc, {
+            'availableSeats': availableSeats,
+            'bookedSeats': bookedSeats,
+          });
+
+          transaction.set(bookingDoc, {
+            'tripId': trip.tripId,
+            'userId': 'some_user_id', // Replace with actual user ID
+            'seat': seat,
+            'date': trip.date,
+            'departureTime': trip.departureTime,
+            'route': trip.route,
+            'busId': trip.busId,
+          });
+        });
+
+        Get.snackbar(
+          "Success",
+          "Booking confirmed!",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      } catch (e) {
+        showFetchError();
+        print("Error confirming booking: $e");
+      }
+    }
   }
 }

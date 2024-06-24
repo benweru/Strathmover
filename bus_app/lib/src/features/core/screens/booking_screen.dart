@@ -4,7 +4,6 @@ import 'package:bus_app/src/features/core/controllers/booking_controller.dart';
 import 'package:bus_app/src/features/core/utils/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:bus_app/src/features/authentication/models/trip_model.dart';
 
 class BookingScreen extends StatelessWidget {
   const BookingScreen({super.key});
@@ -33,33 +32,52 @@ class BookingScreen extends StatelessWidget {
                   Stepper(
                     currentStep: controller.currentStep.value,
                     onStepTapped: (step) => controller.goToStep(step),
-                    onStepContinue: controller.currentStep.value == 1 &&
-                            controller.selectedTrip.value != null
-                        ? controller.bookSeat
-                        : controller.nextStep,
+                    onStepContinue: () {
+                      if (controller.currentStep.value == 2) {
+                        controller.confirmBooking();
+                      } else {
+                        controller.nextStep();
+                      }
+                    },
                     onStepCancel: controller.previousStep,
+                    controlsBuilder: (context, details) {
+                      final isLastStep = controller.currentStep.value == 2;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (controller.currentStep.value > 0)
+                            ElevatedButton(
+                              onPressed: details.onStepCancel,
+                              child: const Text('Previous'),
+                            ),
+                          ElevatedButton(
+                            onPressed: details.onStepContinue,
+                            child: Text(isLastStep ? 'Confirm' : 'Next'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  isLastStep ? Colors.green : Colors.blue),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                     steps: [
                       Step(
                         title: const Text('Choose trip'),
                         content: Obx(() {
                           if (controller.trips.isEmpty) {
-                            return const Text('No trips available for today');
+                            return const Text('No available trips for today.');
                           }
                           return Column(
                             children: controller.trips.map((trip) {
                               return ListTile(
-                                title: Text('Trip at ${trip.departureTime}'),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Route: ${trip.route}'),
-                                    Text('Bus ID: ${trip.busId}'),
-                                  ],
-                                ),
-                                onTap: () {
-                                  controller.selectTrip(trip);
-                                  controller.nextStep();
-                                },
+                                title: Text(
+                                    '${trip.departureTime} - ${trip.route}'),
+                                subtitle: Text('Bus ID: ${trip.busId}'),
+                                selected:
+                                    controller.selectedTrip.value?.tripId ==
+                                        trip.tripId,
+                                onTap: () => controller.selectTrip(trip),
                               );
                             }).toList(),
                           );
@@ -70,21 +88,25 @@ class BookingScreen extends StatelessWidget {
                         title: const Text('Choose Seat'),
                         content: Obx(() {
                           if (controller.availableSeats.isEmpty) {
-                            return const Text(
-                                'No available seats for the selected trip');
+                            return const Text('No available seats.');
                           }
-                          return Container(
-                            height:
-                                300, // Set a fixed height to make it scrollable
-                            child: ListView(
-                              children: controller.availableSeats.map((seat) {
-                                return ListTile(
-                                  title: Text('Seat $seat'),
-                                  onTap: () {
-                                    controller.selectSeat(seat);
-                                  },
-                                );
-                              }).toList(),
+                          return SizedBox(
+                            height: 300, // Adjust height as needed
+                            child: SingleChildScrollView(
+                              child: Wrap(
+                                spacing: 8.0,
+                                runSpacing: 4.0,
+                                children: controller.availableSeats.map((seat) {
+                                  return ChoiceChip(
+                                    label: Text(seat),
+                                    selected:
+                                        controller.selectedSeat.value == seat,
+                                    onSelected: (selected) {
+                                      controller.selectSeat(seat);
+                                    },
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           );
                         }),
@@ -93,47 +115,23 @@ class BookingScreen extends StatelessWidget {
                       Step(
                         title: const Text('Confirm your selections'),
                         content: Obx(() {
-                          if (controller.selectedTrip.value == null ||
-                              controller.selectedSeat.isEmpty) {
-                            return const Text('No selections made');
+                          final trip = controller.selectedTrip.value;
+                          final seat = controller.selectedSeat.value;
+                          if (trip == null || seat.isEmpty) {
+                            return const Text('No trip or seat selected.');
                           }
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                  'Selected Trip: ${controller.selectedTrip.value!.departureTime}'),
-                              Text(
-                                  'Route: ${controller.selectedTrip.value!.route}'),
-                              Text(
-                                  'Bus ID: ${controller.selectedTrip.value!.busId}'),
-                              Text(
-                                  'Selected Seat: ${controller.selectedSeat.value}'),
+                                  'Trip: ${trip.departureTime} - ${trip.route}'),
+                              Text('Bus ID: ${trip.busId}'),
+                              Text('Seat: $seat'),
                             ],
                           );
                         }),
                         isActive: controller.currentStep.value >= 2,
                       ),
-                      Step(
-                        title: const Text('Step 4'),
-                        content: const Text('Content for Step 4'),
-                        isActive: controller.currentStep.value >= 3,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (controller.currentStep.value > 0)
-                        ElevatedButton(
-                          onPressed: controller.previousStep,
-                          child: const Text('Previous'),
-                        ),
-                      if (controller.currentStep.value < 4)
-                        ElevatedButton(
-                          onPressed: controller.nextStep,
-                          child: const Text('Next'),
-                        ),
                     ],
                   ),
                 ],
