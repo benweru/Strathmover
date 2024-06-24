@@ -48,3 +48,4 @@ const double imageCarouselHeight = 200.0;
 const double loadingIndicatorSize = 36.0;
 // Grid view spacing
 const double gridViewSpacing = 16.0;
+

@@ -22,7 +22,7 @@ class DashboardAppBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: isDarkMode ? tSecondaryColor : tCardBgColor,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

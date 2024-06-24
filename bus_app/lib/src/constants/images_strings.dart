@@ -30,5 +30,5 @@ const String user = "";
 //icons
 const String tBookmarkIcon = "assets/images/icons/bookmark-icon.png";
 
-//PRofile Images
+//Profile Images
 const String tProfileImage = "assets/images/profile/profile-pic.jpg";

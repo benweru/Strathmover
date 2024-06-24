@@ -11,16 +11,31 @@ class THomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TAppBar(title: Column(
-      children: [
-        Text(thomeAppBarTitle, style: Theme.of(context).textTheme.bodyMedium?.apply(color: tWhiteColor)),
-        Text(thomeAppBarSubTitle, style: Theme.of(context).textTheme.bodyMedium?.apply(color: tWhiteColor)),
-      ],
+    return TAppBar(
+      title: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 50,
+        ),
+        child: Column(
+          children: [
+            Text(
+              thomeAppBarTitle,
+              style: Theme.of(context).textTheme.bodyMedium?.apply(color: tWhiteColor),
+            ),
+            Text(
+              thomeAppBarSubTitle,
+              style: Theme.of(context).textTheme.bodyMedium?.apply(color: tWhiteColor),
+            ),
+          ],
+        ),
       ),
       actions: [
-        TCartCounterIcon(onPressed: () {}, iconColor: tWhiteColor,)
+        TCartCounterIcon(
+          onPressed: () {},
+          iconColor: tWhiteColor,
+        ),
       ],
     );
   }
 }
-

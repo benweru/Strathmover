@@ -80,7 +80,14 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(tProfileHeading, style: Theme.of(context).textTheme.headlineSmall),
+              Obx(() {
+                return Text(
+                  controller.user.value.fullName.isNotEmpty
+                      ? controller.user.value.fullName
+                      : tProfileHeading,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                );
+              }),
               Text(tProfileSubHeading, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 20),
 

@@ -1,3 +1,4 @@
+import 'package:bus_app/src/constants/routes.dart';
 import 'package:bus_app/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.leftToRightWithFade,
       transitionDuration: const Duration(milliseconds: 500),
+      getPages: AppRoutes.routes,
       home: SplashScreen(),
     );
   }

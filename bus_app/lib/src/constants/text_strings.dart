@@ -75,7 +75,7 @@ const String tProfile = "Profile";
 const String tEditProfile = "Edit Profile";
 const String tLogoutDialogHeading = "Logout";
 const String tProfileHeading = "UserName";
-const String tProfileSubHeading = "Person";
+const String tProfileSubHeading = "Passenger";
 //Menu
 const String tMenu5 = "Logout";
 const String tMenu1 = "Settings";
