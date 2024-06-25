@@ -4,6 +4,7 @@ import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/core/controllers/profile_controller.dart';
 import 'package:bus_app/src/features/core/screens/profile/update_profile_screen.dart';
 import 'package:bus_app/src/features/core/screens/profile/widgets/profile_menu_widget.dart';
+import 'package:bus_app/src/features/core/screens/settings/settings_screen.dart';
 import 'package:bus_app/src/features/core/utils/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -109,9 +110,23 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 10),
 
               /// -- MENU
-              ProfileMenuWidget(title: "Settings", icon: Icons.settings, onPress: () {}),
-              ProfileMenuWidget(title: "Transport Details", icon: Icons.account_balance_wallet, onPress: () {}),
-              ProfileMenuWidget(title: "User Management", icon: Icons.person_add, onPress: () {}),
+              ProfileMenuWidget(
+                title: "Settings", 
+                icon: Icons.settings, 
+                onPress: () {
+                  Get.to(() => const SettingsScreen());
+                }
+                ),
+              ProfileMenuWidget(
+                title: "Transport Details", 
+                icon: Icons.account_balance_wallet, 
+                onPress: () {}
+                ),
+              ProfileMenuWidget(
+                title: "User Feedback", 
+                icon: Icons.person_add, 
+                onPress: () {}
+                ),
               const Divider(),
               const SizedBox(height: 10),
               ProfileMenuWidget(title: "Information", icon: Icons.info_outline, onPress: () {}),

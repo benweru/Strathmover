@@ -22,7 +22,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: true,
+      
       child: Container(
         color: Colors.transparent, // Ensure the AppBar does not have its own background color
         padding: const EdgeInsets.symmetric(horizontal: tDashboardPadding),

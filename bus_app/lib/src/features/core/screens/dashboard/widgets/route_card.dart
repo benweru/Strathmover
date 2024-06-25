@@ -16,7 +16,7 @@ class RouteCard extends StatelessWidget {
       child: GestureDetector(
         child: Card(
           elevation: buttonElevation,
-          color: tAccentColor,
+          color: tAccentColor.withOpacity(0.5),
           child: Row(
             children: [
               SizedBox(

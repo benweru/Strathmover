@@ -88,7 +88,7 @@ class ScheduleCard extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Colors.grey.withOpacity(0.7),
         borderRadius: BorderRadius.circular(10),
       ),
       width: double.infinity,
