@@ -1,5 +1,6 @@
 import 'package:bus_app/src/features/core/screens/booking_screen.dart';
 import 'package:bus_app/src/features/core/screens/profile/profile_screen.dart';
+import 'package:bus_app/src/features/core/screens/routes/routes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/home.dart';
@@ -9,7 +10,7 @@ class NavigationController extends GetxController {
 
   final List<Widget> screens = [
     const HomeScreen(),
-    Container(color: Colors.purple),
+    const RoutesScreen(),
     const BookingScreen(),
     const ProfileScreen(),
     // Add more screens here as needed
