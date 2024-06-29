@@ -1,13 +1,13 @@
-import 'package:bus_app/src/constants/colours.dart';
-import 'package:bus_app/src/constants/sizes.dart';
-import 'package:bus_app/src/features/core/controllers/profile_controller.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/booking_card.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/route_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:bus_app/src/constants/sizes.dart';
+import 'package:bus_app/src/features/core/controllers/profile_controller.dart';
+import 'package:bus_app/src/features/authentication/models/route_model.dart'; // Import your RouteModel
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,13 +16,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ProfileController profileController = Get.put(ProfileController());
 
+  List<RouteModel> favoriteRoutes = []; // List to store favorite routes
+
   @override
   void initState() {
     super.initState();
+    fetchFavoriteRoutes(); // Fetch favorite routes on initialization
     profileController.getUserData().then((user) {
       if (user != null) {
         profileController.user.value = user;
       }
+    });
+  }
+
+  void fetchFavoriteRoutes() {
+    // Replace with actual logic to fetch favorite routes from Firebase or any other source
+    // For demonstration, assume some routes are fetched
+    setState(() {
+      favoriteRoutes = [
+        RouteModel(name: 'Route A', points: []),
+        RouteModel(name: 'Route B', points: []),
+      ];
     });
   }
 
@@ -48,9 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     Obx(() {
                       return Text(
-                        'Welcome, ${profileController.user.value.fullName.isNotEmpty
-                            ? profileController.user.value.fullName
-                            : 'User'}',
+                        'Welcome, ${profileController.user.value.fullName.isNotEmpty ? profileController.user.value.fullName : 'User'}',
                         style: textTheme.headlineSmall?.copyWith(
                           color: colorScheme.onBackground,
                         ),
@@ -61,11 +73,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         return CircleAvatar(
                           radius: 30,
                           backgroundImage: profileController
-                                      .user.value.profilePicture.isNotEmpty
+                                  .user.value.profilePicture.isNotEmpty
                               ? NetworkImage(
                                   profileController.user.value.profilePicture)
                               : AssetImage(
-                                  'assets/images/profile/profile-pic.jpg')
+                                      'assets/images/profile/profile-pic.jpg')
                                   as ImageProvider,
                         );
                       }),
@@ -76,18 +88,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 const BookingCard(),
                 const SizedBox(height: tDashboardPadding),
                 Text(
-                  'Fave Routes idk man',
+                  'Favorite Routes',
                   style: textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w300,
                     color: colorScheme.onBackground,
                   ),
                 ),
-                const Column(
-                  children: <Widget>[
-                    RouteCard(),
-                    RouteCard(),
-                    RouteCard(),
-                  ],
+                const SizedBox(height: 10),
+                Column(
+                  children: favoriteRoutes
+                      .map((route) => RouteCard(route: route))
+                      .toList(),
                 ),
               ],
             ),

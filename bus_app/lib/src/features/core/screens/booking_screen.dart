@@ -72,7 +72,7 @@ class BookingScreen extends StatelessWidget {
                             children: controller.trips.map((trip) {
                               return ListTile(
                                 title: Text(
-                                    '${trip.departureTime} - ${trip.route}'),
+                                    'Trip at ${trip.departureTime} - Route: ${trip.route}'),
                                 subtitle: Text('Bus ID: ${trip.busId}'),
                                 selected:
                                     controller.selectedTrip.value?.tripId ==

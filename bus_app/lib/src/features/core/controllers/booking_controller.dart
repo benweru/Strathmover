@@ -36,13 +36,30 @@ class BookingController extends GetxController {
     }
   }
 
-  void selectTrip(TripModel trip) {
-    selectedTrip.value = trip;
-    fetchAvailableSeats(trip.busId);
-  }
+  void fetchTrips() async {
+    try {
+      final date = DateTime.now();
+      final today = '${date.year}-${date.month}-${date.day}';
 
-  void selectSeat(String seat) {
-    selectedSeat.value = seat;
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('trips')
+          .where('date', isEqualTo: today)
+          .get();
+
+      if (snapshot.docs.isEmpty) {
+        trips.clear();
+      } else {
+        List<TripModel> fetchedTrips = snapshot.docs
+            .map((doc) => TripModel.fromSnapshot(
+                doc as DocumentSnapshot<Map<String, dynamic>>))
+            .toList();
+
+        trips.value = fetchedTrips;
+      }
+    } catch (e) {
+      showFetchError();
+      print("Error fetching trips: $e");
+    }
   }
 
   void checkAndCreateTrips() async {
@@ -82,6 +99,16 @@ class BookingController extends GetxController {
         ...trip,
         'date': today,
       });
+
+      // Initialize bus seats
+      final busRef =
+          FirebaseFirestore.instance.collection('buses').doc(trip['busId']);
+      batch.update(busRef, {
+        'availableSeats': trip['busId'] == 'bus2'
+            ? List.generate(54, (index) => '${index + 1}')
+            : List.generate(44, (index) => '${index + 1}'),
+        'bookedSeats': [],
+      });
     }
 
     // Update the trip status document
@@ -94,6 +121,15 @@ class BookingController extends GetxController {
     fetchTrips();
   }
 
+  void selectTrip(TripModel trip) {
+    selectedTrip.value = trip;
+    fetchAvailableSeats(trip.busId);
+  }
+
+  void selectSeat(String seat) {
+    selectedSeat.value = seat;
+  }
+
   void showFetchError() {
     Get.snackbar(
       "Error",
@@ -102,26 +138,6 @@ class BookingController extends GetxController {
       backgroundColor: Colors.red,
       colorText: Colors.white,
     );
-  }
-
-  void fetchTrips() async {
-    try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection('trips')
-          .where('date',
-              isEqualTo: DateTime.now().toIso8601String().split('T')[0])
-          .get();
-
-      List<TripModel> fetchedTrips = snapshot.docs
-          .map((doc) => TripModel.fromSnapshot(
-              doc as DocumentSnapshot<Map<String, dynamic>>))
-          .toList();
-
-      trips.value = fetchedTrips;
-    } catch (e) {
-      showFetchError();
-      print("Error fetching trips: $e");
-    }
   }
 
   void fetchAvailableSeats(String busId) async {

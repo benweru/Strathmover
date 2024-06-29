@@ -1,27 +1,15 @@
 class RoutePoint {
-  String name;
-  String description;
-  bool isBusStop;
+  final String name;
+  final String? description;
+  final bool isBusStop;
 
-  RoutePoint({
-    required this.name,
-    required this.description,
-    required this.isBusStop,
-  });
+  RoutePoint({required this.name, this.description, required this.isBusStop});
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'description': description,
-      'isBusStop': isBusStop,
-    };
-  }
-
-  static RoutePoint fromMap(Map<String, dynamic> map) {
+  factory RoutePoint.fromMap(Map<String, dynamic> map) {
     return RoutePoint(
       name: map['name'],
       description: map['description'],
-      isBusStop: map['isBusStop'],
+      isBusStop: map['isBusStop'] ?? false, // default to false if not provided
     );
   }
 }

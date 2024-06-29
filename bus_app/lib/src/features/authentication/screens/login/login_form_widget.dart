@@ -2,6 +2,7 @@ import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/constants/text_strings.dart';
 import 'package:bus_app/src/features/authentication/controllers/login_controller.dart';
 import 'package:bus_app/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
+import 'package:bus_app/src/features/core/controllers/booking_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +12,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
+    // Initialize BookingController
 
     return Form(
       key: controller.loginFormKey,

@@ -1,11 +1,10 @@
 import 'package:bus_app/src/features/authentication/models/route_model.dart';
-import 'package:bus_app/src/features/core/screens/routes/routes_details.dart';
+import 'package:bus_app/src/features/core/screens/dashboard/widgets/route_card.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RoutesScreen extends StatelessWidget {
-  const RoutesScreen({super.key});
+  const RoutesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +25,7 @@ class RoutesScreen extends StatelessWidget {
             itemCount: routes.length,
             itemBuilder: (context, index) {
               final route = routes[index];
-              return ListTile(
-                title: Text(route.name),
-                subtitle: Text('${route.points.length} points'),
-                onTap: () => Get.to(() => RouteDetailScreen(route: route)),
-              );
+              return RouteCard(route: route);
             },
           );
         },

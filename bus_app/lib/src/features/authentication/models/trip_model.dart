@@ -15,15 +15,14 @@ class TripModel {
     required this.route,
   });
 
-  factory TripModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+  factory TripModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data()!;
     return TripModel(
       tripId: snapshot.id, // use snapshot.id to get the document ID
-      date: data['date'],
-      departureTime: data['departureTime'],
-      busId: data['busId'],
-      route: data['route'],
+      date: data['date'] ?? '',
+      departureTime: data['departureTime'] ?? '',
+      busId: data['busId'] ?? '',
+      route: data['route'] ?? '',
     );
   }
 }

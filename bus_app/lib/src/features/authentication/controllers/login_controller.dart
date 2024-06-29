@@ -19,6 +19,7 @@ class LoginController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  
   /// TextField Validation
 
   // Call this Function from Design & it will do the rest
@@ -83,4 +84,5 @@ class LoginController extends GetxController {
           colorText: Colors.white);
     }
   }
+  
 }
