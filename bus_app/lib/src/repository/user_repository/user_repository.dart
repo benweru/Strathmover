@@ -12,6 +12,7 @@ class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
   final _db = FirebaseFirestore.instance;
+  final _storage = FirebaseStorage.instance;
 
   // Store User in Firestore
   Future<void> createUser(UserModel user) async {

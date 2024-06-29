@@ -24,12 +24,12 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: TAppBar(
         title: Text(tProfile, style: Theme.of(context).textTheme.headlineSmall),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {},
+        //     icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -44,38 +44,19 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Obx(() {
-                          final networkImage = controller.user.value.profilePicture;
+                          final networkImage =
+                              controller.user.value.profilePicture;
                           return controller.imageUploading.value
                               ? const CircularProgressIndicator()
                               : CircleAvatar(
                                   radius: 40,
                                   backgroundImage: networkImage.isNotEmpty
                                       ? NetworkImage(networkImage)
-                                      : const AssetImage(tProfileImage) as ImageProvider,
+                                      : const AssetImage(tProfileImage)
+                                          as ImageProvider,
                                 );
                         }),
-                        TextButton(
-                          onPressed: () => controller.uploadUserProfilePicture(controller.user.value),
-                          child: const Text('Change Profile Picture'),
-                        ),
                       ],
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: tPrimaryColor,
-                      ),
-                      child: const Icon(
-                        Icons.edit,
-                        color: Colors.black,
-                        size: 20,
-                      ),
                     ),
                   ),
                 ],
@@ -89,20 +70,23 @@ class ProfileScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineSmall,
                 );
               }),
-              Text(tProfileSubHeading, style: Theme.of(context).textTheme.bodySmall),
+              Text(tProfileSubHeading,
+                  style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 20),
 
               /// -- BUTTON
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(() => const UpdateProfileScreen()),
+                  onPressed: () => Get.to(() => const UpdateProfileScreen(),
+                      arguments: controller.user.value),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: tPrimaryColor,
                     side: BorderSide.none,
                     shape: const StadiumBorder(),
                   ),
-                  child: const Text(tEditProfile, style: TextStyle(color: tDarkColor)),
+                  child: const Text(tEditProfile,
+                      style: TextStyle(color: tDarkColor)),
                 ),
               ),
               const SizedBox(height: 30),
@@ -111,25 +95,25 @@ class ProfileScreen extends StatelessWidget {
 
               /// -- MENU
               ProfileMenuWidget(
-                title: "Settings", 
-                icon: Icons.settings, 
-                onPress: () {
-                  Get.to(() => const SettingsScreen());
-                }
-                ),
+                  title: "Settings",
+                  icon: Icons.settings,
+                  onPress: () {
+                    Get.to(() => const SettingsScreen());
+                  }),
               ProfileMenuWidget(
-                title: "Transport Details", 
-                icon: Icons.account_balance_wallet, 
-                onPress: () {}
-                ),
+                  title: "Transport Details",
+                  icon: Icons.account_balance_wallet,
+                  onPress: () {}),
               ProfileMenuWidget(
-                title: "User Feedback", 
-                icon: Icons.person_add, 
-                onPress: () {}
-                ),
+                  title: "User Feedback",
+                  icon: Icons.person_add,
+                  onPress: () {}),
               const Divider(),
               const SizedBox(height: 10),
-              ProfileMenuWidget(title: "Information", icon: Icons.info_outline, onPress: () {}),
+              ProfileMenuWidget(
+                  title: "Information",
+                  icon: Icons.info_outline,
+                  onPress: () {}),
               ProfileMenuWidget(
                 title: "Logout",
                 icon: Icons.logout,
@@ -145,12 +129,16 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     confirm: Expanded(
                       child: ElevatedButton(
-                        onPressed: () => AuthenticationRepository.instance.logout(),
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, side: BorderSide.none),
+                        onPressed: () =>
+                            AuthenticationRepository.instance.logout(),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.redAccent,
+                            side: BorderSide.none),
                         child: const Text("Yes"),
                       ),
                     ),
-                    cancel: OutlinedButton(onPressed: () => Get.back(), child: const Text("No")),
+                    cancel: OutlinedButton(
+                        onPressed: () => Get.back(), child: const Text("No")),
                   );
                 },
               ),

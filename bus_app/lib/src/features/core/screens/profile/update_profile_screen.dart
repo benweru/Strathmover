@@ -16,8 +16,19 @@ class UpdateProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
     final txtTheme = Theme.of(context).textTheme; // Ensure txtTheme is defined
-    final UserModel currentUser = Get.arguments
-        as UserModel; // Assuming you pass UserModel from previous screen
+    final UserModel? currentUser = Get.arguments
+        as UserModel?; // Assuming you pass UserModel from previous screen
+    if (currentUser == null) {
+      // If the currentUser is null, display an error message or handle it accordingly
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Error'),
+        ),
+        body: Center(
+          child: Text('User data is not available.'),
+        ),
+      );
+    }
     final TextEditingController fullNameController =
         TextEditingController(text: currentUser.fullName ?? '');
     final TextEditingController emailController =
@@ -53,37 +64,33 @@ class UpdateProfileScreen extends StatelessWidget {
 
                   return Column(
                     children: [
-                      // -- IMAGE with ICON
-                      Stack(
-                        children: [
-                          SizedBox(
-                            width: 120,
-                            height: 120,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child:
-                                  const Image(image: AssetImage(tProfileImage)),
+                      SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          children: [
+                            Obx(() {
+                              final networkImage =
+                                  controller.user.value.profilePicture;
+                              return controller.imageUploading.value
+                                  ? const CircularProgressIndicator()
+                                  : CircleAvatar(
+                                      radius: 40,
+                                      backgroundImage: networkImage.isNotEmpty
+                                          ? NetworkImage(networkImage)
+                                          : const AssetImage(tProfileImage)
+                                              as ImageProvider,
+                                    );
+                            }),
+                            TextButton(
+                              onPressed: () =>
+                                  controller.uploadUserProfilePicture(
+                                      controller.user.value),
+                              child: const Text('Change Profile Picture'),
                             ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: tPrimaryColor,
-                              ),
-                              child: const Icon(
-                                FontAwesomeIcons.camera,
-                                color: Colors.black,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
+
                       const SizedBox(height: 50),
 
                       // -- Form Fields
@@ -140,12 +147,12 @@ class UpdateProfileScreen extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   final updatedUser = UserModel(
-                                    id: currentUser.id,
-                                    fullName: fullNameController.text,
-                                    email: emailController.text,
-                                    phoneNo: phoneNoController.text,
-                                    password: currentUser
-                                        .password, // Ensure to update password accordingly if needed
+                                    id: userData.id,
+                                    fullName: fullName.text.trim(),
+                                    email: email.text.trim(),
+                                    phoneNo: phoneNo.text.trim(),
+                                    password: password.text
+                                        .trim(), // Ensure to update password accordingly if needed
                                     profilePicture: currentUser
                                         .profilePicture, // Use existing profile picture
                                   );

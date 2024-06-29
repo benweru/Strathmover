@@ -26,10 +26,15 @@ class ProfileController extends GetxController {
   final _userRepo = Get.put(UserRepository());
 
   /// Get User Email and pass to UserRepository to fetch user record.
+  // ignore: body_might_complete_normally_nullable
   Future<UserModel?> getUserData() async {
     final email = _authRepo.firebaseUser.value?.email;
     if (email != null) {
-      return await _userRepo.getUserDetails(email);
+      final userDetails = await _userRepo.getUserDetails(email);
+      if (userDetails != null) {
+        user.value = userDetails;
+        return userDetails;
+      }
     } else {
       Get.snackbar("Error", "Login to continue");
       return null;
@@ -40,8 +45,9 @@ class ProfileController extends GetxController {
     return await _userRepo.allUsers();
   }
 
-  updateRecord(UserModel user) async {
-    await _userRepo.updateUserRecord(user);
+  Future<void> updateRecord(UserModel updatedUser) async {
+    await _userRepo.updateUserRecord(updatedUser);
+    user.value = updatedUser; // Update the observable user model
   }
 
 // Upload User Profile Picture

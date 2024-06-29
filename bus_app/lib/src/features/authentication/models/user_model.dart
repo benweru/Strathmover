@@ -17,7 +17,7 @@ class UserModel {
     required this.profilePicture,
   });
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       "FullName": fullName,
       "Email": email,
@@ -27,7 +27,8 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory UserModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return UserModel(
       id: document.id,
