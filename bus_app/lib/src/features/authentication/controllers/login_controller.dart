@@ -1,3 +1,4 @@
+import 'package:bus_app/src/features/core/controllers/booking_controller.dart';
 import 'package:bus_app/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,6 @@ class LoginController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  
   /// TextField Validation
 
   // Call this Function from Design & it will do the rest
@@ -40,6 +40,9 @@ class LoginController extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
+
+        // Call onUserLoggedIn
+        onUserLoggedIn(_auth.currentUser);
       } else {
         // Show error message
         Get.snackbar(
@@ -62,7 +65,8 @@ class LoginController extends GetxController {
         return; // The user canceled the sign-in
       }
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -75,6 +79,9 @@ class LoginController extends GetxController {
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.green,
           colorText: Colors.white);
+
+      // Call onUserLoggedIn
+      onUserLoggedIn(_auth.currentUser);
     } catch (e) {
       isGoogleLoading.value = false;
       Get.snackbar("Error", "Google sign-in failed: ${e.toString()}",
@@ -84,5 +91,11 @@ class LoginController extends GetxController {
           colorText: Colors.white);
     }
   }
-  
+
+  void onUserLoggedIn(User? user) {
+    if (user != null) {
+      final bookingController = Get.find<BookingController>();
+      bookingController.fetchUserBooking();
+    }
+  }
 }

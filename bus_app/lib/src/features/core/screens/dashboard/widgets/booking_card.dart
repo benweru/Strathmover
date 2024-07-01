@@ -1,6 +1,8 @@
 import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:bus_app/src/features/core/controllers/booking_controller.dart';
 
 class BookingCard extends StatefulWidget {
   const BookingCard({super.key});
@@ -10,6 +12,20 @@ class BookingCard extends StatefulWidget {
 }
 
 class _BookingCardState extends State<BookingCard> {
+  final BookingController bookingController = Get.put(BookingController());
+
+  @override
+  void initState() {
+    super.initState();
+    bookingController.fetchUserBooking();
+  }
+
+  @override
+  void dispose() {
+    bookingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -33,7 +49,8 @@ class _BookingCardState extends State<BookingCard> {
                     children: <Widget>[
                       Text(
                         'My Bookings',
-                        style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+                        style:
+                            textTheme.bodyMedium?.copyWith(color: tWhiteColor),
                       ),
                       const SizedBox(height: 2),
                     ],
@@ -41,7 +58,21 @@ class _BookingCardState extends State<BookingCard> {
                 ],
               ),
               const SizedBox(height: 10),
-              const ScheduleCard(),
+              Obx(() {
+                final userBooking = bookingController.userBooking.value;
+                if (userBooking == null) {
+                  return Text(
+                    'No bookings for today',
+                    style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+                  );
+                } else {
+                  return ScheduleCard(
+                    date: userBooking.date,
+                    departureTime: userBooking.departureTime,
+                    route: userBooking.route,
+                  );
+                }
+              }),
               const SizedBox(height: 10),
               Row(
                 children: [
@@ -52,9 +83,12 @@ class _BookingCardState extends State<BookingCard> {
                       ),
                       child: Text(
                         'Cancel',
-                        style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+                        style:
+                            textTheme.bodyMedium?.copyWith(color: tWhiteColor),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        // Add your cancel booking logic here
+                      },
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -65,11 +99,14 @@ class _BookingCardState extends State<BookingCard> {
                       ),
                       child: Text(
                         'Completed',
-                        style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+                        style:
+                            textTheme.bodyMedium?.copyWith(color: tWhiteColor),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        // Add your complete booking logic here
+                      },
                     ),
-                  )
+                  ),
                 ],
               ),
             ],
@@ -81,7 +118,16 @@ class _BookingCardState extends State<BookingCard> {
 }
 
 class ScheduleCard extends StatelessWidget {
-  const ScheduleCard({super.key});
+  final String date;
+  final String departureTime;
+  final String route;
+
+  const ScheduleCard({
+    Key? key,
+    required this.date,
+    required this.departureTime,
+    required this.route,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +148,7 @@ class ScheduleCard extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            'Day, dd/mm/yyyy',
+            date,
             style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
           ),
           const SizedBox(width: 20),
@@ -114,10 +160,17 @@ class ScheduleCard extends StatelessWidget {
           const SizedBox(width: 5),
           Flexible(
             child: Text(
-              '25:00',
+              departureTime,
               style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
             ),
-          )
+          ),
+          const SizedBox(width: 20),
+          Flexible(
+            child: Text(
+              route,
+              style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+            ),
+          ),
         ],
       ),
     );

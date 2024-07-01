@@ -2,6 +2,7 @@ import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/constants/images_strings.dart';
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/core/controllers/profile_controller.dart';
+import 'package:bus_app/src/features/core/screens/profile/transport_history.dart';
 import 'package:bus_app/src/features/core/screens/profile/update_profile_screen.dart';
 import 'package:bus_app/src/features/core/screens/profile/widgets/profile_menu_widget.dart';
 import 'package:bus_app/src/features/core/screens/settings/settings_screen.dart';
@@ -101,13 +102,17 @@ class ProfileScreen extends StatelessWidget {
                     Get.to(() => const SettingsScreen());
                   }),
               ProfileMenuWidget(
-                  title: "Transport Details",
+                  title: "Transport History",
                   icon: Icons.account_balance_wallet,
-                  onPress: () {}),
+                  onPress: () {
+                    Get.to(() => const TransportHistoryScreen());
+                  }),
               ProfileMenuWidget(
                   title: "User Feedback",
                   icon: Icons.person_add,
-                  onPress: () {}),
+                  onPress: () {
+                    
+                  }),
               const Divider(),
               const SizedBox(height: 10),
               ProfileMenuWidget(

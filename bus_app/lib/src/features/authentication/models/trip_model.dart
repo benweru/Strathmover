@@ -6,6 +6,7 @@ class TripModel {
   String departureTime;
   String busId;
   String route;
+  String id;
 
   TripModel({
     required this.tripId,
@@ -13,13 +14,15 @@ class TripModel {
     required this.departureTime,
     required this.busId,
     required this.route,
+    required this.id,
   });
 
   factory TripModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data()!;
     return TripModel(
-      tripId: snapshot.id, // use snapshot.id to get the document ID
+      id: snapshot.id,
+      tripId: data['tripId'] ?? '',
       date: data['date'] ?? '',
       departureTime: data['departureTime'] ?? '',
       busId: data['busId'] ?? '',

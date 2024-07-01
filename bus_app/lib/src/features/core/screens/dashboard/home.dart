@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Text(
                         'Welcome, ${profileController.user.value.fullName.isNotEmpty ? profileController.user.value.fullName : 'User'}',
                         style: textTheme.headlineSmall?.copyWith(
-                          color: colorScheme.onBackground,
+                          color: colorScheme.onSurface,
                         ),
                       );
                     }),

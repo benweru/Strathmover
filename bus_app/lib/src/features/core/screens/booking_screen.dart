@@ -10,7 +10,7 @@ class BookingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BookingController controller = Get.put(BookingController());
+    final BookingController controller = Get.find<BookingController>();
 
     return Scaffold(
       appBar: TAppBar(

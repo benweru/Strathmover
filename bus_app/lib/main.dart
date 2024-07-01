@@ -1,4 +1,5 @@
 import 'package:bus_app/src/constants/routes.dart';
+import 'package:bus_app/src/features/core/controllers/booking_controller.dart';
 import 'package:bus_app/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Get.put(AuthenticationRepository());
+  Get.put(BookingController());
   //await GetStorage.init();
   runApp(MyApp());
 }

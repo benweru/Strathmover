@@ -1,5 +1,7 @@
+import 'package:bus_app/src/features/authentication/models/booking_model.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bus_app/src/features/authentication/models/trip_model.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +13,20 @@ class BookingController extends GetxController {
   var selectedTrip = Rx<TripModel?>(null);
   var availableSeats = <String>[].obs;
   var selectedSeat = ''.obs;
+  var userBooking = Rx<TripModel?>(null);
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void onInit() {
     super.onInit();
     checkAndCreateTrips();
+    fetchUserBooking();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   void nextStep() {
@@ -79,7 +90,6 @@ class BookingController extends GetxController {
       }
     }
 
-    // If trips are not created for today, create them
     await createTripsForToday(today, tripStatusDoc);
   }
 
@@ -100,7 +110,6 @@ class BookingController extends GetxController {
         'date': today,
       });
 
-      // Initialize bus seats
       final busRef =
           FirebaseFirestore.instance.collection('buses').doc(trip['busId']);
       batch.update(busRef, {
@@ -111,13 +120,11 @@ class BookingController extends GetxController {
       });
     }
 
-    // Update the trip status document
     batch.set(tripStatusDoc, {
       'lastUpdated': today,
     });
 
     await batch.commit();
-
     fetchTrips();
   }
 
@@ -133,9 +140,9 @@ class BookingController extends GetxController {
   void showFetchError() {
     Get.snackbar(
       "Error",
-      "Failed to fetch trips.",
+      "You already booked a seat on this bus",
       snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.orange,
       colorText: Colors.white,
     );
   }
@@ -159,11 +166,43 @@ class BookingController extends GetxController {
     }
   }
 
+  void fetchUserBooking() async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+
+    final date = DateTime.now();
+    final today = '${date.year}-${date.month}-${date.day}';
+
+    QuerySnapshot userBookingSnapshot = await FirebaseFirestore.instance
+        .collection('bookings')
+        .where('userId', isEqualTo: user.uid)
+        .where('date', isEqualTo: today)
+        .orderBy('departureTime')
+        .get();
+
+    if (userBookingSnapshot.docs.isNotEmpty) {
+      List<TripModel> userBookings = userBookingSnapshot.docs
+          .map((doc) => BookingModel.fromSnapshot(
+                  doc as DocumentSnapshot<Map<String, dynamic>>)
+              .toTripModel())
+          .toList();
+
+      userBooking.value = userBookings.firstWhere((booking) {
+        final departureTime =
+            DateTime.parse('${today}T${booking.departureTime}');
+        return departureTime.isAfter(DateTime.now());
+      }, orElse: () => userBookings.first);
+    } else {
+      userBooking.value = null;
+    }
+  }
+
   void confirmBooking() async {
     final trip = selectedTrip.value;
     final seat = selectedSeat.value;
+    final user = _auth.currentUser;
 
-    if (trip != null && seat.isNotEmpty) {
+    if (trip != null && seat.isNotEmpty && user != null) {
       try {
         final busDoc =
             FirebaseFirestore.instance.collection('buses').doc(trip.busId);
@@ -187,6 +226,16 @@ class BookingController extends GetxController {
             throw Exception("Seat is not available");
           }
 
+          QuerySnapshot userBookingSnapshot = await FirebaseFirestore.instance
+              .collection('bookings')
+              .where('tripId', isEqualTo: trip.tripId)
+              .where('userId', isEqualTo: user.uid)
+              .get();
+
+          if (userBookingSnapshot.docs.isNotEmpty) {
+            throw Exception("User has already booked a seat on this trip");
+          }
+
           availableSeats.remove(seat);
           bookedSeats.add(seat);
 
@@ -197,7 +246,7 @@ class BookingController extends GetxController {
 
           transaction.set(bookingDoc, {
             'tripId': trip.tripId,
-            'userId': 'some_user_id', // Replace with actual user ID
+            'userId': user.uid,
             'seat': seat,
             'date': trip.date,
             'departureTime': trip.departureTime,
@@ -213,6 +262,8 @@ class BookingController extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
+
+        fetchUserBooking();
       } catch (e) {
         showFetchError();
         print("Error confirming booking: $e");

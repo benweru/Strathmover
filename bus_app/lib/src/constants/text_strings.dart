@@ -47,7 +47,8 @@ const String tForgetPasswordTitle = "Make Selection";
 const String tForgetPasswordSubTitle =
     "Select one of the options given below to reset your password.";
 const String tEmailVerificationTitle = "Email Verification";
-const String tVerificationEmailSent = "A verification email has been sent to your email address. Please check your inbox.";
+const String tVerificationEmailSent =
+    "A verification email has been sent to your email address. Please check your inbox.";
 const String tResendVerificationEmail = "Resend Verification Email";
 const String tCheckVerificationStatus = "Check Verification Status";
 const String tBackToLogin = "Back to Login";
@@ -92,6 +93,6 @@ const String thomeAppBarSubTitle = "Home Title";
 //Booking
 const String tBooking = "Booking";
 const String tBookingHeading = "Make your Booking here";
-const String tBookingSubHeading = "reserve a seat Now";
+const String tBookingSubHeading = "Reserve your seat now";
 //const String thomeAppBarSubTitle = "Home Title";
 
