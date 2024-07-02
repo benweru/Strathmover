@@ -111,13 +111,13 @@ class RoutePointsList extends StatelessWidget {
               title: Text(
                 point.name,
                 style: textTheme.bodyLarge?.copyWith(
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
               ),
               subtitle: Text(
                 point.description ?? '',
                 style: textTheme.bodySmall?.copyWith(
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
               ),
             ),
