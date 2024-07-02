@@ -57,13 +57,13 @@ Follow these steps to install the Strathmover application on your mobile device:
 
 ## Screenshots
 
-![Login Screen](screenshots/login.png)
-![Booking Screen](screenshots/booking.png)
-![Transport History Screen](screenshots/transport_history.png)
+![Login Screen]
+![Booking Screen]
+![Transport History Screen]
 
 ## Support
 
-For support or any issues, please contact the Strathmover support team at support@strathmover.com.
+For support or any issues, please contact the Strathmover support team at ben.maina@strathmore.edu or chrisine.keni@strathmore.edu 
 
 ## License
 
