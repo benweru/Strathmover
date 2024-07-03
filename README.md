@@ -9,34 +9,38 @@ Strathmover is a user-friendly transport management application designed to simp
 - **User Profiles**: Manage your profile and keep track of your bookings.
 - **Filter Options**: Filter your bookings by date or departure time to find specific trips.
 
-## Installation
+## Project Setup/Installation Instructions
 
-Follow these steps to install the Strathmover application on your mobile device:
+### Dependencies
 
-### For Android Users
+- [Flutter](https://flutter.dev/docs/get-started/install) (version 2.0 or later)
+- [Firebase](https://firebase.google.com/docs/flutter/setup) for authentication and database
 
-1. **Download the APK**:
-    - Visit the [Strathmover GitHub Releases](https://github.com/your-username/strathmover/releases) page.
-    - Download the latest `strathmover.apk` file.
+### Installation Steps
 
-2. **Install the APK**:
-    - Open the downloaded APK file.
-    - If prompted, allow installation from unknown sources.
-    - Follow the on-screen instructions to complete the installation.
+1. **Clone the Repository**:
+    
+    git clone https://github.com/your-username/strathmover.git
+    cd strathmover
+    
 
-### For iOS Users
+2. **Install Flutter Dependencies**:
+   
+    flutter pub get
+    
 
-1. **TestFlight Installation** (For beta testing):
-    - Download and install the [TestFlight app](https://apps.apple.com/us/app/testflight/id899247664) from the App Store.
-    - Open the TestFlight app and enter the invitation code provided by the Strathmover team.
-    - Follow the on-screen instructions to install the Strathmover app.
+3. **Set Up Firebase**:
+    - Follow the [Firebase setup guide](https://firebase.google.com/docs/flutter/setup) to add Firebase to your Flutter project.
+    - Download the `google-services.json` file for Android and `GoogleService-Info.plist` for iOS and place them in their respective directories.
 
-2. **App Store Installation** (Once available):
-    - Visit the App Store on your device.
-    - Search for "Strathmover" and download the app.
-    - Follow the on-screen instructions to install the app.
+4. **Run the App**:
+    
+    flutter run
+    
 
-## Usage
+## Usage Instructions
+
+### How to Run
 
 1. **Login/Register**:
     - Open the Strathmover app.
@@ -55,15 +59,65 @@ Follow these steps to install the Strathmover application on your mobile device:
     - Update your personal information in the profile section.
     - Keep track of your bookings and personal details.
 
-## Screenshots
+### Examples
 
-![Login Screen]
-![Booking Screen]
-![Transport History Screen]
+- **Booking a Trip**:
+  - Select a trip from the list of available trips.
+  - Choose a seat and confirm your booking.
+  
+- **Filtering Bookings**:
+  - Go to the transport history screen.
+  - Use the filter options to narrow down your bookings by date or departure time.
 
-## Support
+### Input/Output
 
-For support or any issues, please contact the Strathmover support team at ben.maina@strathmore.edu or chrisine.keni@strathmore.edu 
+- **Input**: User inputs for booking trips include trip selection, seat choice, and personal details.
+- **Output**: Confirmation of bookings, updated transport history, and filtered lists of bookings.
+
+## Project Structure
+
+- **lib/**: Contains the main application code.
+  - **features/**: Contains different features of the app such as authentication, booking, and transport history.
+  - **models/**: Contains data models like `BookingModel` and `TripModel`.
+  - **controllers/**: Contains controllers for managing state and business logic.
+
+### Key Files
+
+- **main.dart**: Entry point of the application.
+- **booking_controller.dart**: Manages booking-related logic.
+- **transport_history_controller.dart**: Manages transport history logic.
+- **booking_model.dart**: Defines the data structure for bookings.
+
+## Additional Sections
+
+### Project Status
+
+This project is currently in progress with active development.
+
+### Known Issues
+
+- Booking history may not fetch correctly for some users. Investigations are ongoing.
+
+### Screenshots 
+Welcome Screen: ![Welcome_screen](https://github.com/benweru/Strathmover/assets/138494503/f5522c5a-093b-4c86-8b6e-5bab19634a29)
+Sign Up : ![Sign_up](https://github.com/benweru/Strathmover/assets/138494503/3bf9b414-371b-4d7e-a137-5a28db3ee087)
+Log In: ![Log_in](https://github.com/benweru/Strathmover/assets/138494503/73f53a9f-23a1-4f9b-b3d1-375cbb3309e9)
+Home: ![Home](https://github.com/benweru/Strathmover/assets/138494503/434974fc-27e6-43ae-adea-0f55603b5a64)
+Booking: ![Booking](https://github.com/benweru/Strathmover/assets/138494503/d21a7d09-9dc1-41bd-8781-af28793c54c6)
+Profile: ![Profile](https://github.com/benweru/Strathmover/assets/138494503/08f1642e-7e2c-4104-a049-f658eaaf2456)
+
+
+### Acknowledgements
+
+- [Flutter](https://flutter.dev) for the framework.
+- [Firebase](https://firebase.google.com) for backend services.
+- [GetX](https://pub.dev/packages/get) for state management.
+
+## Contact Information
+
+For support or any issues, please contact the Strathmover support team:
+- [ben.maina@strathmore.edu](mailto:ben.maina@strathmore.edu)
+- [christine.keni@strathmore.edu](mailto:christine.keni@strathmore.edu)
 
 ## License
 
