@@ -97,14 +97,22 @@ This project is currently in progress with active development.
 ### Known Issues
 
 - Booking history may not fetch correctly for some users. Investigations are ongoing.
+- Bookings may not appear in home screen for some users. Investigations are still ongoing.
 
-### Screenshots 
-Welcome Screen: ![Welcome_screen](https://github.com/benweru/Strathmover/assets/138494503/f5522c5a-093b-4c86-8b6e-5bab19634a29)
-Sign Up : ![Sign_up](https://github.com/benweru/Strathmover/assets/138494503/3bf9b414-371b-4d7e-a137-5a28db3ee087)
-Log In: ![Log_in](https://github.com/benweru/Strathmover/assets/138494503/73f53a9f-23a1-4f9b-b3d1-375cbb3309e9)
-Home: ![Home](https://github.com/benweru/Strathmover/assets/138494503/434974fc-27e6-43ae-adea-0f55603b5a64)
-Booking: ![Booking](https://github.com/benweru/Strathmover/assets/138494503/d21a7d09-9dc1-41bd-8781-af28793c54c6)
-Profile: ![Profile](https://github.com/benweru/Strathmover/assets/138494503/08f1642e-7e2c-4104-a049-f658eaaf2456)
+### Screenshots
+
+[Welcome Screen](https://github.com/benweru/Strathmover/assets/138494503/f5522c5a-093b-4c86-8b6e-5bab19634a29)
+
+[Sign Up](https://github.com/benweru/Strathmover/assets/138494503/3bf9b414-371b-4d7e-a137-5a28db3ee087)
+
+[Log In](https://github.com/benweru/Strathmover/assets/138494503/73f53a9f-23a1-4f9b-b3d1-375cbb3309e9)
+
+[Home](https://github.com/benweru/Strathmover/assets/138494503/434974fc-27e6-43ae-adea-0f55603b5a64)
+
+[Booking](https://github.com/benweru/Strathmover/assets/138494503/d21a7d09-9dc1-41bd-8781-af28793c54c6)
+
+[Profile](https://github.com/benweru/Strathmover/assets/138494503/08f1642e-7e2c-4104-a049-f658eaaf2456)
+
 
 
 ### Acknowledgements
