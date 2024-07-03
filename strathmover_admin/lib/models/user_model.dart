@@ -33,13 +33,15 @@ class UserModel {
     final data = document.data()!;
     return UserModel(
       id: document.id,
-      email: data["Email"] ?? '',
-      password: data["Password"] ?? '',
-      fullName: data["FullName"] ?? '',
-      phoneNo: data["Phone"] ?? '',
-      profilePicture: data["ProfilePicture"] ?? '',
+      email: data['Email'] as String? ?? '',
+      password: data['Password'] as String? ?? '',
+      fullName: data['FullName'] as String? ?? '',
+      phoneNo: data['Phone'] as String? ?? '',
+      profilePicture: data['ProfilePicture'] as String? ?? '',
+
     );
   }
+  
 
   UserModel copyWith({
     String? id,

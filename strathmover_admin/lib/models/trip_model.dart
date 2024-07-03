@@ -17,22 +17,21 @@ class TripModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "date": date,
-      "departureTime": departureTime,
-      "busId": busId,
-      "route": route,
+      'date': date,
+      'departureTime': departureTime,
+      'busId': busId,
+      'route': route,
     };
   }
 
-  factory TripModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> document) {
+  factory TripModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return TripModel(
       id: document.id,
-      date: data['date'] ?? '',
-      departureTime: data['departureTime'] ?? '',
-      busId: data['busId'] ?? '',
-      route: data['route'] ?? '',
+      date: data['date'] as String,
+      departureTime: data['departureTime'] as String,
+      busId: data['busId'] as String,
+      route: data['route'] as String,
     );
   }
 

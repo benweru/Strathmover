@@ -13,21 +13,19 @@ class RouteModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "name": name,
-      "points": points.map((point) => point.toMap()).toList(),
+      'name': name,
+      'points': points.map((point) => point.toMap()).toList(),
     };
   }
 
-  factory RouteModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> document) {
+  factory RouteModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     final pointsData = data['points'] as List<dynamic>;
-    final points =
-        pointsData.map((point) => RoutePoint.fromMap(point)).toList();
+    final points = pointsData.map((point) => RoutePoint.fromMap(point as Map<String, dynamic>)).toList();
 
     return RouteModel(
       id: document.id,
-      name: data['name'] ?? '',
+      name: data['name'] as String,
       points: points,
     );
   }
@@ -63,8 +61,8 @@ class RoutePoint {
 
   factory RoutePoint.fromMap(Map<String, dynamic> map) {
     return RoutePoint(
-      name: map['name'],
-      location: map['location'],
+      name: map['name'] as String,
+      location: map['location'] != null ? map['location'] as GeoPoint : const GeoPoint(0, 0),
     );
   }
 }

@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:strathmover_admin/models/route_model.dart';
-import 'package:strathmover_admin/models/trip_model.dart';
-import 'package:strathmover_admin/models/user_model.dart';
+import 'package:flutter_admin_dashboard_template/models/route_model.dart';
+import 'package:flutter_admin_dashboard_template/models/trip_model.dart';
+import 'package:flutter_admin_dashboard_template/models/user_model.dart';
+
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
