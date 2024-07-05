@@ -22,7 +22,7 @@ class TripModel {
     final data = snapshot.data()!;
     return TripModel(
       id: snapshot.id,
-      tripId: data['tripId'] ?? '',
+      tripId: snapshot.id, // Assigning the snapshot ID as tripId
       date: data['date'] ?? '',
       departureTime: data['departureTime'] ?? '',
       busId: data['busId'] ?? '',

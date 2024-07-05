@@ -70,14 +70,28 @@ class BookingScreen extends StatelessWidget {
                           }
                           return Column(
                             children: controller.trips.map((trip) {
-                              return ListTile(
-                                title: Text(
-                                    'Trip at ${trip.departureTime} - Route: ${trip.route}'),
-                                subtitle: Text('Bus ID: ${trip.busId}'),
-                                selected:
-                                    controller.selectedTrip.value?.tripId ==
-                                        trip.tripId,
-                                onTap: () => controller.selectTrip(trip),
+                              bool isSelected =
+                                  controller.selectedTrip.value?.tripId ==
+                                      trip.tripId;
+                              return Card(
+                                color: isSelected
+                                    ? Color.fromARGB(255, 122, 232, 236)
+                                    : Colors.white,
+                                shape: isSelected
+                                    ? RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            color: Colors.purple, width: 2.0),
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                      )
+                                    : null,
+                                child: ListTile(
+                                  title: Text(
+                                      'Trip at ${trip.departureTime} - Route: ${trip.route}'),
+                                  subtitle: Text('Bus ID: ${trip.busId}'),
+                                  selected: isSelected,
+                                  onTap: () => controller.selectTrip(trip),
+                                ),
                               );
                             }).toList(),
                           );

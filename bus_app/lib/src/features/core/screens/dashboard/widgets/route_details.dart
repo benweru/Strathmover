@@ -1,4 +1,3 @@
-import 'package:bus_app/src/constants/images_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/constants/sizes.dart';

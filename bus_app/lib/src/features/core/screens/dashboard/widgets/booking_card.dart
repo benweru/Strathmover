@@ -2,7 +2,8 @@ import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:bus_app/src/features/core/controllers/booking_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BookingCard extends StatefulWidget {
   const BookingCard({super.key});
@@ -12,18 +13,42 @@ class BookingCard extends StatefulWidget {
 }
 
 class _BookingCardState extends State<BookingCard> {
-  final BookingController bookingController = Get.put(BookingController());
+  final bookings = <BookingModel>[].obs;
+  final isLoading = true.obs;
 
   @override
   void initState() {
     super.initState();
-    bookingController.fetchUserBooking();
+    fetchBookingsForToday();
   }
 
-  @override
-  void dispose() {
-    bookingController.dispose();
-    super.dispose();
+  Future<void> fetchBookingsForToday() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
+
+      final date = DateTime.now();
+      final today = '${date.year}-${date.month}-${date.day}';
+
+      QuerySnapshot userBookingSnapshot = await FirebaseFirestore.instance
+          .collection('bookings')
+          .where('userId', isEqualTo: user.uid)
+          .where('date', isEqualTo: today)
+          .orderBy('departureTime')
+          .get();
+
+      final fetchedBookings = userBookingSnapshot.docs.map((doc) {
+        return BookingModel.fromSnapshot(
+          doc as DocumentSnapshot<Map<String, dynamic>>,
+        );
+      }).toList();
+
+      bookings.value = fetchedBookings;
+    } catch (e) {
+      print("Error fetching bookings: $e");
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   @override
@@ -59,17 +84,23 @@ class _BookingCardState extends State<BookingCard> {
               ),
               const SizedBox(height: 10),
               Obx(() {
-                final userBooking = bookingController.userBooking.value;
-                if (userBooking == null) {
+                if (isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (bookings.isEmpty) {
                   return Text(
                     'No bookings for today',
                     style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
                   );
                 } else {
-                  return ScheduleCard(
-                    date: userBooking.date,
-                    departureTime: userBooking.departureTime,
-                    route: userBooking.route,
+                  return Column(
+                    children: bookings.map((booking) {
+                      return ScheduleCard(
+                        date: booking.date,
+                        departureTime: booking.departureTime,
+                        route: booking.route,
+                      );
+                    }).toList(),
                   );
                 }
               }),
@@ -161,18 +192,52 @@ class ScheduleCard extends StatelessWidget {
           Flexible(
             child: Text(
               departureTime,
-              style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+              style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
             ),
           ),
           const SizedBox(width: 20),
           Flexible(
             child: Text(
               route,
-              style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+              style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class BookingModel {
+  final String? id;
+  final String userId;
+  final String tripId;
+  final String date;
+  final String departureTime;
+  final String busId;
+  final String route;
+
+  BookingModel({
+    this.id,
+    required this.userId,
+    required this.tripId,
+    required this.date,
+    required this.departureTime,
+    required this.busId,
+    required this.route,
+  });
+
+  factory BookingModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
+    final data = document.data()!;
+    return BookingModel(
+      id: document.id,
+      userId: data['userId'] ?? '',
+      tripId: data['tripId'] ?? '',
+      date: data['date'] ?? '',
+      departureTime: data['departureTime'] ?? '',
+      busId: data['busId'] ?? '',
+      route: data['route'] ?? '',
     );
   }
 }

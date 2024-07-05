@@ -96,8 +96,11 @@ This project is currently in progress with active development.
 
 ### Known Issues
 
-- Booking history may not fetch correctly for some users. Investigations are ongoing.
-- Bookings may not appear in home screen for some users. Investigations are still ongoing.
+- Route on home screen not redirecting. Work in progress
+- Project structure not well defined in readme.
+- Bus Map implementation in Booking Screen. Investigations Ongoing.
+- Cancel/ Completed not functional on home screen yet. Work in progress
+- Time sensitivity on fetching bookings in home screen. Work in progress
 
 ### Screenshots
 
