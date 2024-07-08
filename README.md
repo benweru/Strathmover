@@ -76,107 +76,37 @@ Strathmover is a user-friendly transport management application designed to simp
 
 ## Project Structure
 
-lib/
-│
-├── main.dart                     # Entry point of the Flutter application.
-├── app.dart                      # Main application widget.
-│
-├── features/                     # Contains different features of the app.
-│   ├── authentication/           # Feature: Authentication
-│   │   ├── controllers/
-│   │   │   └── auth_controller.dart
-│   │   ├── models/
-│   │   │   └── user_model.dart
-│   │   ├── views/
-│   │   │   ├── login_screen.dart
-│   │   │   ├── register_screen.dart
-│   │   │   └── forgot_password_screen.dart
-│   │   └── services/
-│   │       └── auth_service.dart
-│   │
-│   ├── booking/                  # Feature: Booking
-│   │   ├── controllers/
-│   │   │   └── booking_controller.dart
-│   │   ├── models/
-│   │   │   └── booking_model.dart
-│   │   ├── views/
-│   │   │   ├── booking_screen.dart
-│   │   │   └── booking_card.dart
-│   │   └── services/
-│   │       └── booking_service.dart
-│   │
-│   ├── transport_history/        # Feature: Transport History
-│   │   ├── controllers/
-│   │   │   └── transport_history_controller.dart
-│   │   ├── models/
-│   │   │   └── transport_history_model.dart
-│   │   ├── views/
-│   │   │   └── transport_history_screen.dart
-│   │   └── services/
-│   │       └── transport_history_service.dart
-│   │
-│   ├── home/                     # Feature: Home
-│   │   ├── controllers/
-│   │   │   └── home_controller.dart
-│   │   ├── views/
-│   │   │   └── home_screen.dart
-│   │   ├── widgets/
-│   │   │   └── route_card.dart
-│   │   └── services/
-│   │       └── home_service.dart
-│   │
-│   ├── routes/                   # Feature: Routes
-│   │   ├── controllers/
-│   │   │   └── route_controller.dart
-│   │   ├── models/
-│   │   │   └── route_model.dart
-│   │   ├── views/
-│   │   │   ├── route_details_screen.dart
-│   │   │   └── route_list_screen.dart
-│   │   └── services/
-│   │       └── route_service.dart
-│   │
-│   └── notifications/            # Feature: Notifications
-│       ├── services/
-│       │   └── notification_service.dart
-│       └── controllers/
-│           └── notification_controller.dart
-│
-├── models/                       # Contains data models used across the app.
-│   ├── booking_model.dart
-│   ├── trip_model.dart
-│   ├── user_model.dart
-│   └── route_model.dart
-│
-├── controllers/                  # Contains global controllers.
-│   ├── auth_controller.dart
-│   ├── booking_controller.dart
-│   ├── home_controller.dart
-│   ├── route_controller.dart
-│   └── transport_history_controller.dart
-│
-├── services/                     # Contains global services.
-│   ├── api_service.dart
-│   ├── auth_service.dart
-│   ├── booking_service.dart
-│   ├── notification_service.dart
-│   └── route_service.dart
-│
-├── widgets/                      # Contains common reusable widgets.
-│   ├── custom_button.dart
-│   ├── custom_input_field.dart
-│   └── loading_spinner.dart
-│
-├── utils/                        # Contains utility classes and functions.
-│   ├── constants.dart
-│   ├── helpers.dart
-│   ├── theme.dart
-│   └── validators.dart
-│
-└── localization/                 # Contains localization files.
-    ├── en.dart
-    ├── es.dart
-    └── fr.dart
+- **lib/**: Contains the main application code.
+  - **features/**: Contains different features of the app.
+  - **authentication/**: Manages user authentication.
+  - **views/**: Contains UI screens for authentication.
+  - **booking/**: Manages trip booking functionality.
+  - **transport_history/**: Manages user transport history.
+  - **routes/**: Manages the routes functionality.
+  - **notifications/**: Manages notifications functionality.
+  - **models/**: Contains data models used across the app.
+    - `booking_model.dart`
+    - `trip_model.dart`
+    - `user_model.dart`
+    - `route_model.dart`
+  - **controllers/**: Contains global controllers.
+    - `auth_controller.dart`
+    - `booking_controller.dart`
+    - `home_controller.dart`
+    - `route_controller.dart`
+    - `transport_history_controller.dart`
+  - **services/**: Contains global services.
+    - `api_service.dart`
+    - `auth_service.dart`
+    - `booking_service.dart`
+    - `notification_service.dart`
+    - `route_service.dart`  
+  - **utils/**: Contains utility classes and functions.
+    - `constants.dart`
+    - `helpers.dart`
+    - `theme.dart`
+    - `validators.dart`
+
 
 
 
