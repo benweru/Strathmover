@@ -19,24 +19,24 @@ Strathmover is a user-friendly transport management application designed to simp
 ### Installation Steps
 
 1. **Clone the Repository**:
-    
+    ```bash
     git clone https://github.com/your-username/strathmover.git
     cd strathmover
-    
+    ```
 
 2. **Install Flutter Dependencies**:
-   
+    ```bash
     flutter pub get
-    
+    ```
 
 3. **Set Up Firebase**:
     - Follow the [Firebase setup guide](https://firebase.google.com/docs/flutter/setup) to add Firebase to your Flutter project.
     - Download the `google-services.json` file for Android and `GoogleService-Info.plist` for iOS and place them in their respective directories.
 
 4. **Run the App**:
-    
+    ```bash
     flutter run
-    
+    ```
 
 ## Usage Instructions
 
@@ -76,10 +76,108 @@ Strathmover is a user-friendly transport management application designed to simp
 
 ## Project Structure
 
-- **lib/**: Contains the main application code.
-  - **features/**: Contains different features of the app such as authentication, booking, and transport history.
-  - **models/**: Contains data models like `BookingModel` and `TripModel`.
-  - **controllers/**: Contains controllers for managing state and business logic.
+lib/
+│
+├── main.dart # Entry point of the Flutter application.
+├── app.dart # Main application widget.
+│
+├── features/ # Contains different features of the app.
+│ ├── authentication/ # Feature: Authentication
+│ │ ├── controllers/
+│ │ │ └── auth_controller.dart
+│ │ ├── models/
+│ │ │ └── user_model.dart
+│ │ ├── views/
+│ │ │ ├── login_screen.dart
+│ │ │ ├── register_screen.dart
+│ │ │ └── forgot_password_screen.dart
+│ │ └── services/
+│ │ └── auth_service.dart
+│ │
+│ ├── booking/ # Feature: Booking
+│ │ ├── controllers/
+│ │ │ └── booking_controller.dart
+│ │ ├── models/
+│ │ │ └── booking_model.dart
+│ │ ├── views/
+│ │ │ ├── booking_screen.dart
+│ │ │ └── booking_card.dart
+│ │ └── services/
+│ │ └── booking_service.dart
+│ │
+│ ├── transport_history/ # Feature: Transport History
+│ │ ├── controllers/
+│ │ │ └── transport_history_controller.dart
+│ │ ├── models/
+│ │ │ └── transport_history_model.dart
+│ │ ├── views/
+│ │ │ └── transport_history_screen.dart
+│ │ └── services/
+│ │ └── transport_history_service.dart
+│ │
+│ ├── home/ # Feature: Home
+│ │ ├── controllers/
+│ │ │ └── home_controller.dart
+│ │ ├── views/
+│ │ │ └── home_screen.dart
+│ │ ├── widgets/
+│ │ │ └── route_card.dart
+│ │ └── services/
+│ │ └── home_service.dart
+│ │
+│ ├── routes/ # Feature: Routes
+│ │ ├── controllers/
+│ │ │ └── route_controller.dart
+│ │ ├── models/
+│ │ │ └── route_model.dart
+│ │ ├── views/
+│ │ │ ├── route_details_screen.dart
+│ │ │ └── route_list_screen.dart
+│ │ └── services/
+│ │ └── route_service.dart
+│ │
+│ └── notifications/ # Feature: Notifications
+│ ├── services/
+│ │ └── notification_service.dart
+│ └── controllers/
+│ └── notification_controller.dart
+│
+├── models/ # Contains data models used across the app.
+│ ├── booking_model.dart
+│ ├── trip_model.dart
+│ ├── user_model.dart
+│ └── route_model.dart
+│
+├── controllers/ # Contains global controllers.
+│ ├── auth_controller.dart
+│ ├── booking_controller.dart
+│ ├── home_controller.dart
+│ ├── route_controller.dart
+│ └── transport_history_controller.dart
+│
+├── services/ # Contains global services.
+│ ├── api_service.dart
+│ ├── auth_service.dart
+│ ├── booking_service.dart
+│ ├── notification_service.dart
+│ └── route_service.dart
+│
+├── widgets/ # Contains common reusable widgets.
+│ ├── custom_button.dart
+│ ├── custom_input_field.dart
+│ └── loading_spinner.dart
+│
+├── utils/ # Contains utility classes and functions.
+│ ├── constants.dart
+│ ├── helpers.dart
+│ ├── theme.dart
+│ └── validators.dart
+│
+└── localization/ # Contains localization files.
+├── en.dart
+├── es.dart
+└── fr.dart
+
 
 ### Key Files
 
@@ -96,27 +194,20 @@ This project is currently in progress with active development.
 
 ### Known Issues
 
-- Route on home screen not redirecting. Work in progress
-- Project structure not well defined in readme.
-- Bus Map implementation in Booking Screen. Investigations Ongoing.
-- Cancel/ Completed not functional on home screen yet. Work in progress
-- Time sensitivity on fetching bookings in home screen. Work in progress
+- Route on home screen not redirecting. Work in progress.
+- Project structure not well defined in README.
+- Bus Map implementation in Booking Screen. Investigations ongoing.
+- Cancel/Completed not functional on home screen yet. Work in progress.
+- Time sensitivity on fetching bookings in home screen. Work in progress.
 
 ### Screenshots
 
-[Welcome Screen](https://github.com/benweru/Strathmover/assets/138494503/f5522c5a-093b-4c86-8b6e-5bab19634a29)
-
-[Sign Up](https://github.com/benweru/Strathmover/assets/138494503/3bf9b414-371b-4d7e-a137-5a28db3ee087)
-
-[Log In](https://github.com/benweru/Strathmover/assets/138494503/73f53a9f-23a1-4f9b-b3d1-375cbb3309e9)
-
-[Home](https://github.com/benweru/Strathmover/assets/138494503/434974fc-27e6-43ae-adea-0f55603b5a64)
-
-[Booking](https://github.com/benweru/Strathmover/assets/138494503/d21a7d09-9dc1-41bd-8781-af28793c54c6)
-
-[Profile](https://github.com/benweru/Strathmover/assets/138494503/08f1642e-7e2c-4104-a049-f658eaaf2456)
-
-
+![Welcome Screen](https://github.com/benweru/Strathmover/assets/138494503/f5522c5a-093b-4c86-8b6e-5bab19634a29)
+![Sign Up](https://github.com/benweru/Strathmover/assets/138494503/3bf9b414-371b-4d7e-a137-5a28db3ee087)
+![Log In](https://github.com/benweru/Strathmover/assets/138494503/73f53a9f-23a1-4f9b-b3d1-375cbb3309e9)
+![Home](https://github.com/benweru/Strathmover/assets/138494503/434974fc-27e6-43ae-adea-0f55603b5a64)
+![Booking](https://github.com/benweru/Strathmover/assets/138494503/d21a7d09-9dc1-41bd-8781-af28793c54c6)
+![Profile](https://github.com/benweru/Strathmover/assets/138494503/08f1642e-7e2c-4104-a049-f658eaaf2456)
 
 ### Acknowledgements
 
