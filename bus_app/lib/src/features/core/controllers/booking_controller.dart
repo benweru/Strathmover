@@ -139,11 +139,11 @@ class BookingController extends GetxController {
 
   void showFetchError() {
     Get.snackbar(
-      "Error",
+      "Failed to book seat",
       "You already booked a seat on this bus",
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.orange,
-      colorText: Colors.white,
+      colorText: Colors.black,
     );
   }
 
@@ -230,6 +230,8 @@ class BookingController extends GetxController {
               .collection('bookings')
               .where('tripId', isEqualTo: trip.tripId)
               .where('userId', isEqualTo: user.uid)
+              .where('departureTime', isEqualTo: trip.departureTime)
+              .where('busId', isEqualTo: trip.busId)
               .get();
 
           if (userBookingSnapshot.docs.isNotEmpty) {

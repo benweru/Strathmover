@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bus_app/src/features/core/controllers/transport_history_controller.dart';
-// import 'package:intl/intl.dart'; // Add this for date formatting
 
 class TransportHistoryScreen extends StatelessWidget {
-  const TransportHistoryScreen({Key? key}) : super(key: key);
+  const TransportHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +19,15 @@ class TransportHistoryScreen extends StatelessWidget {
             onSelected: (value) {
               if (value == 'Filter by Time') {
                 _selectDepartureTime(context, controller);
+              } else if (value == 'Filter by Date') {
+                _selectDateRange(context, controller);
+              } else if (value == 'Reset Filters') {
+                controller.resetFilters();
               }
             },
             itemBuilder: (BuildContext context) {
-              return {'Filter by Date', 'Filter by Time'}.map((String choice) {
+              return {'Filter by Date', 'Filter by Time', 'Reset Filters'}
+                  .map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -57,17 +61,6 @@ class TransportHistoryScreen extends StatelessWidget {
     );
   }
 
-  // void _selectDateRange(BuildContext context, TransportHistoryController controller) async {
-  //   final DateTimeRange? picked = await showDateRangePicker(
-  //     context: context,
-  //     firstDate: DateTime(2020),
-  //     lastDate: DateTime(2025),
-  //   );
-  //   if (picked != null && picked.start != null && picked.end != null) {
-  //     controller.filterByDateRange(picked.start, picked.end);
-  //   }
-  // }
-
   void _selectDepartureTime(
       BuildContext context, TransportHistoryController controller) {
     showDialog(
@@ -77,7 +70,7 @@ class TransportHistoryScreen extends StatelessWidget {
           title: Text('Select Departure Time'),
           content: SingleChildScrollView(
             child: ListBody(
-              children: ['08:00 AM', '12:00 PM', '06:00 PM'].map((time) {
+              children: ['07:30', '16:30', '19:30'].map((time) {
                 return GestureDetector(
                   onTap: () {
                     controller.filterByDepartureTime(time);
@@ -94,5 +87,17 @@ class TransportHistoryScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _selectDateRange(
+      BuildContext context, TransportHistoryController controller) async {
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2030),
+    );
+    if (picked != null) {
+      controller.filterByDateRange(picked.start, picked.end);
+    }
   }
 }

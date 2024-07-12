@@ -1,10 +1,11 @@
+import 'package:bus_app/src/features/core/controllers/routes_controller.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/booking_card.dart';
-import 'package:bus_app/src/features/core/screens/dashboard/widgets/route_card.dart';
+// import 'package:bus_app/src/features/core/screens/dashboard/widgets/route_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/core/controllers/profile_controller.dart';
-import 'package:bus_app/src/features/authentication/models/route_model.dart'; // Import your RouteModel
+import 'package:bus_app/src/features/authentication/models/route_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -44,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var colorScheme = Theme.of(context).colorScheme;
+    final RouteController routeController = Get.put(RouteController());
 
     return Scaffold(
       body: Padding(
@@ -87,23 +89,51 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: tDashboardPadding),
                 const BookingCard(),
                 const SizedBox(height: tDashboardPadding),
-                Text(
-                  'Favorite Routes',
-                  style: textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w300,
-                    color: colorScheme.onBackground,
-                  ),
-                ),
+                const Text('Booked Routes', style: TextStyle(fontSize: 24)),
                 const SizedBox(height: 10),
-                Column(
-                  children: favoriteRoutes
-                      .map((route) => RouteCard(route: route))
-                      .toList(),
-                ),
+                Obx(() {
+                  if (routeController.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (routeController.bookedRoutes.isEmpty) {
+                    return Text('No booked routes for today.');
+                  }
+
+                  return Column(
+                    children: routeController.bookedRoutes
+                        .map((route) => RouteCard(route: route))
+                        .toList(),
+                  );
+                })
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class RouteCard extends StatelessWidget {
+  final String route;
+
+  const RouteCard({super.key, required this.route});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Color.fromARGB(
+          255, 122, 232, 236), // Setting the background color of the card
+      child: ListTile(
+        title: Text(route),
+        // onTap: () {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder:
+
+        //       (context) => RouteDetails(route: route),
       ),
     );
   }
