@@ -52,12 +52,12 @@ RouteBase get $shellRouteData => StatefulShellRouteData.$route(
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/users',
-              factory: $UsersPageRouteExtension._fromState,
+              path: '/bookings',
+              factory: $BookingsPageRouteExtension._fromState,
               routes: [
                 GoRouteData.$route(
-                  path: ':userId',
-                  factory: $UserPageRouteExtension._fromState,
+                  path: ':bookingId',
+                  factory: $BookingPageRouteExtension._fromState,
                 ),
               ],
             ),
@@ -161,12 +161,12 @@ extension $EditRouteRouteExtension on EditRouteRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $UsersPageRouteExtension on UsersPageRoute {
-  static UsersPageRoute _fromState(GoRouterState state) =>
-      const UsersPageRoute();
+extension $BookingsPageRouteExtension on BookingsPageRoute {
+  static BookingsPageRoute _fromState(GoRouterState state) =>
+      const BookingsPageRoute();
 
   String get location => GoRouteData.$location(
-        '/users',
+        '/bookings',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -179,13 +179,13 @@ extension $UsersPageRouteExtension on UsersPageRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $UserPageRouteExtension on UserPageRoute {
-  static UserPageRoute _fromState(GoRouterState state) => UserPageRoute(
-        userId: state.pathParameters['userId']!,
+extension $BookingPageRouteExtension on BookingPageRoute {
+  static BookingPageRoute _fromState(GoRouterState state) => BookingPageRoute(
+        bookingId: state.pathParameters['bookingId']!,
       );
 
   String get location => GoRouteData.$location(
-        '/users/${Uri.encodeComponent(userId)}',
+        '/bookings/${Uri.encodeComponent(bookingId)}',
       );
 
   void go(BuildContext context) => context.go(location);

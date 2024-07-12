@@ -1,15 +1,14 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin_dashboard_template/features/crud/edit_booking_page.dart';
 import 'package:flutter_admin_dashboard_template/features/crud/edit_route_page.dart';
 import 'package:flutter_admin_dashboard_template/features/crud/edit_trip_page.dart';
+import 'package:flutter_admin_dashboard_template/features/dashboard/bookings.dart';
 import 'package:flutter_admin_dashboard_template/features/dashboard/dashboard_page.dart';
 import 'package:flutter_admin_dashboard_template/features/dashboard/routes.dart';
 import 'package:flutter_admin_dashboard_template/features/dashboard/trips.dart';
-import 'package:flutter_admin_dashboard_template/features/users/dummy_users.dart';
-import 'package:flutter_admin_dashboard_template/features/users/user_not_found_page.dart';
-import 'package:flutter_admin_dashboard_template/features/users/user_page.dart';
-import 'package:flutter_admin_dashboard_template/features/users/users_page.dart';
+import 'package:flutter_admin_dashboard_template/features/dashboard/users.dart';
+import 'package:flutter_admin_dashboard_template/models/bookings_model.dart';
 import 'package:flutter_admin_dashboard_template/models/route_model.dart';
 import 'package:flutter_admin_dashboard_template/models/trip_model.dart';
 import 'package:flutter_admin_dashboard_template/widgets/navigation/scaffold_with_navigation.dart';
@@ -60,13 +59,20 @@ final router = GoRouter(
     ),
     TypedStatefulShellBranch(
       routes: [
-        TypedGoRoute<UsersPageRoute>(
-          path: '/users',
+        TypedGoRoute<BookingsPageRoute>(
+          path: '/bookings',
           routes: [
-            TypedGoRoute<UserPageRoute>(
-              path: ':userId',
+            TypedGoRoute<BookingPageRoute>(
+              path: ':bookingId',
             ),
           ],
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch(
+      routes: [
+        TypedGoRoute<UsersPageRoute>(
+          path: '/users',
         ),
       ],
     ),
@@ -94,7 +100,7 @@ class DashboardRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const DashBoardPage();
+    return DashboardPage();
   }
 }
 
@@ -140,25 +146,33 @@ class EditRouteRoute extends GoRouteData {
   }
 }
 
+class BookingsPageRoute extends GoRouteData {
+  const BookingsPageRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const BookingsPage();
+  }
+}
+
+class BookingPageRoute extends GoRouteData {
+  const BookingPageRoute({required this.bookingId});
+
+  final String bookingId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    final booking = state.extra as Booking;
+    return EditBookingPage(booking: booking);
+  }
+}
+
 class UsersPageRoute extends GoRouteData {
   const UsersPageRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const UsersPage();
-  }
-}
-
-class UserPageRoute extends GoRouteData {
-  const UserPageRoute({required this.userId});
-
-  final String userId;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    final user = dummyUsers.firstWhereOrNull((e) => e.userId == userId);
-    return user == null
-        ? UserNotFoundPage(userId: userId)
-        : UserPage(user: user);
+    print('Building UsersPage');
+    return UsersPage();
   }
 }

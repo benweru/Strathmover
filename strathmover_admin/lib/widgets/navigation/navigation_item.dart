@@ -5,7 +5,8 @@ enum NavigationItem {
   dashboard(iconData: Icons.dashboard_outlined),
   trips(iconData: Icons.directions_bus),
   routes(iconData: Icons.map),
-  users(iconData: Icons.list_outlined),
+  bookings(iconData: Icons.list_outlined),
+  users(iconData: Icons.people)
   ;
 
   const NavigationItem({required this.iconData});

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin_dashboard_template/models/trip_model.dart';
 import 'package:flutter_admin_dashboard_template/router.dart';
 import 'package:go_router/go_router.dart';
+// Removed the unused import 'package:go_router/go_router.dart';
 
 class TripsPage extends StatelessWidget {
-  const TripsPage({Key? key}) : super(key: key);
+  const TripsPage({super.key}); // Convert 'key' to a super parameter
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +27,18 @@ class TripsPage extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
-                final trip = TripModel.fromSnapshot(snapshot.data!.docs[index] as DocumentSnapshot<Map<String, dynamic>>);
+                final trip = TripModel.fromSnapshot(
+                  snapshot.data!.docs[index] as DocumentSnapshot<Map<String, dynamic>>,
+                );
                 return ListTile(
                   title: Text(trip.route),
                   subtitle: Text('Date: ${trip.date}'),
                   trailing: IconButton(
                     icon: const Icon(Icons.edit),
                     onPressed: () {
-                      context.push(
-                        EditTripRoute(tripId: trip.id!).location,
+                      // Use the appropriate extension override to avoid ambiguity
+                      GoRouter.of(context).push(
+                        $EditTripRouteExtension(EditTripRoute(tripId: trip.id!)).location,
                         extra: trip,
                       );
                     },

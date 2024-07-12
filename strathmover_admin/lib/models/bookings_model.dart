@@ -20,8 +20,15 @@ class Booking {
   });
 
   factory Booking.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    final data = snapshot.data()!;
-    final dateString = data['date'] as String;
+    final data = snapshot.data();
+    if (data == null) {
+      throw StateError('Missing data for BookingId: ${snapshot.id}');
+    }
+
+    final dateString = data['date'] as String?;
+    if (dateString == null) {
+      throw StateError('Missing date for BookingId: ${snapshot.id}');
+    }
 
     // Handle date format with potential missing leading zeros
     final parts = dateString.split('-');
@@ -31,13 +38,13 @@ class Booking {
     final parsedDate = DateTime(year, month, day);
 
     return Booking(
-      busId: data['busId'] as String,
+      busId: data['busId'] as String? ?? 'Unknown BusId',
       date: parsedDate,
-      departureTime: data['departureTime'] as String,
-      route: data['route'] as String,
-      seat: data['seat'] as String,
-      tripId: data['tripId'] as String,
-      userId: data['userId'] as String,
+      departureTime: data['departureTime'] as String? ?? 'Unknown DepartureTime',
+      route: data['route'] as String? ?? 'Unknown Route',
+      seat: data['seat'] as String? ?? 'Unknown Seat',
+      tripId: data['tripId'] as String? ?? 'Unknown TripId',
+      userId: data['userId'] as String? ?? 'Unknown UserId',
     );
   }
 }
@@ -55,4 +62,3 @@ Map<String, int> processBookingsData(List<Booking> bookings) {
   }
   return routeCounts;
 }
-

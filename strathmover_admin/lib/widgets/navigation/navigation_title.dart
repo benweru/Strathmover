@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin_dashboard_template/router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+// Removed the unused import 'package:go_router/go_router.dart';
 
 class NavigationTitle extends StatelessWidget {
   const NavigationTitle({super.key});
@@ -17,7 +18,7 @@ class NavigationTitle extends StatelessWidget {
         child: Visibility(
           visible: ResponsiveBreakpoints.of(context).largerThan(MOBILE),
           child: GestureDetector(
-            onTap: () => context.go(routerInitialLocation),
+            onTap: () => GoRouter.of(context).go(routerInitialLocation), // Use GoRouter directly
             child: Text(
               'StrathMover',
               style: theme.textTheme.bodyLarge!.copyWith(

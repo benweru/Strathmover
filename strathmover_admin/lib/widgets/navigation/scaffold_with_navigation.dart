@@ -61,6 +61,7 @@ class _ScaffoldWithNavigationRail extends StatelessWidget {
   }
 }
 
+
 class _ScaffoldWithDrawer extends StatelessWidget {
   const _ScaffoldWithDrawer(this.navigationShell);
 
@@ -103,6 +104,7 @@ class _ScaffoldWithDrawer extends StatelessWidget {
   }
 }
 
+
 class _NavigationRail extends StatelessWidget {
   const _NavigationRail({required this.navigationShell, required this.expand});
 
@@ -124,6 +126,7 @@ class _NavigationRail extends StatelessWidget {
           index,
           initialLocation: index == navigationShell.currentIndex,
         );
+        print("Navigating to index: $index");
       },
       destinations: [
         for (final item in NavigationItem.values)
@@ -135,6 +138,8 @@ class _NavigationRail extends StatelessWidget {
     );
   }
 }
+
+
 
 // class _ScaffoldWithNavigationBar extends StatelessWidget {
 //   const _ScaffoldWithNavigationBar(this.navigationShell);

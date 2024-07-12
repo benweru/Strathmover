@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin_dashboard_template/features/crud/edit_user_dialog.dart';
 import 'package:flutter_admin_dashboard_template/models/user_model.dart';
 import 'package:flutter_admin_dashboard_template/services/firestore_service.dart';
 import 'package:provider/provider.dart';
-
 
 class UsersPage extends StatelessWidget {
   @override
@@ -33,7 +33,10 @@ class UsersPage extends StatelessWidget {
                   trailing: IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      // Add functionality to edit user details
+                      showDialog(
+                        context: context,
+                        builder: (context) => EditUserDialog(user: user),
+                      );
                     },
                   ),
                 );
