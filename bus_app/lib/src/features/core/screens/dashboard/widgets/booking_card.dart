@@ -51,6 +51,45 @@ class _BookingCardState extends State<BookingCard> {
     }
   }
 
+  void cancelBooking(BookingModel booking) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('bookings')
+          .doc(booking.id)
+          .delete();
+      bookings.remove(booking);
+    } catch (e) {
+      print("Error canceling booking: $e");
+    }
+  }
+
+  void showCancelDialog(BuildContext context, BookingModel booking) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Cancellation'),
+          content: const Text('Are you sure you want to cancel this booking?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                cancelBooking(booking);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -74,8 +113,7 @@ class _BookingCardState extends State<BookingCard> {
                     children: <Widget>[
                       Text(
                         'My Bookings',
-                        style:
-                            textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+                        style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
                       ),
                       const SizedBox(height: 2),
                     ],
@@ -85,7 +123,7 @@ class _BookingCardState extends State<BookingCard> {
               const SizedBox(height: 10),
               Obx(() {
                 if (isLoading.value) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (bookings.isEmpty) {
                   return Text(
@@ -93,52 +131,42 @@ class _BookingCardState extends State<BookingCard> {
                     style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
                   );
                 } else {
-                  return Column(
-                    children: bookings.map((booking) {
-                      return ScheduleCard(
-                        date: booking.date,
-                        departureTime: booking.departureTime,
-                        route: booking.route,
-                      );
-                    }).toList(),
+                  return ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.6,
+                    ),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: bookings.length,
+                      itemBuilder: (context, index) {
+                        final booking = bookings[index];
+                        return ScheduleCard(
+                          date: booking.date,
+                          departureTime: booking.departureTime,
+                          route: booking.route,
+                          onCancel: () => showCancelDialog(context, booking),
+                        );
+                      },
+                    ),
                   );
                 }
               }),
               const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: tSecondaryColor,
-                      ),
-                      child: Text(
-                        'Cancel',
-                        style:
-                            textTheme.bodyMedium?.copyWith(color: tWhiteColor),
-                      ),
-                      onPressed: () {
-                        // Add your cancel booking logic here
-                      },
-                    ),
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: tSecondaryColor,
                   ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: tSecondaryColor,
-                      ),
-                      child: Text(
-                        'Completed',
-                        style:
-                            textTheme.bodyMedium?.copyWith(color: tWhiteColor),
-                      ),
-                      onPressed: () {
-                        // Add your complete booking logic here
-                      },
-                    ),
+                  child: Text(
+                    'Cancel',
+                    style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
                   ),
-                ],
+                  onPressed: () {
+                    if (bookings.isNotEmpty) {
+                      showCancelDialog(context, bookings.first);
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -152,12 +180,14 @@ class ScheduleCard extends StatelessWidget {
   final String date;
   final String departureTime;
   final String route;
+  final VoidCallback onCancel;
 
   const ScheduleCard({
     Key? key,
     required this.date,
     required this.departureTime,
     required this.route,
+    required this.onCancel,
   }) : super(key: key);
 
   @override
@@ -165,42 +195,62 @@ class ScheduleCard extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.7),
+        color: Colors.grey.withOpacity(0.25),
         borderRadius: BorderRadius.circular(10),
       ),
       width: double.infinity,
       padding: const EdgeInsets.all(tDefaultSize),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(
-            Icons.calendar_today,
-            color: tWhiteColor,
-            size: 15,
+          Row(
+            children: [
+              const Icon(
+                Icons.calendar_today,
+                color: tWhiteColor,
+                size: 15,
+              ),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  date,
+                  style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 5),
-          Text(
-            date,
-            style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              const Icon(
+                Icons.access_alarm,
+                color: tWhiteColor,
+                size: 17,
+              ),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  departureTime,
+                  style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 20),
-          const Icon(
-            Icons.access_alarm,
-            color: tWhiteColor,
-            size: 17,
-          ),
-          const SizedBox(width: 5),
-          Flexible(
-            child: Text(
-              departureTime,
-              style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
-            ),
-          ),
-          const SizedBox(width: 20),
-          Flexible(
-            child: Text(
-              route,
-              style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
-            ),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  route,
+                  style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 20),
+              
+            ],
           ),
         ],
       ),
