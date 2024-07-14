@@ -76,6 +76,14 @@ final router = GoRouter(
         ),
       ],
     ),
+    // Add the new user route here
+    TypedStatefulShellBranch(
+      routes: [
+        TypedGoRoute<UserRoute>(
+          path: '/user',
+        ),
+      ],
+    ),
   ],
 )
 class ShellRouteData extends StatefulShellRouteData {
@@ -173,6 +181,17 @@ class UsersPageRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     print('Building UsersPage');
+    return UsersPage();
+  }
+}
+
+// Define the new route here
+class UserRoute extends GoRouteData {
+  const UserRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    print('Building UsersPage via /user route');
     return UsersPage();
   }
 }
