@@ -5,7 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_dashboard_template/theme.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_admin_dashboard_template/services/firestore_service.dart'; // Import your FirestoreService here
 import 'router.dart';
 
 void main() async {
@@ -32,21 +34,28 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveTheme(
-      light: AppTheme.light,
-      dark: AppTheme.dark,
-      initial: AdaptiveThemeMode.system,
-      builder: (theme, darkTheme) => ResponsiveBreakpoints.builder(
-        breakpoints: [
-          const Breakpoint(start: 0, end: 450, name: MOBILE),
-          const Breakpoint(start: 451, end: 960, name: TABLET),
-          const Breakpoint(start: 961, end: double.infinity, name: DESKTOP),
-        ],
-        child: MaterialApp.router(
-          title: title,
-          routerConfig: router,
-          theme: theme,
-          darkTheme: darkTheme,
+    return MultiProvider(
+      providers: [
+        Provider<FirestoreService>(
+          create: (_) => FirestoreService(),
+        ),
+      ],
+      child: AdaptiveTheme(
+        light: AppTheme.light,
+        dark: AppTheme.dark,
+        initial: AdaptiveThemeMode.system,
+        builder: (theme, darkTheme) => ResponsiveBreakpoints.builder(
+          breakpoints: [
+            const Breakpoint(start: 0, end: 450, name: MOBILE),
+            const Breakpoint(start: 451, end: 960, name: TABLET),
+            const Breakpoint(start: 961, end: double.infinity, name: DESKTOP),
+          ],
+          child: MaterialApp.router(
+            title: title,
+            routerConfig: router,
+            theme: theme,
+            darkTheme: darkTheme,
+          ),
         ),
       ),
     );
