@@ -1,5 +1,3 @@
-// models/user_model.dart
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
@@ -29,7 +27,8 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory UserModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return UserModel(
       id: document.id,
@@ -38,10 +37,8 @@ class UserModel {
       fullName: data['FullName'] as String? ?? '',
       phoneNo: data['Phone'] as String? ?? '',
       profilePicture: data['ProfilePicture'] as String? ?? '',
-
     );
   }
-  
 
   UserModel copyWith({
     String? id,

@@ -59,6 +59,14 @@ RouteBase get $shellRouteData => StatefulShellRouteData.$route(
             ),
           ],
         ),
+        StatefulShellBranchData.$branch(
+          routes: [
+            GoRouteData.$route(
+              path: '/users',
+              factory: $UsersPageRouteExtension._fromState,
+            ),
+          ],
+        ),
       ],
     );
 
@@ -182,6 +190,24 @@ extension $BookingPageRouteExtension on BookingPageRoute {
 
   String get location => GoRouteData.$location(
         '/bookings/${Uri.encodeComponent(bookingId)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $UsersPageRouteExtension on UsersPageRoute {
+  static UsersPageRoute _fromState(GoRouterState state) =>
+      const UsersPageRoute();
+
+  String get location => GoRouteData.$location(
+        '/users',
       );
 
   void go(BuildContext context) => context.go(location);

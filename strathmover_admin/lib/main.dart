@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin_dashboard_template/theme.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'firebase_options.dart';
 import 'router.dart';
 
 void main() async {

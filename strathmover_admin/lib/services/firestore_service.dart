@@ -3,7 +3,6 @@ import 'package:flutter_admin_dashboard_template/models/route_model.dart';
 import 'package:flutter_admin_dashboard_template/models/trip_model.dart';
 import 'package:flutter_admin_dashboard_template/models/user_model.dart';
 
-
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 

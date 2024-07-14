@@ -35,8 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // For demonstration, assume some routes are fetched
     setState(() {
       favoriteRoutes = [
-        RouteModel(name: 'Route A', points: []),
-        RouteModel(name: 'Route B', points: []),
+        RouteModel(id: 'routeAId', name: 'Route A', points: []),
+        RouteModel(id: 'routeBId', name: 'Route B', points: []),
       ];
     });
   }
