@@ -1,5 +1,6 @@
 import 'package:bus_app/src/constants/colours.dart';
 import 'package:bus_app/src/constants/sizes.dart';
+import 'package:bus_app/src/features/authentication/models/booking_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -113,7 +114,8 @@ class _BookingCardState extends State<BookingCard> {
                     children: <Widget>[
                       Text(
                         'My Bookings',
-                        style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+                        style:
+                            textTheme.bodyMedium?.copyWith(color: tWhiteColor),
                       ),
                       const SizedBox(height: 2),
                     ],
@@ -190,104 +192,100 @@ class ScheduleCard extends StatelessWidget {
     required this.onCancel,
   }) : super(key: key);
 
+  void showDetailsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ticket'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Date: $date'),
+              Text('Departure Time: $departureTime'),
+              Text('Route: $route'),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.25),
-        borderRadius: BorderRadius.circular(10),
+    return GestureDetector(
+      onTap: () => showDetailsDialog(context),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.25),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        width: double.infinity,
+        padding: const EdgeInsets.all(tDefaultSize),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: [
+                const Icon(
+                  Icons.calendar_today,
+                  color: tWhiteColor,
+                  size: 15,
+                ),
+                const SizedBox(width: 5),
+                Flexible(
+                  child: Text(
+                    date,
+                    style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                const Icon(
+                  Icons.access_alarm,
+                  color: tWhiteColor,
+                  size: 17,
+                ),
+                const SizedBox(width: 5),
+                Flexible(
+                  child: Text(
+                    departureTime,
+                    style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    route,
+                    style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 20),
+              ],
+            ),
+          ],
+        ),
       ),
-      width: double.infinity,
-      padding: const EdgeInsets.all(tDefaultSize),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: [
-              const Icon(
-                Icons.calendar_today,
-                color: tWhiteColor,
-                size: 15,
-              ),
-              const SizedBox(width: 5),
-              Flexible(
-                child: Text(
-                  date,
-                  style: textTheme.bodyMedium?.copyWith(color: tWhiteColor),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 5),
-          Row(
-            children: [
-              const Icon(
-                Icons.access_alarm,
-                color: tWhiteColor,
-                size: 17,
-              ),
-              const SizedBox(width: 5),
-              Flexible(
-                child: Text(
-                  departureTime,
-                  style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 5),
-          Row(
-            children: [
-              Flexible(
-                child: Text(
-                  route,
-                  style: textTheme.bodySmall?.copyWith(color: tWhiteColor),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const SizedBox(width: 20),
-              
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BookingModel {
-  final String? id;
-  final String userId;
-  final String tripId;
-  final String date;
-  final String departureTime;
-  final String busId;
-  final String route;
-
-  BookingModel({
-    this.id,
-    required this.userId,
-    required this.tripId,
-    required this.date,
-    required this.departureTime,
-    required this.busId,
-    required this.route,
-  });
-
-  factory BookingModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> document) {
-    final data = document.data()!;
-    return BookingModel(
-      id: document.id,
-      userId: data['userId'] ?? '',
-      tripId: data['tripId'] ?? '',
-      date: data['date'] ?? '',
-      departureTime: data['departureTime'] ?? '',
-      busId: data['busId'] ?? '',
-      route: data['route'] ?? '',
     );
   }
 }

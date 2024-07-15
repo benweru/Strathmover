@@ -75,7 +75,7 @@ class BookingScreen extends StatelessWidget {
                                       trip.tripId;
                               return Card(
                                 color: isSelected
-                                    ? Color.fromARGB(255, 122, 232, 236)
+                                    ? Color.fromARGB(255, 159, 250, 253)
                                     : Colors.white,
                                 shape: isSelected
                                     ? RoundedRectangleBorder(

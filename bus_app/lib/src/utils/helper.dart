@@ -11,6 +11,11 @@ class Helper {
     // Regular expression for email validation
     final emailRegExp = RegExp(r'[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
 
+    // Check if the email domain is @strathmore.edu
+    if (!value.endsWith('@strathmore.edu')) {
+      return 'Please use your Strathmore email address';
+    }
+
     if (!emailRegExp.hasMatch(value)) {
       return 'Invalid Email Address';
     }

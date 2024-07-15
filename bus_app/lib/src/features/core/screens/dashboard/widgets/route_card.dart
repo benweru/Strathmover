@@ -1,7 +1,6 @@
-import 'package:bus_app/src/constants/colours.dart';
-import 'package:bus_app/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:bus_app/src/constants/sizes.dart';
 import 'package:bus_app/src/features/authentication/models/route_model.dart';
 import 'package:bus_app/src/features/core/screens/dashboard/widgets/route_details.dart';
 
@@ -24,11 +23,19 @@ class RouteCard extends StatelessWidget {
         height: tDashboardPadding * 7.5,
         child: Card(
           elevation: buttonElevation,
-          color: tAccentColor.withOpacity(0.5),
+          color: const Color.fromARGB(255, 122, 232, 236),
           child: Row(
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.33,
+              // Left side icon
+              Container(
+                width: MediaQuery.of(context).size.width * 0.2,
+                color: Color.fromARGB(
+                    255, 122, 232, 236), // Background color for the icon
+                child: const Icon(
+                  Icons.route,
+                  color: Colors.white,
+                  size: 40, // Adjust icon size
+                ),
               ),
               Flexible(
                 child: Padding(
@@ -38,29 +45,21 @@ class RouteCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        route.name,
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
+                      // Centering the text more
+                      Center(
+                        child: Text(
+                          route.name,
+                          style: textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20, // Increase font size
+                          ),
+                          textAlign: TextAlign.center, // Center align the text
                         ),
                       ),
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          const Icon(Icons.star_border,
-                              color: Colors.yellow, size: fontSizeMd),
-                          const Spacer(flex: 1),
-                          Text(
-                            '4.5', // Replace with actual rating logic
-                            style: textTheme.bodySmall,
-                          ),
-                        ],
-                      )
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

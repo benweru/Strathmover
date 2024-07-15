@@ -127,13 +127,6 @@ class RouteCard extends StatelessWidget {
           255, 122, 232, 236), // Setting the background color of the card
       child: ListTile(
         title: Text(route),
-        // onTap: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder:
-
-        //       (context) => RouteDetails(route: route),
       ),
     );
   }
