@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2024/07/14-15:17:58.250 4a78 Reusing MANIFEST C:\Users\CHRIST~1\AppData\Local\Temp\flutter_tools.b43d45ab\flutter_tools_chrome_device.2ee68daf\Default\Local Storage\leveldb/MANIFEST-000001
 2024/07/14-15:17:58.258 4a78 Recovering log #3
 2024/07/14-15:17:58.262 4a78 Reusing old log C:\Users\CHRIST~1\AppData\Local\Temp\flutter_tools.b43d45ab\flutter_tools_chrome_device.2ee68daf\Default\Local Storage\leveldb/000003.log 
@@ -6,4 +7,9 @@
 2024/07/14-13:22:08.080 5064 Reusing MANIFEST C:\Users\User\AppData\Local\Temp\flutter_tools.c42bb045\flutter_tools_chrome_device.365b8b9a\Default\Local Storage\leveldb/MANIFEST-000001
 2024/07/14-13:22:08.084 5064 Recovering log #3
 2024/07/14-13:22:08.086 5064 Reusing old log C:\Users\User\AppData\Local\Temp\flutter_tools.c42bb045\flutter_tools_chrome_device.365b8b9a\Default\Local Storage\leveldb/000003.log 
+>>>>>>> Stashed changes
+=======
+2024/07/15-20:25:58.950 5b28 Reusing MANIFEST C:\Users\CHRIST~1\AppData\Local\Temp\flutter_tools.30a6cb4b\flutter_tools_chrome_device.b15704b5\Default\Local Storage\leveldb/MANIFEST-000001
+2024/07/15-20:25:58.960 5b28 Recovering log #3
+2024/07/15-20:25:58.964 5b28 Reusing old log C:\Users\CHRIST~1\AppData\Local\Temp\flutter_tools.30a6cb4b\flutter_tools_chrome_device.b15704b5\Default\Local Storage\leveldb/000003.log 
 >>>>>>> Stashed changes

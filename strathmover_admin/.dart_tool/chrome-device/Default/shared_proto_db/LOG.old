@@ -1,13 +1,17 @@
-2024/07/14-15:17:58.936 3974 Reusing MANIFEST C:\Users\CHRIST~1\AppData\Local\Temp\flutter_tools.b43d45ab\flutter_tools_chrome_device.2ee68daf\Default\shared_proto_db/MANIFEST-000001
-2024/07/14-15:17:58.938 3974 Recovering log #19
-2024/07/14-15:17:58.940 3974 Reusing old log C:\Users\CHRIST~1\AppData\Local\Temp\flutter_tools.b43d45ab\flutter_tools_chrome_device.2ee68daf\Default\shared_proto_db/000019.log 
-2024/07/14-15:17:58.942 3974 Delete type=0 #3
-2024/07/14-15:17:58.942 3974 Delete type=0 #4
-2024/07/14-15:17:58.942 3974 Delete type=0 #7
-2024/07/14-15:17:58.943 3974 Delete type=2 #8
-2024/07/14-15:17:58.943 3974 Delete type=0 #10
-2024/07/14-15:17:58.943 3974 Delete type=2 #11
-2024/07/14-15:17:58.943 3974 Delete type=0 #13
-2024/07/14-15:17:58.944 3974 Delete type=2 #14
-2024/07/14-15:17:58.970 3974 Delete type=0 #16
-2024/07/14-15:17:58.971 3974 Delete type=2 #17
+2024/07/15-20:25:59.291 1380 Reusing MANIFEST C:\Users\CHRIST~1\AppData\Local\Temp\flutter_tools.30a6cb4b\flutter_tools_chrome_device.b15704b5\Default\shared_proto_db/MANIFEST-000001
+2024/07/15-20:25:59.293 1380 Recovering log #23
+2024/07/15-20:25:59.296 1380 Reusing old log C:\Users\CHRIST~1\AppData\Local\Temp\flutter_tools.30a6cb4b\flutter_tools_chrome_device.b15704b5\Default\shared_proto_db/000023.log 
+2024/07/15-20:25:59.297 1380 Delete type=0 #3
+2024/07/15-20:25:59.297 1380 Delete type=0 #4
+2024/07/15-20:25:59.298 1380 Delete type=0 #7
+2024/07/15-20:25:59.298 1380 Delete type=2 #8
+2024/07/15-20:25:59.298 1380 Delete type=0 #10
+2024/07/15-20:25:59.298 1380 Delete type=2 #11
+2024/07/15-20:25:59.298 1380 Delete type=0 #13
+2024/07/15-20:25:59.298 1380 Delete type=2 #14
+2024/07/15-20:25:59.333 1380 Delete type=0 #16
+2024/07/15-20:25:59.333 1380 Delete type=2 #17
+2024/07/15-20:25:59.333 1380 Delete type=0 #19
+2024/07/15-20:29:07.511 1380 Level-0 table #27: started
+2024/07/15-20:29:07.530 1380 Level-0 table #27: 138380 bytes OK
+2024/07/15-20:29:07.533 1380 Delete type=0 #23

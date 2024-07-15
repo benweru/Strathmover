@@ -4,7 +4,7 @@ import 'package:flutter_admin_dashboard_template/features/dashboard/bookings_cha
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:gap/gap.dart';
 import 'package:intersperse/intersperse.dart';
-import 'package:two_dimensional_scrollables/two_dimensional_scrollables.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../widgets/widgets.dart';
 import '../../models/bookings_model.dart';
